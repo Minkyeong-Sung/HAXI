@@ -10,26 +10,27 @@
     tools:context="com.ensharp.haxi.UcMainActivity"
     android:background="#000000">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="330dp"
-        android:id="@+id/imageButton"
+    <fragment
+        android:id="@+id/gmap"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:src="@android:drawable/ic_menu_gallery" />
+        android:layout_above="@+id/textView2" />
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:text="안내문구가 들어갈 공간"
         android:id="@+id/textView2"
-        android:layout_below="@+id/imageButton"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/imageButton"
         android:gravity="center_vertical|center_horizontal"
         android:textSize="20dp"
-        android:layout_above="@+id/start_input" />
+        android:layout_above="@+id/start_input"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -40,8 +41,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
+
     <EditText
-        android:layout_width="120dp"
+        android:layout_width="110dp"
         android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="출발지"
@@ -53,12 +55,13 @@
     <Button
         android:layout_width="40dp"
         android:layout_height="50dp"
+        android:layout_marginLeft="0dp"
         android:id="@+id/start_btn"
-        android:layout_below="@+id/textView2"
+        android:layout_alignTop="@+id/start_input"
         android:layout_toEndOf="@+id/start_input" />
 
     <EditText
-        android:layout_width="120dp"
+        android:layout_width="110dp"
         android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="도착지"
@@ -73,4 +76,12 @@
         android:id="@+id/destination_btn"
         android:layout_below="@+id/textView2"
         android:layout_toEndOf="@+id/destination_input" />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/current_location_btn"
+        android:layout_above="@+id/btn_CompleteBoarding"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
