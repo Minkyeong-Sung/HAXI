@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -39,6 +40,9 @@ public class UcMainActivity extends Activity {
     private SearchLocation searchLocation;
 
     Geocoder geocoder;
+    EditText start_location_input;
+    EditText destination_location_input;
+
     Button start_search_button;
     Button destination_search_button;
     Button CompleteBoarding;
@@ -50,7 +54,32 @@ public class UcMainActivity extends Activity {
         setContentView(R.layout.activity_uc_main);
 
         init_Property();
+        init_Button_And_Textbox();
+
+    }
+    
+    public void init_Button_And_Textbox()
+    {
         CompleteBoarding = (Button)findViewById(R.id.btn_CompleteBoarding);
+        start_search_button = (Button)findViewById(R.id.start_btn);
+        destination_search_button = (Button)findViewById(R.id.destination_btn);
+        start_location_input = (EditText)findViewById(R.id.start_input);
+        destination_location_input = (EditText)findViewById(R.id.destination_input);
+
+        start_search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        destination_search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +88,7 @@ public class UcMainActivity extends Activity {
             }
         });
     }
+
     public void init_Property()
     {
         // 메인 레이아웃 객체 참조
