@@ -41,7 +41,28 @@ public class InternationalTaxiActivity extends Activity {
 
     public void firstPage()
     {
-        
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
+        String locale = ims.getLocale();
+
+        main_fragment.url.delete(0,main_fragment.url.length());
+        // ja_JP
+        switch (locale) {
+            case "ko_KR":
+                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=ko"); break;
+            case "ja_JP":
+                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=jp"); break;
+            case "zh_TW":
+            case "zh_HK":
+            case "zh_CN":
+                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=cn"); break;
+            default:
+                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=en"); break;
+        }
+
+        ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.webView_fragment, main_fragment);
+        ft.commit();
 
     }
 
