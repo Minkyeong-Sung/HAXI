@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Button;
 
 import com.ensharp.haxi.InternationalTaxi_fare_fragment;
-import com.ensharp.haxi.InternationalTaxi_reservationCheck_fragment;
+import com.ensharp.haxi.InternationalTaxi_reservationConfirm_fragment;
 import com.ensharp.haxi.InternationalTaxi_reservation_fragment;
 import com.ensharp.haxi.InternationalTaxi_serviceInfo_fragment;
 import com.ensharp.haxi.R;
@@ -26,7 +26,7 @@ public class InternationalTaxiActivity extends Activity {
     InternationalTaxi_reservation_fragment reservation_fragment = new InternationalTaxi_reservation_fragment();
     InternationalTaxi_serviceInfo_fragment serviceInfo_fragment = new InternationalTaxi_serviceInfo_fragment();
     InternationalTaxi_fare_fragment fare_fragment = new InternationalTaxi_fare_fragment();
-    InternationalTaxi_reservationCheck_fragment reservationCheck_fragment = new InternationalTaxi_reservationCheck_fragment();
+    InternationalTaxi_reservationConfirm_fragment reservationCheck_fragment = new InternationalTaxi_reservationConfirm_fragment();
     FragmentTransaction ft;
 
     @Override

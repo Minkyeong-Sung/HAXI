@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HAXI</string>
+    <string name="international_taxi_activity">International Taxi Activity</string>
+    <string name="reservation">预订</string>
+    <string name="reservationCheck">确认预约</string>
+    <string name="fare">票价</string>
+    <string name="serviceInfo">服务信息</string>
+</resources>

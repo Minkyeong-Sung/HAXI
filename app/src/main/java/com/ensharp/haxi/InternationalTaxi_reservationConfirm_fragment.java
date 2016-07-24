@@ -10,7 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 @SuppressLint("SetJavaScriptEnabled")
-public class InternationalTaxi_reservationCheck_fragment extends Fragment {
+public class InternationalTaxi_reservationConfirm_fragment extends Fragment {
 
 
     WebView web;
@@ -19,7 +19,7 @@ public class InternationalTaxi_reservationCheck_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.internationaltaxi_reservationcheck_layout,container,false);
+        view=inflater.inflate(R.layout.internationaltaxi_reservationconfirm_layout,container,false);
         init();
 
         return view;
