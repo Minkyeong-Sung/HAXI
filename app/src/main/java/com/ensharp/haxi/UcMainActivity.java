@@ -53,11 +53,11 @@ public class UcMainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_main);
 
+        // 속성 및 버튼, 텍스트 박스 Initialization.
         init_Property();
         init_Button_And_Textbox();
-
     }
-    
+
     public void init_Button_And_Textbox()
     {
         CompleteBoarding = (Button)findViewById(R.id.btn_CompleteBoarding);
@@ -69,14 +69,20 @@ public class UcMainActivity extends Activity {
         start_search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // 사용자가 입력한 주소 정보 확인
+                String searchStr = start_location_input.getText().toString();
+                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
+                searchLocation.findLocation(searchStr);
             }
         });
 
         destination_search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // 사용자가 입력한 주소 정보 확인
+                String searchStr = destination_location_input.getText().toString();
+                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
+                searchLocation.findLocation(searchStr);
             }
         });
 
