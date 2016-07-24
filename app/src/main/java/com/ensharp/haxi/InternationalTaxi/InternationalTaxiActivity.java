@@ -1,15 +1,64 @@
 package com.ensharp.haxi.InternationalTaxi;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
+import com.ensharp.haxi.InternationalTaxi_reservation_fragment;
 import com.ensharp.haxi.R;
 
 public class InternationalTaxiActivity extends Activity {
 
+    Button reservation_btn;
+    Button serviceInfo_btn;
+    Button fare_btn;
+    Button reservationCheck_btn;
+    InternationalTaxi_reservation_fragment reservation_fragment = new InternationalTaxi_reservation_fragment();
+    FragmentTransaction ft;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_international_taxi);
+        button_Init();
+    }
+
+    public void button_Init() {
+        reservation_btn = (Button) findViewById(R.id.reservation_btn);
+        serviceInfo_btn = (Button) findViewById(R.id.serviceInfo_btn);
+        fare_btn = (Button) findViewById(R.id.fare_btn);
+        reservationCheck_btn = (Button) findViewById(R.id.reservationCheck_btn);
+
+        reservation_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.webView_fragment,reservation_fragment);
+                ft.commit();
+            }
+        });
+
+        serviceInfo_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        fare_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
+        reservationCheck_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }
