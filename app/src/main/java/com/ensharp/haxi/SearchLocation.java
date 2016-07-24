@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -53,5 +54,24 @@ public class SearchLocation {
             Log.d(TAG, "예외 : " + ex.toString());
         }
 
+        gMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                LatLng end_LatLng = marker.getPosition();
+
+                Double end_LatLng_latitude = end_LatLng.latitude;
+                Double end_LatLng_longitude = end_LatLng.longitude;
+                marker.setTitle(end_LatLng_latitude.toString() + "\n" + end_LatLng_longitude.toString());
+            }
+        });
     }
 }
