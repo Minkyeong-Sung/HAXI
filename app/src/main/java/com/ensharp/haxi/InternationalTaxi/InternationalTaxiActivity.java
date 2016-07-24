@@ -1,7 +1,9 @@
-package com.ensharp.haxi;
+package com.ensharp.haxi.InternationalTaxi;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.ensharp.haxi.R;
 
 public class InternationalTaxiActivity extends Activity {
 
