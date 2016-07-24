@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -38,6 +42,7 @@ public class UcMainActivity extends Activity {
     Button destination_search_button;
     Button CompleteBoarding;
 
+    private boolean mCompassEnabled;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,4 +128,55 @@ public class UcMainActivity extends Activity {
             }
         }
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        try {
+            // 내 위치 자동 표시 enable
+            map.setMyLocationEnabled(true);
+        } catch(SecurityException e) {
+            e.printStackTrace();
+        }
+
+        if(mCompassEnabled) {
+            mSensorManager.registerListener(mListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_UI);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            // 내 위치 자동 표시 disable
+            map.setMyLocationEnabled(false);
+        } catch(SecurityException e) {
+            e.printStackTrace();
+        }
+
+        if(mCompassEnabled) {
+            mSensorManager.unregisterListener(mListener);
+        }
+    }
+    /**
+     * 센서의 정보를 받기 위한 리스너 객체 생성
+     */
+    private final SensorEventListener mListener = new SensorEventListener() {
+        private int iOrientation = -1;
+
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+
+        // 센서의 값을 받을 수 있도록 호출되는 메소드
+        public void onSensorChanged(SensorEvent event) {
+            if (iOrientation < 0) {
+                iOrientation = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+            }
+
+            //mCompassView.setAzimuth(event.values[0] + 90 * iOrientation);
+            //mCompassView.invalidate();
+        }
+
+    };
 }
