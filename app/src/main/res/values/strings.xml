@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">HAXI</string>
     <string name="international_taxi_activity">International Taxi Activity</string>
+    <string name="reservation">Reservation</string>
+    <string name="reservationCheck">Reservation Confirm</string>
+    <string name="fare">Fare</string>
+    <string name="serviceInfo">Service Informations</string>
 </resources>
