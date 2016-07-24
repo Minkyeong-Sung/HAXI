@@ -2,8 +2,11 @@ package com.ensharp.haxi.InternationalTaxi;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Button;
 
 import com.ensharp.haxi.InternationalTaxi_fare_fragment;
@@ -18,6 +21,8 @@ public class InternationalTaxiActivity extends Activity {
     Button serviceInfo_btn;
     Button fare_btn;
     Button reservationCheck_btn;
+
+    InternationalTaxi_main_fragment main_fragment = new InternationalTaxi_main_fragment();
     InternationalTaxi_reservation_fragment reservation_fragment = new InternationalTaxi_reservation_fragment();
     InternationalTaxi_serviceInfo_fragment serviceInfo_fragment = new InternationalTaxi_serviceInfo_fragment();
     InternationalTaxi_fare_fragment fare_fragment = new InternationalTaxi_fare_fragment();
@@ -29,7 +34,37 @@ public class InternationalTaxiActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_international_taxi);
+
+        firstPage();
         button_Init();
+    }
+
+    public void firstPage()
+    {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
+        String locale = ims.getLocale();
+
+        main_fragment.url.delete(0,main_fragment.url.length());
+
+        // ja_JP
+        switch (locale) {
+            case "ko_KR":
+                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=ko"); break;
+            case "ja_JP":
+                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=jp"); break;
+            case "zh_TW":
+            case "zh_HK":
+            case "zh_CN":
+                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=cn"); break;
+            default:
+                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=en"); break;
+        }
+
+        ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.webView_fragment, main_fragment);
+        ft.commit();
+
     }
 
     public void button_Init() {
