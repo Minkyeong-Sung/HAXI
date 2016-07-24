@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.ensharp.haxi.InternationalTaxi_reservation_fragment;
+import com.ensharp.haxi.InternationalTaxi_serviceInfo_fragment;
 import com.ensharp.haxi.R;
 
 public class InternationalTaxiActivity extends Activity {
@@ -16,6 +17,7 @@ public class InternationalTaxiActivity extends Activity {
     Button fare_btn;
     Button reservationCheck_btn;
     InternationalTaxi_reservation_fragment reservation_fragment = new InternationalTaxi_reservation_fragment();
+    InternationalTaxi_serviceInfo_fragment serviceInfo_fragment = new InternationalTaxi_serviceInfo_fragment();
     FragmentTransaction ft;
 
     @Override
@@ -44,6 +46,9 @@ public class InternationalTaxiActivity extends Activity {
         serviceInfo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.webView_fragment,serviceInfo_fragment);
+                ft.commit();
 
             }
         });
