@@ -35,6 +35,7 @@ public class UcMainActivity extends Activity {
 
 
     private AccureCurrentPath mAccurePath;
+    private CompassView mCompassView;
     private SearchLocation searchLocation;
 
     Geocoder geocoder;
@@ -76,15 +77,15 @@ public class UcMainActivity extends Activity {
         searchLocation = new SearchLocation(map,geocoder);
 
         //currentLocation = new CurrentLocation(map);
-        //mCompassView = new CompassView(this);
-        //mCompassView.setVisibility(View.VISIBLE);
+        mCompassView = new CompassView(this);
+        mCompassView.setVisibility(View.VISIBLE);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         params.addRule(sideBottom ? RelativeLayout.ALIGN_PARENT_BOTTOM : RelativeLayout.ALIGN_PARENT_TOP);
-        // mainLayout.addView(mCompassView, params);
-        //mCompassEnabled = true;
+        mainLayout.addView(mCompassView, params);
+        mCompassEnabled = true;
 
         checkDangerousPermissions();
     }
@@ -174,8 +175,8 @@ public class UcMainActivity extends Activity {
                 iOrientation = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
             }
 
-            //mCompassView.setAzimuth(event.values[0] + 90 * iOrientation);
-            //mCompassView.invalidate();
+            mCompassView.setAzimuth(event.values[0] + 90 * iOrientation);
+            mCompassView.invalidate();
         }
 
     };
