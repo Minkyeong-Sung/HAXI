@@ -3,12 +3,16 @@ package com.ensharp.haxi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -77,7 +81,46 @@ public class UcMainActivity extends Activity {
         // mainLayout.addView(mCompassView, params);
         //mCompassEnabled = true;
 
-        //checkDangerousPermissions();
+        checkDangerousPermissions();
+    }
+    // 권한 설정 check 메소드
+    private void checkDangerousPermissions() {
+        String[] permissions = {
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+        };
+
+        int permissionCheck = PackageManager.PERMISSION_GRANTED;
+        for (int i = 0; i < permissions.length; i++) {
+            permissionCheck = ContextCompat.checkSelfPermission(this, permissions[i]);
+            if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+                break;
+            }
+        }
+
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
+                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
+            } else {
+                ActivityCompat.requestPermissions(this, permissions, 1);
+            }
+        }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, permissions[i] + " 권한이 승인됨.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
 }
