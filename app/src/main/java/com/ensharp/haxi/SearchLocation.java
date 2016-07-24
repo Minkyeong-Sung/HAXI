@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class SearchLocation {
-    private static String TAG = "MainActivity";
+    private static String TAG = "UcMainActivity";
     Geocoder geocoder;
     GoogleMap gMap;
     LatLng searchLatLng;
@@ -27,17 +27,24 @@ public class SearchLocation {
         this.geocoder = geocoder;
     }
 
-    public void findLocation(String searchStr) {
+    public void findLocation(String searchStr, int option) {
         this.searchStr = searchStr;
-        if (searchStr.equals(null))
-            return;
         List<Address> addressList;
+
+        // 입력하지 않았으면 return
+        if (option == 1) {
+            return;
+        }
+        else if(option == 2) {
+            return;
+        }
+
         try {
             // Geocoder객체인 gc에서 Location이름에 대한 정보를 List에 담기.
             addressList = geocoder.getFromLocationName(searchStr, 1);
 
-            if (addressList != null) {
-
+            if (addressList.size() != 0) {
+                // 위경도값 받기.
                 searchLatLng_latitude = addressList.get(0).getLatitude();
                 searchLatLng_longitude = addressList.get(0).getLongitude();
 
@@ -48,11 +55,14 @@ public class SearchLocation {
                 gMap.addMarker(options);
                 gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLatLng, 18));
             }
-
+            else {
+                return;
+            }
         } catch (IOException ex) {
             // 예외처리 Log로 찍어줌!
             Log.d(TAG, "예외 : " + ex.toString());
         }
+
 
         gMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override

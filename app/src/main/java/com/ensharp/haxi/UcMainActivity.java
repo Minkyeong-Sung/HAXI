@@ -39,13 +39,16 @@ public class UcMainActivity extends Activity {
     private CompassView mCompassView;
     private SearchLocation searchLocation;
 
-    Geocoder geocoder;
-    EditText start_location_input;
-    EditText destination_location_input;
+    private Geocoder geocoder;
+    private EditText start_location_input;
+    private EditText destination_location_input;
 
-    Button start_search_button;
-    Button destination_search_button;
-    Button CompleteBoarding;
+    private Button start_search_button;
+    private Button destination_search_button;
+    private Button CompleteBoarding;
+
+    private static final int START = 1;
+    private static final int DESTINATION = 1;
 
     private boolean mCompassEnabled;
     @Override
@@ -72,7 +75,7 @@ public class UcMainActivity extends Activity {
                 // 사용자가 입력한 주소 정보 확인
                 String searchStr = start_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                searchLocation.findLocation(searchStr);
+                searchLocation.findLocation(searchStr,START);
             }
         });
 
@@ -82,7 +85,7 @@ public class UcMainActivity extends Activity {
                 // 사용자가 입력한 주소 정보 확인
                 String searchStr = destination_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                searchLocation.findLocation(searchStr);
+                searchLocation.findLocation(searchStr,DESTINATION);
             }
         });
 
