@@ -40,24 +40,37 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:layout_width="190dp"
+    <EditText
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="출발지"
         android:id="@+id/textView3"
         android:gravity="center"
         android:layout_above="@+id/btn_CompleteBoarding"
-        android:layout_alignParentStart="true"
         android:textSize="20dp" />
 
-    <TextView
-        android:layout_width="190dp"
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:id="@+id/start_btn"
+        android:layout_below="@+id/textView2"
+        android:layout_toEndOf="@+id/textView3" />
+
+    <EditText
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="도착지"
         android:id="@+id/textView4"
         android:gravity="center"
-        android:layout_above="@+id/btn_CompleteBoarding"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignTop="@+id/start_btn"
+        android:layout_toEndOf="@+id/start_btn" />
+
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:id="@+id/destination_btn"
+        android:layout_below="@+id/textView2"
+        android:layout_toEndOf="@+id/textView4" />
 </RelativeLayout>
