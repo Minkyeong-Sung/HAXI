@@ -8,7 +8,10 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,8 +22,11 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Locale;
 
@@ -38,6 +44,8 @@ public class UcMainActivity extends Activity {
     private EditText start_location_input;
     private EditText destination_location_input;
 
+    private Button current_button1;
+    private Button current_button2;
     private Button start_search_button;
     private Button destination_search_button;
     private Button CompleteBoarding;
@@ -61,9 +69,13 @@ public class UcMainActivity extends Activity {
         CompleteBoarding = (Button)findViewById(R.id.btn_CompleteBoarding);
         start_search_button = (Button)findViewById(R.id.start_btn);
         destination_search_button = (Button)findViewById(R.id.destination_btn);
+        current_button1 = (Button)findViewById(R.id.current_location_btn);
+        current_button2 = (Button)findViewById(R.id.current_location_btn2);
+
         start_location_input = (EditText)findViewById(R.id.start_input);
         destination_location_input = (EditText)findViewById(R.id.destination_input);
 
+        // 출발지 입력 버튼 누를 시
         start_search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +86,7 @@ public class UcMainActivity extends Activity {
             }
         });
 
+        // 도착지 입력 버튼 누를 시
         destination_search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +97,22 @@ public class UcMainActivity extends Activity {
             }
         });
 
+        // 현재 위치 버튼 누를 시
+        current_button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMyLocation(start_location_input);
+            }
+        });
+
+        current_button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMyLocation(destination_location_input);
+            }
+        });
+
+        // 탑승 완료 입력 버튼 누를 시
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +120,30 @@ public class UcMainActivity extends Activity {
                 startActivity(runningIntent);
             }
         });
+    }
+
+    public void currentMyLocation(EditText input)
+    {
+        if (ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        map.setMyLocationEnabled(true);
+
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria,true);
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+
+        double latitude = myLocation.getLatitude()+0.00015;
+        double longitude = myLocation.getLongitude()-0.000235;
+        LatLng latLng = new LatLng(latitude,longitude);
+        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        map.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("You are Here!"));
+
+        input.setText(latitude + " " + longitude);
+        // edit01엔 myCurrentLocation or 나의 현재 위치 등등 으로 표시해주기!*/
     }
 
     public void init_Property()
