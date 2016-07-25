@@ -1,7 +1,9 @@
 package com.ensharp.haxi;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -60,14 +62,13 @@ public class UcMainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_main);
 
-        // 지도 객체 참조 및 지도 처음 위치 활성화
-        map = ((MapFragment)getFragmentManager().findFragmentById(R.id.gmap)).getMap();
-        LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation,10));
-
         // 속성 및 버튼, 텍스트 박스 Initialization.
         init_Property();
         init_Button_And_Textbox();
+        // 초기 Map 화면 서울로 보이게 만듬
+        LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation,10));
+
     }
 
     public void init_Button_And_Textbox()
@@ -122,8 +123,7 @@ public class UcMainActivity extends Activity {
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
-                startActivity(runningIntent);
+                show_Taxifare_distance();
             }
         });
     }
@@ -133,6 +133,8 @@ public class UcMainActivity extends Activity {
     {
         // 메인 레이아웃 객체 참조
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        // 지도 객체 참조 및 지도 처음 위치 활성화
+        map = ((MapFragment)getFragmentManager().findFragmentById(R.id.gmap)).getMap();
         // 센서 관리자 객체 참조
         mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 
@@ -226,6 +228,30 @@ public class UcMainActivity extends Activity {
             mSensorManager.unregisterListener(mListener);
         }
     }
+
+    public void show_Taxifare_distance()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder .setTitle("택시비랑 최단거리만 확인하는 alert")
+                .setMessage("택시비: 359000원 \n최단 거리: 100.34km")
+                .setCancelable(false)
+                .setPositiveButton("누적거리 시작~", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
+                        startActivity(runningIntent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //NegativeButton onClick Action
+                        dialog.cancel();
+                    }
+                })
+                .show();
+    }
+
     public void currentMyLocation(EditText input)
     {
         if (ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
@@ -244,9 +270,11 @@ public class UcMainActivity extends Activity {
         double longitude = myLocation.getLongitude()-0.000235;
         LatLng latLng = new LatLng(latitude,longitude);
         map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        map.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("You are Here!"));
+        MarkerOptions markerOptions = new MarkerOptions();
+        map.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)));
 
-        input.setText(latitude + " " + longitude);
+        input.setText("내 현재 위치");
+        //input.setText(latitude + " " + longitude);
         // edit01엔 myCurrentLocation or 나의 현재 위치 등등 으로 표시해주기!*/
     }
     /**
