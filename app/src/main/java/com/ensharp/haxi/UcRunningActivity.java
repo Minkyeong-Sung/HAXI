@@ -44,8 +44,8 @@ public class UcRunningActivity extends Activity {
         init_button();
         startLocationService();
     }
-    public void init_Property()
-    {
+
+    public void init_Property() {
         // 메인 레이아웃 객체 참조
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         // 지도 객체 참조
@@ -53,9 +53,8 @@ public class UcRunningActivity extends Activity {
 
     }
 
-    public void init_button()
-    {
-        arrive = (Button)findViewById(R.id.btn_arrive);
+    public void init_button() {
+        arrive = (Button) findViewById(R.id.btn_arrive);
         arrive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +64,7 @@ public class UcRunningActivity extends Activity {
         });
 
     }
+
     /**
      * 위치 정보 확인을 위해 정의한 메소드
      */
@@ -100,7 +100,7 @@ public class UcRunningActivity extends Activity {
 
                 Toast.makeText(getApplicationContext(), "Last Known Location : " + "Latitude : " + latitude + "\nLongitude:" + longitude, Toast.LENGTH_LONG).show();
             }
-        } catch(SecurityException ex) {
+        } catch (SecurityException ex) {
             ex.printStackTrace();
         }
 
@@ -118,30 +118,25 @@ public class UcRunningActivity extends Activity {
             Double latitude = location.getLatitude();
             Double longitude = location.getLongitude();
 
-            String msg = "Latitude : "+ latitude + "\nLongitude:"+ longitude;
+            String msg = "Latitude : " + latitude + "\nLongitude:" + longitude;
             Log.i("GPSListener", msg);
 
 
-            if(first_path)
-            {
-                currentLatLng = new LatLng(latitude,longitude);
-                if(mAccurePath.drawPolyline(map,oldLatLng,currentLatLng))
-                {
+            if (first_path) {
+                currentLatLng = new LatLng(latitude, longitude);
+                if (mAccurePath.drawPolyline(map, oldLatLng, currentLatLng)) {
                     CircleOptions circleOptions = new CircleOptions();
                     circleOptions.center(currentLatLng).radius(0.2).strokeColor(Color.RED).fillColor(Color.RED);
                     map.addCircle(circleOptions);
 
                     oldLatLng = currentLatLng;
                     showCurrentLocation(latitude, longitude);
-                }
-                else {
+                } else {
                     return;
                 }
 
-            }
-            else
-            {
-                oldLatLng = new LatLng(latitude,longitude);
+            } else {
+                oldLatLng = new LatLng(latitude, longitude);
                 first_path = true;
                 return;
             }
@@ -157,6 +152,7 @@ public class UcRunningActivity extends Activity {
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
     } // 현재 위치의 지도를 보여주기 위해 정의한 메소드
+
     private void showCurrentLocation(Double latitude, Double longitude) {
         // 현재 위치를 이용해 LatLon 객체 생성
         LatLng curPoint = new LatLng(latitude, longitude);
@@ -170,4 +166,28 @@ public class UcRunningActivity extends Activity {
         //showAllBankItems(latitude, longitude);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        try {
+            // 내 위치 자동 표시 enable
+            map.setMyLocationEnabled(true);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            // 내 위치 자동 표시 disable
+            map.setMyLocationEnabled(false);
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+    }
 }
