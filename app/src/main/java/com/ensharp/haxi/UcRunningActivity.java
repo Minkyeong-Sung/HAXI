@@ -32,10 +32,6 @@ public class UcRunningActivity extends Activity {
 
     private boolean first_path = false;
 
-    public void setMap(GoogleMap map) {
-        this.map = map;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

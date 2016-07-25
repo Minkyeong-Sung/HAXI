@@ -17,19 +17,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/textView2" />
+        android:layout_above="@+id/start_input" />
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:text="안내문구가 들어갈 공간"
-        android:id="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:textSize="20dp"
-        android:layout_above="@+id/start_input"
-        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -45,42 +34,55 @@
         android:layout_width="110dp"
         android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="출발지"
+        android:hint="출발지"
         android:id="@+id/start_input"
         android:gravity="center"
-        android:layout_above="@+id/btn_CompleteBoarding"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/current_location_btn"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/current_location_btn" />
 
     <Button
         android:layout_width="40dp"
         android:layout_height="50dp"
         android:layout_marginLeft="0dp"
         android:id="@+id/start_btn"
-        android:layout_alignTop="@+id/start_input"
-        android:layout_toEndOf="@+id/start_input" />
+        android:layout_marginRight="0dp"
+        android:text="출"
+        android:layout_above="@+id/destination_input"
+        android:layout_alignEnd="@+id/gmap" />
 
     <EditText
         android:layout_width="110dp"
         android:layout_height="50dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="도착지"
+        android:hint="도착지"
         android:id="@+id/destination_input"
         android:gravity="center"
-        android:layout_alignTop="@+id/start_btn"
-        android:layout_toEndOf="@+id/start_btn" />
+        android:layout_above="@+id/btn_CompleteBoarding"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/current_location_btn" />
 
     <Button
         android:layout_width="40dp"
         android:layout_height="50dp"
         android:id="@+id/destination_btn"
-        android:layout_below="@+id/textView2"
-        android:layout_toEndOf="@+id/destination_input" />
+        android:text="도"
+        android:layout_alignTop="@+id/current_location_btn2"
+        android:layout_toEndOf="@+id/current_location_btn" />
 
     <Button
         android:layout_width="40dp"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
         android:id="@+id/current_location_btn"
-        android:layout_above="@+id/btn_CompleteBoarding"
-        android:layout_alignParentEnd="true" />
+        android:layout_above="@+id/destination_input"
+        android:layout_toStartOf="@+id/start_btn" />
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/current_location_btn2"
+        android:layout_alignTop="@+id/destination_input"
+        android:layout_alignEnd="@+id/destination_input" />
 </RelativeLayout>

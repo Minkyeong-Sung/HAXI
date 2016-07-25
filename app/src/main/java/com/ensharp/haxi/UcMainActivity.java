@@ -70,7 +70,7 @@ public class UcMainActivity extends Activity {
                 // 사용자가 입력한 주소 정보 확인
                 String searchStr = start_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                searchLocation.findLocation(searchStr,START);
+                searchLocation.findLocation(searchStr,START,start_location_input);
             }
         });
 
@@ -80,7 +80,7 @@ public class UcMainActivity extends Activity {
                 // 사용자가 입력한 주소 정보 확인
                 String searchStr = destination_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                searchLocation.findLocation(searchStr,DESTINATION);
+                searchLocation.findLocation(searchStr,DESTINATION,destination_location_input);
             }
         });
 

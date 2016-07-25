@@ -3,6 +3,7 @@ package com.ensharp.haxi;
 import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,15 +28,15 @@ public class SearchLocation {
         this.geocoder = geocoder;
     }
 
-    public void findLocation(String searchStr, int option) {
+    public void findLocation(String searchStr, int option, EditText input) {
         this.searchStr = searchStr;
         List<Address> addressList;
 
         // 입력하지 않았으면 return
-        if (option == 1) {
+        if (option == 1 && input.length() == 0 ) {
             return;
         }
-        else if(option == 2) {
+        else if(option == 2 && input.length() == 0) {
             return;
         }
 
