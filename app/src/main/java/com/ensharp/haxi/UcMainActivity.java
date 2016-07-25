@@ -54,10 +54,16 @@ public class UcMainActivity extends Activity {
     private static final int DESTINATION = 2;
 
     private boolean mCompassEnabled;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_main);
+
+        // 지도 객체 참조 및 지도 처음 위치 활성화
+        map = ((MapFragment)getFragmentManager().findFragmentById(R.id.gmap)).getMap();
+        LatLng firstMapLocation = new LatLng(126.9783881, 37.5666102);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation,17));
 
         // 속성 및 버튼, 텍스트 박스 Initialization.
         init_Property();
@@ -122,36 +128,11 @@ public class UcMainActivity extends Activity {
         });
     }
 
-    public void currentMyLocation(EditText input)
-    {
-        if (ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        map.setMyLocationEnabled(true);
-
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria,true);
-        Location myLocation = locationManager.getLastKnownLocation(provider);
-
-        double latitude = myLocation.getLatitude()+0.00015;
-        double longitude = myLocation.getLongitude()-0.000235;
-        LatLng latLng = new LatLng(latitude,longitude);
-        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        map.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("You are Here!"));
-
-        input.setText(latitude + " " + longitude);
-        // edit01엔 myCurrentLocation or 나의 현재 위치 등등 으로 표시해주기!*/
-    }
 
     public void init_Property()
     {
         // 메인 레이아웃 객체 참조
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
-        // 지도 객체 참조
-        map = ((MapFragment)getFragmentManager().findFragmentById(R.id.gmap)).getMap();
         // 센서 관리자 객체 참조
         mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
 
@@ -244,6 +225,29 @@ public class UcMainActivity extends Activity {
         if(mCompassEnabled) {
             mSensorManager.unregisterListener(mListener);
         }
+    }
+    public void currentMyLocation(EditText input)
+    {
+        if (ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        map.setMyLocationEnabled(true);
+
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria,true);
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+
+        double latitude = myLocation.getLatitude()+0.00015;
+        double longitude = myLocation.getLongitude()-0.000235;
+        LatLng latLng = new LatLng(latitude,longitude);
+        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        map.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)).title("You are Here!"));
+
+        input.setText(latitude + " " + longitude);
+        // edit01엔 myCurrentLocation or 나의 현재 위치 등등 으로 표시해주기!*/
     }
     /**
      * 센서의 정보를 받기 위한 리스너 객체 생성
