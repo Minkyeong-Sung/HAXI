@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Locale;
 
@@ -30,12 +29,8 @@ public class UcMainActivity extends Activity {
     private RelativeLayout mainLayout;
     private GoogleMap map;
     private SensorManager mSensorManager;
-    private boolean first_path = false;
-    private LatLng oldLatLng;
-    private LatLng currentLatLng;
 
-
-    private AccureCurrentPath mAccurePath;
+    private UcRunningActivity ucRunningActivity;
     private CompassView mCompassView;
     private SearchLocation searchLocation;
 
@@ -48,7 +43,7 @@ public class UcMainActivity extends Activity {
     private Button CompleteBoarding;
 
     private static final int START = 1;
-    private static final int DESTINATION = 1;
+    private static final int DESTINATION = 2;
 
     private boolean mCompassEnabled;
     @Override
@@ -109,7 +104,6 @@ public class UcMainActivity extends Activity {
 
         // 나침반을 표시할 뷰 생성
         boolean sideBottom = true;
-        mAccurePath = new AccureCurrentPath();
 
         // 지오코더 객체 생성
         geocoder = new Geocoder(this, Locale.KOREAN);
