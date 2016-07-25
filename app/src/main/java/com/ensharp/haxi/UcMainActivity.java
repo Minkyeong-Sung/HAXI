@@ -62,8 +62,8 @@ public class UcMainActivity extends Activity {
 
         // 지도 객체 참조 및 지도 처음 위치 활성화
         map = ((MapFragment)getFragmentManager().findFragmentById(R.id.gmap)).getMap();
-        LatLng firstMapLocation = new LatLng(126.9783881, 37.5666102);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation,17));
+        LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation,10));
 
         // 속성 및 버튼, 텍스트 박스 Initialization.
         init_Property();
