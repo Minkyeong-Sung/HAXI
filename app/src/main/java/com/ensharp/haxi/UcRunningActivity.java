@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -23,6 +25,7 @@ public class UcRunningActivity extends Activity {
     private AccureCurrentPath mAccurePath = new AccureCurrentPath();
     private GoogleMap map;
 
+    private RelativeLayout mainLayout;
     private LatLng oldLatLng;
     private LatLng currentLatLng;
     private Button arrive;
@@ -37,7 +40,21 @@ public class UcRunningActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_running);
+        init_Property();
+        init_button();
+        startLocationService();
+    }
+    public void init_Property()
+    {
+        // 메인 레이아웃 객체 참조
+        mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        // 지도 객체 참조
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
 
+    }
+
+    public void init_button()
+    {
         arrive = (Button)findViewById(R.id.btn_arrive);
         arrive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +63,7 @@ public class UcRunningActivity extends Activity {
                 startActivity(resultIntent);
             }
         });
+
     }
     /**
      * 위치 정보 확인을 위해 정의한 메소드
