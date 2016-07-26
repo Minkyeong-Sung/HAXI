@@ -109,14 +109,14 @@ public class UcMainActivity extends Activity {
         current_button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentMyLocation(start_location_input);
+                currentMyLocation(start_location_input,START);
             }
         });
 
         current_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentMyLocation(destination_location_input);
+                currentMyLocation(destination_location_input,DESTINATION);
             }
         });
 
@@ -206,7 +206,7 @@ public class UcMainActivity extends Activity {
 
         try {
             // 내 위치 자동 표시 enable
-            map.setMyLocationEnabled(true);
+            map.setMyLocationEnabled(false);
         } catch (SecurityException e) {
             e.printStackTrace();
         }
@@ -253,18 +253,17 @@ public class UcMainActivity extends Activity {
                 .show();
     }
 
-    public void currentMyLocation(EditText input) {
-        if (ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        map.setMyLocationEnabled(true);
+    public void currentMyLocation(EditText input, int option) {
 
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         Location myLocation = locationManager.getLastKnownLocation(provider);
 
         double latitude = myLocation.getLatitude();
@@ -273,9 +272,16 @@ public class UcMainActivity extends Activity {
 
         LatLng latLng = new LatLng(latitude, longitude);
         map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-        map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
+
+        if(option == START)
+            map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
                 .title(statr_string)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).showInfoWindow();
+        else if(option == DESTINATION)
+            map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
+                    .title(statr_string)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
+
 
         input.setText("내 현재 위치");
         //input.setText(latitude + " " + longitude);
