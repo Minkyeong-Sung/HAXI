@@ -25,6 +25,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class UcRunningActivity extends Activity {
@@ -37,6 +38,9 @@ public class UcRunningActivity extends Activity {
     private LatLng currentLatLng;
     private Button arrive;
 
+    private Marker new_taxi_marker;
+
+    private boolean first_Taximakrer_show = false;
     private boolean first_path = false;
 
     @Override
@@ -153,11 +157,15 @@ public class UcRunningActivity extends Activity {
                     circleOptions.center(currentLatLng).radius(0.2).strokeColor(Color.RED).fillColor(Color.RED);
                     map.addCircle(circleOptions);
 
+                    if(first_Taximakrer_show)
+                        new_taxi_marker.remove();
 
-                    map.addMarker(new MarkerOptions().position(new LatLng(latitude-0.000005,longitude))
-                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("taxi",100,100))));
+                    new_taxi_marker = map.addMarker(new MarkerOptions().position(new LatLng(latitude-0.000012,longitude))
+                                           .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("taxi",150,150))));
 
                     oldLatLng = currentLatLng;
+
+                    first_Taximakrer_show = true;
                     showCurrentLocation(latitude, longitude);
                 } else {
                     return;
