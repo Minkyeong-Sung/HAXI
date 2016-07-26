@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -63,7 +64,6 @@ public class UcMainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_main);
-
         // 속성 및 버튼, 텍스트 박스 Initialization.
         init_Property();
         init_Button_And_Textbox();
@@ -91,6 +91,7 @@ public class UcMainActivity extends Activity {
                 String searchStr = start_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
                 searchLocation.findLocation(searchStr, START, start_location_input);
+                hideSoftKeyboard(mainLayout);
             }
         });
 
@@ -102,6 +103,7 @@ public class UcMainActivity extends Activity {
                 String searchStr = destination_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
                 searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
+                hideSoftKeyboard(mainLayout);
             }
         });
 
@@ -129,6 +131,11 @@ public class UcMainActivity extends Activity {
         });
     }
 
+
+    protected void hideSoftKeyboard(View view) {
+        InputMethodManager mgr = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     public void init_Property() {
         // 메인 레이아웃 객체 참조
