@@ -39,8 +39,6 @@ public class UcMainActivity extends Activity {
     private RelativeLayout mainLayout;
     private GoogleMap map;
     private SensorManager mSensorManager;
-
-    private UcRunningActivity ucRunningActivity;
     private CompassView mCompassView;
     private SearchLocation searchLocation;
 
@@ -52,7 +50,6 @@ public class UcMainActivity extends Activity {
     private Button current_button2;
     private Button start_search_button;
     private Button destination_search_button;
-
     private Button CompleteBoarding;
 
     private static final int START = 1;
@@ -111,14 +108,14 @@ public class UcMainActivity extends Activity {
         current_button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentMyLocation(start_location_input,START);
+                currentMyLocation(start_location_input, START);
             }
         });
 
         current_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentMyLocation(destination_location_input,DESTINATION);
+                currentMyLocation(destination_location_input, DESTINATION);
             }
         });
 
@@ -133,7 +130,7 @@ public class UcMainActivity extends Activity {
 
 
     protected void hideSoftKeyboard(View view) {
-        InputMethodManager mgr = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
@@ -240,24 +237,47 @@ public class UcMainActivity extends Activity {
 
     public void show_Taxifare_distance() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("택시비랑 최단거리만 확인하는 alert")
-                .setMessage("택시비: 359000원 \n최단 거리: 100.34km")
-                .setCancelable(false)
-                .setPositiveButton("누적거리 시작~", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
-                        startActivity(runningIntent);
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        //NegativeButton onClick Action
-                        dialog.cancel();
-                    }
-                })
-                .show();
+
+        if (!SearchLocation.startMarker_flag) {
+            builder.setTitle("출발지 입력을 하지 않았어")
+                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        }
+        else if (!SearchLocation.destinationMarker_flag) {
+            builder.setTitle("도착지 입력을 하지 않았어")
+                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        }
+        else{
+            builder.setTitle("택시비랑 최단거리만 확인하는 alert")
+                    .setMessage("택시비: 359000원 \n최단 거리: 100.34km")
+                    .setCancelable(false)
+                    .setPositiveButton("누적거리 시작~", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
+                            startActivity(runningIntent);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //NegativeButton onClick Action
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        }
     }
 
     public void currentMyLocation(EditText input, int option) {
@@ -281,8 +301,8 @@ public class UcMainActivity extends Activity {
         map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
         // 출발지와 도착지 현재위치 Marker 구분해주기
-        if(option == START) {
-            if(SearchLocation.startMarker_flag == true)
+        if (option == START) {
+            if (SearchLocation.startMarker_flag == true)
                 SearchLocation.startMarker.remove();
             SearchLocation.startMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
                     .title("출발지\n" + latitude + "\n" + longitude)
@@ -290,10 +310,8 @@ public class UcMainActivity extends Activity {
                     .draggable(true));
             SearchLocation.startMarker.showInfoWindow();
             SearchLocation.startMarker_flag = true;
-        }
-
-        else if(option == DESTINATION) {
-            if(SearchLocation.startMarker_flag == true)
+        } else if (option == DESTINATION) {
+            if (SearchLocation.startMarker_flag == true)
                 SearchLocation.destinationMarker.remove();
 
             SearchLocation.destinationMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
