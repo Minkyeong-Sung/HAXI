@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -20,8 +22,10 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class UcRunningActivity extends Activity {
 
@@ -65,12 +69,12 @@ public class UcRunningActivity extends Activity {
         LatLng latLng = new LatLng(latitude,longitude);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
     }
+
     public void init_Property() {
         // 메인 레이아웃 객체 참조
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         // 지도 객체 참조
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
-
     }
 
     public void init_button() {
@@ -149,6 +153,10 @@ public class UcRunningActivity extends Activity {
                     circleOptions.center(currentLatLng).radius(0.2).strokeColor(Color.RED).fillColor(Color.RED);
                     map.addCircle(circleOptions);
 
+
+                    map.addMarker(new MarkerOptions().position(new LatLng(latitude-0.000005,longitude))
+                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("taxi",100,100))));
+
                     oldLatLng = currentLatLng;
                     showCurrentLocation(latitude, longitude);
                 } else {
@@ -171,8 +179,16 @@ public class UcRunningActivity extends Activity {
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
-    } // 현재 위치의 지도를 보여주기 위해 정의한 메소드
+    }
 
+    // taxi 이미지 줄여주는 메소드
+    public Bitmap resizeMapIcons(String iconName,int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+        return resizedBitmap;
+    }
+
+    // 현재 위치의 지도를 보여주기 위해 정의한 메소드
     private void showCurrentLocation(Double latitude, Double longitude) {
         // 현재 위치를 이용해 LatLon 객체 생성
         LatLng curPoint = new LatLng(latitude, longitude);
