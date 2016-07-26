@@ -31,8 +31,12 @@
             android:name=".UcNotifyActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
+            android:name=".UcNotifyActivity2"
+            android:theme="@android:style/Theme.Holo.NoActionBar" />
+        <activity
             android:name=".InternationalTaxiActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
+
     </application>
 
 </manifest>

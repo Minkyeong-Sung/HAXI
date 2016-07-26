@@ -9,14 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ensharp.haxi.UcNotifyActivity">
 
-    <TextView
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="신고 액티비티"
-        android:id="@+id/textView7"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ff0000"
-        android:textSize="25dp"
-        android:textStyle="bold" />
+        android:text="다음"
+        android:id="@+id/btn_next"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
+
