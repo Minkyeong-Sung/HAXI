@@ -39,6 +39,7 @@ public class UcRunningActivity extends Activity {
     private Button arrive;
 
     private Marker new_taxi_marker;
+    GPSListener gpsListener;
 
     private boolean first_Taximakrer_show = false;
     private boolean first_path = false;
@@ -101,7 +102,7 @@ public class UcRunningActivity extends Activity {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         // 위치 정보를 받을 리스너 생성
-        GPSListener gpsListener = new GPSListener();
+        gpsListener = new GPSListener();
         long minTime = 1000;
         float minDistance = 0;
 
@@ -164,7 +165,6 @@ public class UcRunningActivity extends Activity {
                                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("taxi",150,150))));
 
                     oldLatLng = currentLatLng;
-
                     first_Taximakrer_show = true;
                     showCurrentLocation(latitude, longitude);
                 } else {
@@ -188,6 +188,7 @@ public class UcRunningActivity extends Activity {
         public void onStatusChanged(String provider, int status, Bundle extras) {
         }
     }
+
 
     // taxi 이미지 줄여주는 메소드
     public Bitmap resizeMapIcons(String iconName,int width, int height){
@@ -229,9 +230,25 @@ public class UcRunningActivity extends Activity {
         super.onPause();
         try {
             // 내 위치 자동 표시 disable
+            exitLocationManager();
             map.setMyLocationEnabled(false);
         } catch (SecurityException e) {
             e.printStackTrace();
         }
+    }
+    public void exitLocationManager()
+    {
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        manager.removeUpdates(gpsListener);
     }
 }
