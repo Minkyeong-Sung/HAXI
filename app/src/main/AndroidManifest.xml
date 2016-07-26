@@ -2,20 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ensharp.haxi">
 
-
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-
 
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:supportsRtl="true">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,17 +26,17 @@
             android:name=".UcMainActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
-            android:name=".UcRunningActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" />
+            android:name=".UcRunningActivity"/>
+            <!--android:theme="@android:style/Theme.Holo.NoActionBar" />-->
         <activity
-            android:name=".UcResultActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" />
+            android:name=".UcResultActivity"/>
+            <!--android:theme="@android:style/Theme.Holo.NoActionBar" />-->
         <activity
-            android:name=".UcNotifyActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" />
+            android:name=".UcNotifyActivity"/>
+            <!--android:theme="@android:style/Theme.Holo.NoActionBar" />-->
         <activity
-            android:name=".InternationalTaxiActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" />
+            android:name=".InternationalTaxiActivity"/>
+            <!--android:theme="@android:style/Theme.Holo.NoActionBar" />-->
     </application>
 
 </manifest>
