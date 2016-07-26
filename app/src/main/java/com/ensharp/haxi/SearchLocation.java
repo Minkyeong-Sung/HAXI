@@ -23,12 +23,12 @@ public class SearchLocation {
     private Double searchLatLng_latitude;
     private Double searchLatLng_longitude;
     private String searchStr;
+    private EditText input_text;
 
     public static Marker startMarker;
     public static Marker destinationMarker;
     public static boolean startMarker_flag = false;
     public static boolean destinationMarker_flag = false;
-
     public static int START = 1;
     public static int DESTINATION = 2;
 
@@ -38,13 +38,14 @@ public class SearchLocation {
     }
 
     public void findLocation(String searchStr, int option, EditText input) {
+        this.input_text = input;
         this.searchStr = searchStr;
-        List<Address> addressList;
+        List<Address> addressList = null;
 
         // 입력하지 않았으면 return
-        if (option == START && input.length() == 0) {
+        if (option == START && input_text.length() == 0) {
             return;
-        } else if (option == DESTINATION && input.length() == 0) {
+        } else if (option == DESTINATION && input_text.length() == 0) {
             return;
         }
 
@@ -110,7 +111,29 @@ public class SearchLocation {
                 Double end_LatLng_latitude = end_LatLng.latitude;
                 Double end_LatLng_longitude = end_LatLng.longitude;
                 marker.setTitle(end_LatLng_latitude.toString() + "\n" + end_LatLng_longitude.toString());
+                searchLocation(end_LatLng_latitude,end_LatLng_longitude,input_text);
             }
         });
+    }
+
+
+    // 위치 좌표를 이용해 주소를 검색하는 메소드 정의
+    public void searchLocation(double latitude, double longitude, EditText input_text) {
+
+        List<Address> addressList = null;
+        try {
+
+            addressList = geocoder.getFromLocation(latitude, longitude, 1);
+            // 주소 정보 저장.
+            Address outAddr = addressList.get(0);
+
+            if (addressList != null) {
+                input_text.setText(outAddr.getAddressLine(0));
+            }
+
+        } catch(IOException ex) {
+            Log.d(TAG, "예외 : " + ex.toString());
+        }
+
     }
 }

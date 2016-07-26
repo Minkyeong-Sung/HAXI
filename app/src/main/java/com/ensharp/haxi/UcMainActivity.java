@@ -268,7 +268,7 @@ public class UcMainActivity extends Activity {
 
         double latitude = myLocation.getLatitude();
         double longitude = myLocation.getLongitude();
-        String statr_string = getResources().getString(R.string.start);
+        //String statr_string = getResources().getString(R.string.start);
 
         LatLng latLng = new LatLng(latitude, longitude);
         map.animateCamera(CameraUpdateFactory.newLatLng(latLng));

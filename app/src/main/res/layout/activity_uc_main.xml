@@ -37,7 +37,6 @@
         android:hint="출발지"
         android:id="@+id/start_input"
         android:gravity="center"
-        android:textSize="20dp"
         android:layout_alignTop="@+id/current_location_btn"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/current_location_btn" />
