@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -16,12 +17,20 @@ import java.util.List;
 
 public class SearchLocation {
     private static String TAG = "UcMainActivity";
-    Geocoder geocoder;
-    GoogleMap gMap;
-    LatLng searchLatLng;
-    Double searchLatLng_latitude;
-    Double searchLatLng_longitude;
-    String searchStr;
+    private Geocoder geocoder;
+    private GoogleMap gMap;
+    private LatLng searchLatLng;
+    private Double searchLatLng_latitude;
+    private Double searchLatLng_longitude;
+    private String searchStr;
+
+    public static Marker startMarker;
+    public static Marker destinationMarker;
+    public static boolean startMarker_flag = false;
+    public static boolean destinationMarker_flag = false;
+
+    public static int START = 1;
+    public static int DESTINATION = 2;
 
     public SearchLocation(GoogleMap gMap, Geocoder geocoder) {
         this.gMap = gMap;
@@ -33,10 +42,9 @@ public class SearchLocation {
         List<Address> addressList;
 
         // 입력하지 않았으면 return
-        if (option == 1 && input.length() == 0 ) {
+        if (option == START && input.length() == 0) {
             return;
-        }
-        else if(option == 2 && input.length() == 0) {
+        } else if (option == DESTINATION && input.length() == 0) {
             return;
         }
 
@@ -50,15 +58,35 @@ public class SearchLocation {
                 searchLatLng_longitude = addressList.get(0).getLongitude();
 
                 searchLatLng = new LatLng(searchLatLng_latitude, searchLatLng_longitude);
-                gMap.clear();
 
-                MarkerOptions options = new MarkerOptions().title(searchLatLng_latitude.toString() + "\n" + searchLatLng_longitude).position(searchLatLng).draggable(true);
-                gMap.addMarker(options);
-                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLatLng, 18));
-            }
-            else {
+
+                // 출발지와 도착지 Marker 구분해주기.
+                if (option == START) {
+                    if(startMarker_flag == true)
+                        startMarker.remove();
+                    startMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
+                            .title("출발지\n" + searchLatLng_latitude.toString() + "\n" + searchLatLng_longitude)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                            .draggable(true));
+                    startMarker.showInfoWindow();
+                    startMarker_flag = true;
+                }
+
+                else if(option == DESTINATION) {
+                    if(destinationMarker_flag == true)
+                        destinationMarker.remove();
+                    destinationMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
+                            .title("도착지\n" + searchLatLng_latitude.toString() + "\n" + searchLatLng_longitude)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                            .draggable(true));
+                    destinationMarker.showInfoWindow();
+                    destinationMarker_flag = true;
+                }
+                gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLatLng, 16));
+            } else {
                 return;
             }
+
         } catch (IOException ex) {
             // 예외처리 Log로 찍어줌!
             Log.d(TAG, "예외 : " + ex.toString());

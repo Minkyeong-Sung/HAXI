@@ -273,15 +273,29 @@ public class UcMainActivity extends Activity {
         LatLng latLng = new LatLng(latitude, longitude);
         map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
-        if(option == START)
-            map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
-                .title(statr_string)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).showInfoWindow();
-        else if(option == DESTINATION)
-            map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
-                    .title(statr_string)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
+        // 출발지와 도착지 현재위치 Marker 구분해주기
+        if(option == START) {
+            if(SearchLocation.startMarker_flag == true)
+                SearchLocation.startMarker.remove();
+            SearchLocation.startMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
+                    .title("출발지\n" + latitude + "\n" + longitude)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                    .draggable(true));
+            SearchLocation.startMarker.showInfoWindow();
+            SearchLocation.startMarker_flag = true;
+        }
 
+        else if(option == DESTINATION) {
+            if(SearchLocation.startMarker_flag == true)
+                SearchLocation.destinationMarker.remove();
+
+            SearchLocation.destinationMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
+                    .title("도착지\n" + latitude + "\n" + longitude)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                    .draggable(true));
+            SearchLocation.destinationMarker.showInfoWindow();
+            SearchLocation.destinationMarker_flag = true;
+        }
 
         input.setText("내 현재 위치");
         //input.setText(latitude + " " + longitude);
