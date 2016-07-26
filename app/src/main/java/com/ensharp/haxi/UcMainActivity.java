@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -50,6 +51,7 @@ public class UcMainActivity extends Activity {
     private Button current_button2;
     private Button start_search_button;
     private Button destination_search_button;
+
     private Button CompleteBoarding;
 
     private static final int START = 1;
@@ -67,20 +69,19 @@ public class UcMainActivity extends Activity {
         init_Button_And_Textbox();
         // 초기 Map 화면 서울로 보이게 만듬
         LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation,10));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 10));
 
     }
 
-    public void init_Button_And_Textbox()
-    {
-        CompleteBoarding = (Button)findViewById(R.id.btn_CompleteBoarding);
-        start_search_button = (Button)findViewById(R.id.start_btn);
-        destination_search_button = (Button)findViewById(R.id.destination_btn);
-        current_button1 = (Button)findViewById(R.id.current_location_btn);
-        current_button2 = (Button)findViewById(R.id.current_location_btn2);
+    public void init_Button_And_Textbox() {
+        CompleteBoarding = (Button) findViewById(R.id.btn_CompleteBoarding);
+        start_search_button = (Button) findViewById(R.id.start_btn);
+        destination_search_button = (Button) findViewById(R.id.destination_btn);
+        current_button1 = (Button) findViewById(R.id.current_location_btn);
+        current_button2 = (Button) findViewById(R.id.current_location_btn2);
 
-        start_location_input = (EditText)findViewById(R.id.start_input);
-        destination_location_input = (EditText)findViewById(R.id.destination_input);
+        start_location_input = (EditText) findViewById(R.id.start_input);
+        destination_location_input = (EditText) findViewById(R.id.destination_input);
 
         // 출발지 입력 버튼 누를 시
         start_search_button.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +90,7 @@ public class UcMainActivity extends Activity {
                 // 사용자가 입력한 주소 정보 확인
                 String searchStr = start_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                searchLocation.findLocation(searchStr,START,start_location_input);
+                searchLocation.findLocation(searchStr, START, start_location_input);
             }
         });
 
@@ -100,7 +101,7 @@ public class UcMainActivity extends Activity {
                 // 사용자가 입력한 주소 정보 확인
                 String searchStr = destination_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                searchLocation.findLocation(searchStr,DESTINATION,destination_location_input);
+                searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
             }
         });
 
@@ -129,21 +130,20 @@ public class UcMainActivity extends Activity {
     }
 
 
-    public void init_Property()
-    {
+    public void init_Property() {
         // 메인 레이아웃 객체 참조
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         // 지도 객체 참조 및 지도 처음 위치 활성화
-        map = ((MapFragment)getFragmentManager().findFragmentById(R.id.gmap)).getMap();
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
         // 센서 관리자 객체 참조
-        mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         // 나침반을 표시할 뷰 생성
         boolean sideBottom = true;
 
         // 지오코더 객체 생성
         geocoder = new Geocoder(this, Locale.KOREAN);
-        searchLocation = new SearchLocation(map,geocoder);
+        searchLocation = new SearchLocation(map, geocoder);
 
         //currentLocation = new CurrentLocation(map);
         mCompassView = new CompassView(this);
@@ -158,6 +158,7 @@ public class UcMainActivity extends Activity {
 
         checkDangerousPermissions();
     }
+
     // 권한 설정 check 메소드
     private void checkDangerousPermissions() {
         String[] permissions = {
@@ -198,6 +199,7 @@ public class UcMainActivity extends Activity {
             }
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -205,11 +207,11 @@ public class UcMainActivity extends Activity {
         try {
             // 내 위치 자동 표시 enable
             map.setMyLocationEnabled(true);
-        } catch(SecurityException e) {
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
 
-        if(mCompassEnabled) {
+        if (mCompassEnabled) {
             mSensorManager.registerListener(mListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_UI);
         }
     }
@@ -220,19 +222,18 @@ public class UcMainActivity extends Activity {
         try {
             // 내 위치 자동 표시 disable
             map.setMyLocationEnabled(false);
-        } catch(SecurityException e) {
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
 
-        if(mCompassEnabled) {
+        if (mCompassEnabled) {
             mSensorManager.unregisterListener(mListener);
         }
     }
 
-    public void show_Taxifare_distance()
-    {
+    public void show_Taxifare_distance() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder .setTitle("택시비랑 최단거리만 확인하는 alert")
+        builder.setTitle("택시비랑 최단거리만 확인하는 alert")
                 .setMessage("택시비: 359000원 \n최단 거리: 100.34km")
                 .setCancelable(false)
                 .setPositiveButton("누적거리 시작~", new DialogInterface.OnClickListener() {
@@ -252,8 +253,7 @@ public class UcMainActivity extends Activity {
                 .show();
     }
 
-    public void currentMyLocation(EditText input)
-    {
+    public void currentMyLocation(EditText input) {
         if (ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(UcMainActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -261,22 +261,27 @@ public class UcMainActivity extends Activity {
         }
         map.setMyLocationEnabled(true);
 
+
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria,true);
+        String provider = locationManager.getBestProvider(criteria, true);
         Location myLocation = locationManager.getLastKnownLocation(provider);
 
-        double latitude = myLocation.getLatitude()+0.00015;
-        double longitude = myLocation.getLongitude()-0.000235;
-        LatLng latLng = new LatLng(latitude,longitude);
-        map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        MarkerOptions markerOptions = new MarkerOptions();
-        map.addMarker(new MarkerOptions().position(new LatLng(latitude,longitude)));
+        double latitude = myLocation.getLatitude();
+        double longitude = myLocation.getLongitude();
+        String statr_string = getResources().getString(R.string.start);
+
+        LatLng latLng = new LatLng(latitude, longitude);
+        map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
+                .title(statr_string)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))).showInfoWindow();
 
         input.setText("내 현재 위치");
         //input.setText(latitude + " " + longitude);
         // edit01엔 myCurrentLocation or 나의 현재 위치 등등 으로 표시해주기!*/
     }
+
     /**
      * 센서의 정보를 받기 위한 리스너 객체 생성
      */
@@ -284,7 +289,6 @@ public class UcMainActivity extends Activity {
         private int iOrientation = -1;
 
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
         }
 
         // 센서의 값을 받을 수 있도록 호출되는 메소드
