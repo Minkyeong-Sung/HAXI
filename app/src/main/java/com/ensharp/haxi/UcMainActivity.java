@@ -282,7 +282,6 @@ public class UcMainActivity extends Activity {
 
     public void currentMyLocation(EditText input, int option) {
 
-
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria, true);
