@@ -6,6 +6,15 @@
         android:name="org.androidtown.lbs.map.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
+    <!-- 메세지, 카메라 권한 설정-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+
     <!-- 구글맵 API v2의 권한 설정 -->
     <uses-permission android:name="org.androidtown.lbs.map.permission.MAPS_RECEIVE" />
 
@@ -65,6 +74,7 @@
         <activity
             android:name=".InternationalTaxi.InternationalTaxiActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
+        <activity android:name=".UcNotifyActivity2"></activity>
     </application>
 
 </manifest>
