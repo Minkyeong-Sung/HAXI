@@ -10,10 +10,12 @@
     android:orientation="vertical"
     android:weightSum="1">
 
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="받는사람 02-120" />
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:text="받는사람 02-120" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,17 +53,19 @@
         android:hint="주소(상세히) ex) 서울 중구 태평로"
         android:scrollbars="vertical" />
 
-    <ImageView
-        android:layout_width="157dp"
-        android:layout_height="113dp"
-        android:id="@+id/imageView"
-        android:layout_gravity="center_horizontal" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="sendSMS"
         android:text="Send" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다음"
+        android:id="@+id/btn_next"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
