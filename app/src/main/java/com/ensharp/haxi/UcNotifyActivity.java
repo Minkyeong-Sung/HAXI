@@ -1,18 +1,18 @@
 package com.ensharp.haxi;
 
 import android.app.Activity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class UcNotifyActivity extends Activity {
@@ -21,21 +21,11 @@ public class UcNotifyActivity extends Activity {
     EditText name, phone, address;
     Button btn_send;
 
-     Button next;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_notify);
 
-        next = (Button)findViewById(R.id.btn_next);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent notify2Intent = new Intent(UcNotifyActivity.this,UcNotifyActivity2.class);
-                startActivity(notify2Intent);
-            }
-        });
 
 //
 //        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR);
@@ -123,5 +113,6 @@ public class UcNotifyActivity extends Activity {
         mSmsManager.sendMultipartTextMessage("01048862255", null, messageParts, null, null);
 
         Toast.makeText(this, "전송완료.", Toast.LENGTH_SHORT).show();
+
     }
 }
