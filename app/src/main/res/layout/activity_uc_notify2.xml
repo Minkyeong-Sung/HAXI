@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onButtonClick"
-            android:text="완료"
+            android:text="완료 초기화면"
             android:layout_gravity="bottom"
             android:layout_weight="0.44" />
     </LinearLayout>

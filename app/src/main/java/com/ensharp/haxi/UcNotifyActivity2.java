@@ -12,9 +12,11 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,10 +27,11 @@ import java.io.OutputStream;
 
 public class UcNotifyActivity2 extends Activity {
 
-    private static final String TAG = "MMS SEND";
+    private static final String TAG = "영수증 촬영";
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
+    private static final int LONG_DELAY = 4500;
     private Uri mImageCaptureUri;
     private AlertDialog mDialog;
     Button complete;
@@ -38,6 +41,14 @@ public class UcNotifyActivity2 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_notify2);
         setLayout();
+        complete = (Button)findViewById(R.id.btn_complete);
+        complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent notify3Intent = new Intent(UcNotifyActivity2.this, MainActivity.class);
+                startActivity(notify3Intent);
+            }
+        });
     }
 
     /**
@@ -45,9 +56,9 @@ public class UcNotifyActivity2 extends Activity {
      */
     public void onButtonClick(View v){
         switch (v.getId()) {
+
             case R.id.btn_mms:
                 Log.e(TAG, "mImageCaptureUri = " + mImageCaptureUri);
-                //sendSMS("120","ㅁ");
                 sendMMS(mImageCaptureUri);
 //			sendMMSG();
                 break;
@@ -84,7 +95,7 @@ public class UcNotifyActivity2 extends Activity {
         });
 
         AlertDialog.Builder ab = new AlertDialog.Builder(this);
-        ab.setTitle("이미지 Crop");
+        ab.setTitle("영수증 첨부");
         ab.setView(innerView);
 
         return  ab.create();
@@ -100,30 +111,30 @@ public class UcNotifyActivity2 extends Activity {
     }
 
     /**
-     * SMS 발송
-     */
-    private void sendSMS(String reciver , String content){
-        Uri uri = Uri.parse("smsto:"+reciver);
-        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-        it.putExtra("sms_body", content);
-        startActivity(it);
-    }
-
-    /**
      * MMS 발송	(APP TAB BOX)
      */
     private void sendMMS(Uri uri){
-        uri = Uri.parse(""+uri);
-        Intent it = new Intent(Intent.ACTION_SEND);
-        it.putExtra("address","120");
-        it.putExtra("sms_body", "바가지요금 신고합니다 영수증 입니다.");
-        it.putExtra(Intent.EXTRA_STREAM, uri);
-        it.setType("image/*");
-        // 삼성 단말에서만 허용 ( 앱 선택 박스 없이 호출 )
-//		it.setComponent(new ComponentName("com.sec.mms", "com.sec.mms.Mms"));
-        startActivity(it);
+        if(uri==null)
+        {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "영수증 사진을 촬영해주세요", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+        else {
+            uri = Uri.parse("" + uri);
+            Intent it = new Intent(Intent.ACTION_SEND);
+            it.putExtra("address", "02-120");
+            it.putExtra("sms_body", "바가지요금 영수증을 비교할 경로사진을 첨부해주세요.");
+            it.putExtra(Intent.EXTRA_STREAM, uri);
+            it.setType("image/*");
+            startActivity(it);
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "경로 캡쳐본을 추가해주세요", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
-
 
     /**
      * 카메라 호출 하기
