@@ -71,6 +71,7 @@ public class SearchLocation {
                             .draggable(true));
                     startMarker.showInfoWindow();
                     startMarker_flag = true;
+                    UcMainActivity.start_URL_latlng = new StringBuilder(searchLatLng_longitude +","+searchLatLng_latitude);
                 }
 
                 else if(option == DESTINATION) {
@@ -82,6 +83,7 @@ public class SearchLocation {
                             .draggable(true));
                     destinationMarker.showInfoWindow();
                     destinationMarker_flag = true;
+                    UcMainActivity.destination_URL_latlng = new StringBuilder(searchLatLng_longitude +","+searchLatLng_latitude);
                 }
                 gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLatLng, 16));
             } else {

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -14,9 +13,13 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -32,6 +35,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Locale;
 
 public class UcMainActivity extends Activity {
@@ -52,6 +64,10 @@ public class UcMainActivity extends Activity {
     private Button destination_search_button;
     private Button CompleteBoarding;
 
+    public static StringBuilder URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4&start=127.0738840,37.5514706&destination=126.9522394,37.4640070");
+    public static StringBuilder start_URL_latlng;
+    public static StringBuilder destination_URL_latlng;
+    public static String[] split_stringBuilder;
     private static final int START = 1;
     private static final int DESTINATION = 2;
 
@@ -68,6 +84,9 @@ public class UcMainActivity extends Activity {
         LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 10));
 
+        if (isConnected()) {}
+        // call AsynTask to perform network operation on separate thread
+        new HttpAsyncTask().execute(URL.toString());
     }
 
     public void init_Button_And_Textbox() {
@@ -238,6 +257,10 @@ public class UcMainActivity extends Activity {
     public void show_Taxifare_distance() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4" +
+                "&start=" + start_URL_latlng + "&destination=" + destination_URL_latlng);
+        new HttpAsyncTask().execute(URL.toString());
+
         if (!SearchLocation.startMarker_flag) {
             builder.setTitle("출발지 입력을 하지 않았어")
                     .setNegativeButton("확인", new DialogInterface.OnClickListener() {
@@ -247,8 +270,7 @@ public class UcMainActivity extends Activity {
                         }
                     })
                     .show();
-        }
-        else if (!SearchLocation.destinationMarker_flag) {
+        } else if (!SearchLocation.destinationMarker_flag) {
             builder.setTitle("도착지 입력을 하지 않았어")
                     .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                         @Override
@@ -257,29 +279,87 @@ public class UcMainActivity extends Activity {
                         }
                     })
                     .show();
-        }
-        else{
-            builder.setTitle("택시비랑 최단거리만 확인하는 alert")
-                    .setMessage("택시비: 359000원 \n최단 거리: 100.34km")
-                    .setCancelable(false)
-                    .setPositiveButton("누적거리 시작~", new DialogInterface.OnClickListener() {
+        } else {
+            builder.setTitle("택시비 정보 입니다.")
+                    .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리" + split_stringBuilder[1] )
+                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
-                            startActivity(runningIntent);
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            //NegativeButton onClick Action
                             dialog.cancel();
                         }
-                    })
-                    .show();
+                    }).show();
+
         }
     }
+    public static String GET(String url){
+        InputStream inputStream = null;
+        String result = "";
+        try {
 
+            // create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // make GET request to the given URL
+            HttpResponse httpResponse = httpclient.execute(new HttpGet(url));
+
+            // receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // convert inputstream to string
+            if(inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+
+        return result;
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+
+    }
+
+    public boolean isConnected(){
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+        else
+            return false;
+    }
+    private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+
+            return GET(urls[0]);
+        }
+        // onPostExecute displays the results of the AsyncTask.
+        @Override
+        protected void onPostExecute(String result) {
+
+            int index_dist = result.indexOf("totalDistance");
+            int index_gasPayPerLiter = result.indexOf("gasPayPerLiter");
+
+            StringBuilder stringBuilder = new StringBuilder(result);
+
+            stringBuilder.delete(0,index_dist);
+            stringBuilder.delete(index_gasPayPerLiter-index_dist,stringBuilder.length());
+
+            String a = stringBuilder.toString();
+            split_stringBuilder = a.split("[:,]");
+        }
+    }
     public void currentMyLocation(EditText input, int option) {
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
