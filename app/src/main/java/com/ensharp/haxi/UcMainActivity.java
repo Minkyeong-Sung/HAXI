@@ -71,6 +71,7 @@ public class UcMainActivity extends Activity {
     private static final int START = 1;
     private static final int DESTINATION = 2;
 
+    private boolean first_accessJASON = false;
     private boolean mCompassEnabled;
 
     @Override
@@ -84,8 +85,6 @@ public class UcMainActivity extends Activity {
         LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 10));
 
-        if (isConnected()) {}
-        // call AsynTask to perform network operation on separate thread
         new HttpAsyncTask().execute(URL.toString());
     }
 
@@ -257,9 +256,6 @@ public class UcMainActivity extends Activity {
     public void show_Taxifare_distance() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4" +
-                "&start=" + start_URL_latlng + "&destination=" + destination_URL_latlng);
-        new HttpAsyncTask().execute(URL.toString());
 
         if (!SearchLocation.startMarker_flag) {
             builder.setTitle("출발지 입력을 하지 않았어")
@@ -280,18 +276,19 @@ public class UcMainActivity extends Activity {
                     })
                     .show();
         } else {
-            builder.setTitle("택시비 정보 입니다.")
-                    .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리" + split_stringBuilder[1] )
-                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    }).show();
+            if (isConnected()) {
+            }
+            // call AsynTask to perform network operation on separate thread
+            URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4" +
+                    "&start=" + start_URL_latlng + "&destination=" + destination_URL_latlng);
+
+                new HttpAsyncTask().execute(URL.toString());
 
         }
+
     }
-    public static String GET(String url){
+
+    public static String GET(String url) {
         InputStream inputStream = null;
         String result = "";
         try {
@@ -306,7 +303,7 @@ public class UcMainActivity extends Activity {
             inputStream = httpResponse.getEntity().getContent();
 
             // convert inputstream to string
-            if(inputStream != null)
+            if (inputStream != null)
                 result = convertInputStreamToString(inputStream);
             else
                 result = "Did not work!";
@@ -319,10 +316,10 @@ public class UcMainActivity extends Activity {
     }
 
     private static String convertInputStreamToString(InputStream inputStream) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line = "";
         String result = "";
-        while((line = bufferedReader.readLine()) != null)
+        while ((line = bufferedReader.readLine()) != null)
             result += line;
 
         inputStream.close();
@@ -330,7 +327,7 @@ public class UcMainActivity extends Activity {
 
     }
 
-    public boolean isConnected(){
+    public boolean isConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected())
@@ -338,12 +335,14 @@ public class UcMainActivity extends Activity {
         else
             return false;
     }
+
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
 
             return GET(urls[0]);
         }
+
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
@@ -353,13 +352,29 @@ public class UcMainActivity extends Activity {
 
             StringBuilder stringBuilder = new StringBuilder(result);
 
-            stringBuilder.delete(0,index_dist);
-            stringBuilder.delete(index_gasPayPerLiter-index_dist,stringBuilder.length());
+            stringBuilder.delete(0, index_dist);
+            stringBuilder.delete(index_gasPayPerLiter - index_dist, stringBuilder.length());
 
             String a = stringBuilder.toString();
             split_stringBuilder = a.split("[:,]");
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(UcMainActivity.this);
+
+            if(first_accessJASON) {
+                builder.setTitle("택시비 정보 입니다.")
+                        .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리" + split_stringBuilder[1])
+                        .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
+            }
+
+            first_accessJASON = true;
         }
     }
+
     public void currentMyLocation(EditText input, int option) {
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -424,6 +439,7 @@ public class UcMainActivity extends Activity {
             mCompassView.setAzimuth(event.values[0] + 90 * iOrientation);
             mCompassView.invalidate();
         }
+
 
     };
 }
