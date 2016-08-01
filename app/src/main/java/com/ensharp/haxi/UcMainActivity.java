@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -71,8 +72,9 @@ public class UcMainActivity extends Activity {
     private static final int START = 1;
     private static final int DESTINATION = 2;
 
-    private boolean first_accessJASON = false;
     private boolean mCompassEnabled;
+
+    private boolean okCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +86,6 @@ public class UcMainActivity extends Activity {
         // 초기 Map 화면 서울로 보이게 만듬
         LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 10));
-
-        new HttpAsyncTask().execute(URL.toString());
     }
 
     public void init_Button_And_Textbox() {
@@ -282,10 +282,9 @@ public class UcMainActivity extends Activity {
             URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4" +
                     "&start=" + start_URL_latlng + "&destination=" + destination_URL_latlng);
 
-                new HttpAsyncTask().execute(URL.toString());
+            new HttpAsyncTask().execute(URL.toString());
 
         }
-
     }
 
     public static String GET(String url) {
@@ -356,22 +355,27 @@ public class UcMainActivity extends Activity {
             stringBuilder.delete(index_gasPayPerLiter - index_dist, stringBuilder.length());
 
             String a = stringBuilder.toString();
-            split_stringBuilder = a.split("[:,]");
+            split_stringBuilder = a.split("[:,]"); // 배열부분에 담는다
 
             AlertDialog.Builder builder = new AlertDialog.Builder(UcMainActivity.this);
 
-            if(first_accessJASON) {
-                builder.setTitle("택시비 정보 입니다.")
-                        .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리" + split_stringBuilder[1])
-                        .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        }).show();
-            }
+            builder.setTitle("택시비 정보 입니다.")
+                    .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리: " + split_stringBuilder[1] + "\n소요 시간: " + split_stringBuilder[3])
+                    .setPositiveButton("누적거리 시작", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
+                            startActivity(runningIntent);
+                        }
+                    })
+                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    }).show();
 
-            first_accessJASON = true;
+
         }
     }
 
@@ -404,6 +408,7 @@ public class UcMainActivity extends Activity {
                     .draggable(true));
             SearchLocation.startMarker.showInfoWindow();
             SearchLocation.startMarker_flag = true;
+            this.start_URL_latlng = new StringBuilder(longitude + "," + latitude);
         } else if (option == DESTINATION) {
             if (SearchLocation.startMarker_flag == true)
                 SearchLocation.destinationMarker.remove();
@@ -414,11 +419,10 @@ public class UcMainActivity extends Activity {
                     .draggable(true));
             SearchLocation.destinationMarker.showInfoWindow();
             SearchLocation.destinationMarker_flag = true;
+            this.destination_URL_latlng = new StringBuilder(longitude + "," + latitude);
         }
 
         input.setText("내 현재 위치");
-        //input.setText(latitude + " " + longitude);
-        // edit01엔 myCurrentLocation or 나의 현재 위치 등등 으로 표시해주기!*/
     }
 
     /**
@@ -435,7 +439,6 @@ public class UcMainActivity extends Activity {
             if (iOrientation < 0) {
                 iOrientation = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
             }
-
             mCompassView.setAzimuth(event.values[0] + 90 * iOrientation);
             mCompassView.invalidate();
         }
