@@ -127,6 +127,7 @@ public class UcMainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 currentMyLocation(start_location_input, START);
+                hideSoftKeyboard(mainLayout);
             }
         });
 

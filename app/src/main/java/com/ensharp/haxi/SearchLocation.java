@@ -22,7 +22,6 @@ public class SearchLocation {
     private LatLng searchLatLng;
     private Double searchLatLng_latitude;
     private Double searchLatLng_longitude;
-    private String searchStr;
     private EditText input_text;
 
     public static Marker startMarker;
@@ -39,7 +38,6 @@ public class SearchLocation {
 
     public void findLocation(String searchStr, int option, EditText input) {
         this.input_text = input;
-        this.searchStr = searchStr;
         List<Address> addressList = null;
 
         // 입력하지 않았으면 return
@@ -57,9 +55,7 @@ public class SearchLocation {
                 // 위경도값 받기.
                 searchLatLng_latitude = addressList.get(0).getLatitude();
                 searchLatLng_longitude = addressList.get(0).getLongitude();
-
                 searchLatLng = new LatLng(searchLatLng_latitude, searchLatLng_longitude);
-
 
                 // 출발지와 도착지 Marker 구분해주기.
                 if (option == START) {
@@ -103,17 +99,25 @@ public class SearchLocation {
 
             @Override
             public void onMarkerDrag(Marker marker) {
-
             }
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
                 LatLng end_LatLng = marker.getPosition();
 
+
                 Double end_LatLng_latitude = end_LatLng.latitude;
                 Double end_LatLng_longitude = end_LatLng.longitude;
+
                 marker.setTitle(end_LatLng_latitude.toString() + "\n" + end_LatLng_longitude.toString());
                 searchLocation(end_LatLng_latitude,end_LatLng_longitude,input_text);
+                if( marker.getId().equals("m0")) {
+                    UcMainActivity.start_URL_latlng = new StringBuilder(end_LatLng_longitude +","+end_LatLng_latitude);
+                }
+                else if (marker.getId().equals("m1")) {
+                    UcMainActivity.destination_URL_latlng = new StringBuilder(end_LatLng_longitude +","+end_LatLng_latitude);
+                }
+
             }
         });
     }
