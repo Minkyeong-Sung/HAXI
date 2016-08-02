@@ -90,8 +90,6 @@ public class SearchLocation {
             // 예외처리 Log로 찍어줌!
             Log.d(TAG, "예외 : " + ex.toString());
         }
-
-
         gMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
@@ -105,17 +103,13 @@ public class SearchLocation {
             public void onMarkerDragEnd(Marker marker) {
                 LatLng end_LatLng = marker.getPosition();
 
-
-                Double end_LatLng_latitude = end_LatLng.latitude;
-                Double end_LatLng_longitude = end_LatLng.longitude;
-
-                marker.setTitle(end_LatLng_latitude.toString() + "\n" + end_LatLng_longitude.toString());
-                searchLocation(end_LatLng_latitude,end_LatLng_longitude,input_text);
+                marker.setTitle(end_LatLng.latitude + "\n" + end_LatLng.longitude);
+                searchLocation(end_LatLng.latitude,end_LatLng.longitude,input_text);
                 if( marker.getId().equals("m0")) {
-                    UcMainActivity.start_URL_latlng = new StringBuilder(end_LatLng_longitude +","+end_LatLng_latitude);
+                    UcMainActivity.start_URL_latlng = new StringBuilder( end_LatLng.longitude +","+end_LatLng.latitude);
                 }
                 else if (marker.getId().equals("m1")) {
-                    UcMainActivity.destination_URL_latlng = new StringBuilder(end_LatLng_longitude +","+end_LatLng_latitude);
+                    UcMainActivity.destination_URL_latlng = new StringBuilder( end_LatLng.longitude +","+end_LatLng.latitude);
                 }
 
             }

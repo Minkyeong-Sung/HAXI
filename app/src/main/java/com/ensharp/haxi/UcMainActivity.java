@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -22,7 +19,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,10 +48,9 @@ public class UcMainActivity extends Activity {
     private RelativeLayout mainLayout;
     private GoogleMap map;
     private SensorManager mSensorManager;
-    private CompassView mCompassView;
     private SearchLocation searchLocation;
 
-    private Geocoder geocoder;
+    private Geocoder geocoder;                     
     private EditText start_location_input;
     private EditText destination_location_input;
 
@@ -71,10 +66,6 @@ public class UcMainActivity extends Activity {
     public static String[] split_stringBuilder;
     private static final int START = 1;
     private static final int DESTINATION = 2;
-
-    private boolean mCompassEnabled;
-
-    private boolean okCheck = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,17 +159,6 @@ public class UcMainActivity extends Activity {
         geocoder = new Geocoder(this, Locale.KOREAN);
         searchLocation = new SearchLocation(map, geocoder);
 
-        //currentLocation = new CurrentLocation(map);
-        mCompassView = new CompassView(this);
-        mCompassView.setVisibility(View.VISIBLE);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        params.addRule(sideBottom ? RelativeLayout.ALIGN_PARENT_BOTTOM : RelativeLayout.ALIGN_PARENT_TOP);
-        mainLayout.addView(mCompassView, params);
-        mCompassEnabled = true;
-
         checkDangerousPermissions();
     }
 
@@ -234,9 +214,6 @@ public class UcMainActivity extends Activity {
             e.printStackTrace();
         }
 
-        if (mCompassEnabled) {
-            mSensorManager.registerListener(mListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_UI);
-        }
     }
 
     @Override
@@ -249,9 +226,6 @@ public class UcMainActivity extends Activity {
             e.printStackTrace();
         }
 
-        if (mCompassEnabled) {
-            mSensorManager.unregisterListener(mListener);
-        }
     }
 
     public void show_Taxifare_distance() {
@@ -426,24 +400,4 @@ public class UcMainActivity extends Activity {
         input.setText("내 현재 위치");
     }
 
-    /**
-     * 센서의 정보를 받기 위한 리스너 객체 생성
-     */
-    private final SensorEventListener mListener = new SensorEventListener() {
-        private int iOrientation = -1;
-
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        }
-
-        // 센서의 값을 받을 수 있도록 호출되는 메소드
-        public void onSensorChanged(SensorEvent event) {
-            if (iOrientation < 0) {
-                iOrientation = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
-            }
-            mCompassView.setAzimuth(event.values[0] + 90 * iOrientation);
-            mCompassView.invalidate();
-        }
-
-
-    };
 }
