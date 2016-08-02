@@ -2,6 +2,7 @@ package com.ensharp.haxi;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -339,7 +340,7 @@ public class UcMainActivity extends Activity {
                     .setPositiveButton("누적거리 시작", new DialogInterface.OnClickListener(){
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
+                            Intent runningIntent = new Intent(((Dialog) dialog).getContext(), UcRunningActivity.class);
                             startActivity(runningIntent);
                         }
                     })
