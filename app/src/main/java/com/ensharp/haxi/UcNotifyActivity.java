@@ -20,7 +20,6 @@ public class UcNotifyActivity extends Activity {
 
     EditText name, phone, address;
     Button btn_send;
-
     Button next;
 
     @Override
