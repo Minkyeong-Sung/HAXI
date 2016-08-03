@@ -37,6 +37,7 @@ public class SearchLocation {
         this.geocoder = geocoder;
     }
 
+    // 위치 찾기 위한 메소드
     public void findLocation(String searchStr, int option, EditText input) {
         this.input_text = input;
         List<Address> addressList = null;
@@ -59,8 +60,9 @@ public class SearchLocation {
                 searchLatLng = new LatLng(searchLatLng_latitude, searchLatLng_longitude);
 
                 // 출발지와 도착지 Marker 구분해주기.
+                // 출발지에 관했을 경우.
                 if (option == START) {
-                    if(startMarker_flag == true)
+                    if(startMarker_flag == true)            // 출발지에 대한 Marker가 이미 존재할 때 삭제 해주기.
                         startMarker.remove();
                     startMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
                             .title("출발지\n" + searchLatLng_latitude.toString() + "\n" + searchLatLng_longitude)
@@ -68,7 +70,7 @@ public class SearchLocation {
                             .draggable(true));
                     startMarker.showInfoWindow();
                     startMarker_flag = true;
-                    UcMainActivity.start_URL_latlng = new StringBuilder(searchLatLng_longitude +","+searchLatLng_latitude);
+                    UcMainActivity.start_URL_latlng = new StringBuilder(searchLatLng_longitude +","+searchLatLng_latitude); // Url 해당 위치로 갱신하기 위한 작업.
                 }
 
                 else if(option == DESTINATION) {
@@ -102,13 +104,18 @@ public class SearchLocation {
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
+                // Drag 끝냈을 경우 해당 위치에 대한 Position값(위,경도) 저장.
                 LatLng end_LatLng = marker.getPosition();
 
+                // Marker Title 변경해주기.
                 marker.setTitle(end_LatLng.latitude + "\n" + end_LatLng.longitude);
+                // 해당 위치에 대한 searchLocation 실행
                 searchLocation(end_LatLng.latitude,end_LatLng.longitude,input_text);
+                // 출발지에 대한 Marker일 경우 이 위치로 URL 변경해주기.
                 if( marker.getId().equals("m0")) {
                     UcMainActivity.start_URL_latlng = new StringBuilder( end_LatLng.longitude +","+end_LatLng.latitude);
                 }
+                // 도착지에 대한 Marker일 경우 이 위치로 URL 변경해주기.
                 else if (marker.getId().equals("m1")) {
                     UcMainActivity.destination_URL_latlng = new StringBuilder( end_LatLng.longitude +","+end_LatLng.latitude);
                 }

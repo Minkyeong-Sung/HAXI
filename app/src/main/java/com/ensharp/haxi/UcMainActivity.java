@@ -66,6 +66,7 @@ public class UcMainActivity extends Activity {
     public static StringBuilder start_URL_latlng;
     public static StringBuilder destination_URL_latlng;
     public static String[] split_stringBuilder;
+
     private static final int START = 1;
     private static final int DESTINATION = 2;
 
@@ -140,7 +141,6 @@ public class UcMainActivity extends Activity {
         });
     }
 
-
     protected void hideSoftKeyboard(View view) {
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -153,9 +153,6 @@ public class UcMainActivity extends Activity {
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
         // 센서 관리자 객체 참조
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-        // 나침반을 표시할 뷰 생성
-        boolean sideBottom = true;
 
         // 지오코더 객체 생성
         geocoder = new Geocoder(this, Locale.KOREAN);
@@ -227,12 +224,11 @@ public class UcMainActivity extends Activity {
         } catch (SecurityException e) {
             e.printStackTrace();
         }
-
     }
 
+    // 예상 택시 요금 및 거리를 띄어주는 Alert 창.
     public void show_Taxifare_distance() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
 
         if (!SearchLocation.startMarker_flag) {
             builder.setTitle("출발지 입력을 하지 않았어")
@@ -255,10 +251,10 @@ public class UcMainActivity extends Activity {
         } else {
             if (isConnected()) {
             }
-            // call AsynTask to perform network operation on separate thread
+            // URL 갱신후
             URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4" +
                     "&start=" + start_URL_latlng + "&destination=" + destination_URL_latlng);
-
+            // 이 URL에 대한 Json 파싱시작 -> HttpAsyncTask() 메소드로 감.
             new HttpAsyncTask().execute(URL.toString());
 
         }
@@ -268,7 +264,6 @@ public class UcMainActivity extends Activity {
         InputStream inputStream = null;
         String result = "";
         try {
-
             // create HttpClient
             HttpClient httpclient = new DefaultHttpClient();
 
@@ -300,7 +295,6 @@ public class UcMainActivity extends Activity {
 
         inputStream.close();
         return result;
-
     }
 
     public boolean isConnected() {
@@ -315,77 +309,76 @@ public class UcMainActivity extends Activity {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-
-            return GET(urls[0]);
+            // GET 메소드로 이동동
+           return GET(urls[0]);
         }
 
         // onPostExecute displays the results of the AsyncTask.
+        // AsyncTask 작업이 완료된 후 실행되는 Method -> Json 파싱 다듬기 및 Alert창 띄우기
         @Override
         protected void onPostExecute(String result) {
+            int index_dist = result.indexOf("totalDistance");                                      // Json 파싱 후 전체 Text에서 짜르고 싶은 부분을 나누기 위해
+            int index_gasPayPerLiter = result.indexOf("gasPayPerLiter");                           // 첫 index 값 과 끝 index 값 저장을 위한 변수 생성.
 
-            int index_dist = result.indexOf("totalDistance");
-            int index_gasPayPerLiter = result.indexOf("gasPayPerLiter");
-
-            StringBuilder stringBuilder = new StringBuilder(result);
+            StringBuilder stringBuilder = new StringBuilder(result);                               // Json 파싱한 Text ( result )를 StringBuilder에 넣기
 
             stringBuilder.delete(0, index_dist);
-            stringBuilder.delete(index_gasPayPerLiter - index_dist, stringBuilder.length());
+            stringBuilder.delete(index_gasPayPerLiter - index_dist, stringBuilder.length());       // Json 파싱 결과값 다듬기
 
-            String a = stringBuilder.toString();
-            split_stringBuilder = a.split("[:,]"); // 배열부분에 담는다
+            String a = stringBuilder.toString();                                                   // 총 거리, 소요 시간, 택시비 정보를
+            split_stringBuilder = a.split("[:,]");                                                 // 배열부분에 담는다
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(UcMainActivity.this);
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(UcMainActivity.this);            // Alert창 띄우기
             builder.setTitle("택시비 정보 입니다.")
                     .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리: " + split_stringBuilder[1] + "\n소요 시간: " + split_stringBuilder[3])
                     .setPositiveButton("누적거리 시작", new DialogInterface.OnClickListener(){
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             Intent runningIntent = new Intent(((Dialog) dialog).getContext(), UcRunningActivity.class);
-                            startActivity(runningIntent);
+                            startActivity(runningIntent);                                          // OK 버튼 누를시 누적거리 Activity 띄우기
                         }
                     })
                     .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int id) {
+                        public void onClick(DialogInterface dialog, int id) {                                   // No 버튼 누를시 Alert창 닫기.
                             dialog.cancel();
                         }
                     }).show();
-
-
         }
     }
 
+    // 현재위치 버튼을 눌렀을 시에 대한 Method
     public void currentMyLocation(EditText input, int option) {
 
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);     // 장소를 관리하는 LocationManaget 선언
         Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, true);
+        String provider = locationManager.getBestProvider(criteria, true);                          // LocationManager와 Criteria를 연동. -> 현재 위치 받기 위하여
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        Location myLocation = locationManager.getLastKnownLocation(provider);
+        Location myLocation = locationManager.getLastKnownLocation(provider);                       // 현재 위치 받기.
 
-        double latitude = myLocation.getLatitude();
-        double longitude = myLocation.getLongitude();
-        //String statr_string = getResources().getString(R.string.start);
+        double latitude = myLocation.getLatitude();                                                 // 위도값 받기.
+        double longitude = myLocation.getLongitude();                                               // 경도값 받기.
 
         LatLng latLng = new LatLng(latitude, longitude);
-        map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        map.animateCamera(CameraUpdateFactory.newLatLng(latLng));                                   // 해당 위경도로 카메라 이동!
 
         // 출발지와 도착지 현재위치 Marker 구분해주기
         if (option == START) {
-            if (SearchLocation.startMarker_flag == true)
+
+            if (SearchLocation.startMarker_flag == true)                                            // 출발지 Marker가 존재하면 지워주고 새로 표시하기.
                 SearchLocation.startMarker.remove();
-            SearchLocation.startMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
+
+            SearchLocation.startMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))  // Marker 생성.
                     .title("출발지\n" + latitude + "\n" + longitude)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                     .draggable(true));
-            SearchLocation.startMarker.showInfoWindow();
-            SearchLocation.startMarker_flag = true;
-            this.start_URL_latlng = new StringBuilder(longitude + "," + latitude);
+            SearchLocation.startMarker.showInfoWindow();                                            // Marker 화면에 표시하기.
+            SearchLocation.startMarker_flag = true;                                                 // Marker 생성했다고 표시해주기.
+            this.start_URL_latlng = new StringBuilder(longitude + "," + latitude);                  // 해당 위 경도값 URL에 넣어주기위한 변수.
         } else if (option == DESTINATION) {
             if (SearchLocation.startMarker_flag == true)
                 SearchLocation.destinationMarker.remove();
@@ -399,7 +392,7 @@ public class UcMainActivity extends Activity {
             this.destination_URL_latlng = new StringBuilder(longitude + "," + latitude);
         }
 
-        input.setText("내 현재 위치");
+        input.setText("내 현재 위치");                                                              // EditText에 표시해주기.
     }
 
 }
