@@ -5,4 +5,5 @@
     <string name="reservationCheck">Reservation Confirm</string>
     <string name="fare">Fare</string>
     <string name="serviceInfo">Service Informations</string>
+    <string name="start">출발지</string>
 </resources>
