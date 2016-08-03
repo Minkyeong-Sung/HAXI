@@ -1,10 +1,11 @@
-package com.ensharp.haxi;
+package com.ensharp.haxi.Map;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
 import android.widget.EditText;
 
+import com.ensharp.haxi.UcMainActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;

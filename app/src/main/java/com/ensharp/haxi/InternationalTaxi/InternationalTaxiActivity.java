@@ -9,10 +9,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
 import android.widget.Button;
 
-import com.ensharp.haxi.InternationalTaxi_fare_fragment;
-import com.ensharp.haxi.InternationalTaxi_reservationConfirm_fragment;
-import com.ensharp.haxi.InternationalTaxi_reservation_fragment;
-import com.ensharp.haxi.InternationalTaxi_serviceInfo_fragment;
 import com.ensharp.haxi.R;
 
 public class InternationalTaxiActivity extends Activity {

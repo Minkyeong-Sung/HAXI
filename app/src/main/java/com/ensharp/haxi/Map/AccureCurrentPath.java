@@ -1,4 +1,4 @@
-package com.ensharp.haxi;
+package com.ensharp.haxi.Map;
 
 import android.graphics.Color;
 

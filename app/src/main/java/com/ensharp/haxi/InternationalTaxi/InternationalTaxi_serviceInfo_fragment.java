@@ -1,4 +1,4 @@
-package com.ensharp.haxi;
+package com.ensharp.haxi.InternationalTaxi;
 
 
 import android.annotation.SuppressLint;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.ensharp.haxi.R;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class InternationalTaxi_serviceInfo_fragment extends Fragment {

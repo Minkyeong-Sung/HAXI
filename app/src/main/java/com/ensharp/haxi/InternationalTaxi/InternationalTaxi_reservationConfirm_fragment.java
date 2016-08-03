@@ -1,4 +1,4 @@
-package com.ensharp.haxi;
+package com.ensharp.haxi.InternationalTaxi;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -9,20 +9,19 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-/**
- * Created by min on 2016-07-24.
- */
+import com.ensharp.haxi.R;
 
 @SuppressLint("SetJavaScriptEnabled")
-public class InternationalTaxi_fare_fragment extends Fragment {
+public class InternationalTaxi_reservationConfirm_fragment extends Fragment {
+
 
     WebView web;
-    String url="http://www.intltaxi.co.kr/Home/rates";
+    String url="http://www.intltaxi.co.kr/Home/confirm";
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.internationaltaxi_fare_layout,container,false);
+        view=inflater.inflate(R.layout.internationaltaxi_reservationconfirm_layout,container,false);
         init();
 
         return view;
