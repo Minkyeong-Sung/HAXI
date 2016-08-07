@@ -52,7 +52,7 @@ public class UcMainActivity extends Activity {
     private SensorManager mSensorManager;
     private SearchLocation searchLocation;
 
-    private Geocoder geocoder;                     
+    private Geocoder geocoder;
     private EditText start_location_input;
     private EditText destination_location_input;
 
@@ -100,6 +100,7 @@ public class UcMainActivity extends Activity {
                 String searchStr = start_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
                 searchLocation.findLocation(searchStr, START, start_location_input);
+                setInitflag();
                 hideSoftKeyboard(mainLayout);
             }
         });
@@ -112,6 +113,7 @@ public class UcMainActivity extends Activity {
                 String searchStr = destination_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
                 searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
+                setInitflag();
                 hideSoftKeyboard(mainLayout);
             }
         });
@@ -121,6 +123,7 @@ public class UcMainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 currentMyLocation(start_location_input, START);
+                setInitflag();
                 hideSoftKeyboard(mainLayout);
             }
         });
@@ -128,7 +131,9 @@ public class UcMainActivity extends Activity {
         current_button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setInitflag();
                 currentMyLocation(destination_location_input, DESTINATION);
+                hideSoftKeyboard(mainLayout);
             }
         });
 
@@ -136,6 +141,7 @@ public class UcMainActivity extends Activity {
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setInitflag();
                 show_Taxifare_distance();
             }
         });
@@ -151,6 +157,15 @@ public class UcMainActivity extends Activity {
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         // 지도 객체 참조 및 지도 처음 위치 활성화
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        map.setMyLocationEnabled(true);
+        //map.getUiSettings().setMyLocationButtonEnabled(false);
+        //map.setPadding(0,900,0,0);
         // 센서 관리자 객체 참조
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
@@ -208,7 +223,7 @@ public class UcMainActivity extends Activity {
 
         try {
             // 내 위치 자동 표시 enable
-            map.setMyLocationEnabled(false);
+            map.setMyLocationEnabled(true);
         } catch (SecurityException e) {
             e.printStackTrace();
         }
@@ -225,6 +240,13 @@ public class UcMainActivity extends Activity {
             e.printStackTrace();
         }
     }
+
+    public void setInitflag()
+    {
+        SearchLocation.start_move_flag = false;
+        SearchLocation.destination_move_flag = false;
+    }
+
 
     // 예상 택시 요금 및 거리를 띄어주는 Alert 창.
     public void show_Taxifare_distance() {

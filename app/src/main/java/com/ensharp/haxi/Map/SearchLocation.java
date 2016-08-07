@@ -9,6 +9,7 @@ import com.ensharp.haxi.UcMainActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -27,6 +28,8 @@ public class SearchLocation {
 
     public static Marker startMarker;
     public static Marker destinationMarker;
+    public static boolean start_move_flag = false;
+    public static boolean destination_move_flag = false;
     public static boolean startMarker_flag = false;
     public static boolean destinationMarker_flag = false;
     public static int START = 1;
@@ -62,7 +65,7 @@ public class SearchLocation {
                 // 출발지와 도착지 Marker 구분해주기.
                 // 출발지에 관했을 경우.
                 if (option == START) {
-                    if(startMarker_flag == true)            // 출발지에 대한 Marker가 이미 존재할 때 삭제 해주기.
+                    if (startMarker_flag == true)            // 출발지에 대한 Marker가 이미 존재할 때 삭제 해주기.
                         startMarker.remove();
                     startMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
                             .title("출발지\n" + searchLatLng_latitude.toString() + "\n" + searchLatLng_longitude)
@@ -70,11 +73,9 @@ public class SearchLocation {
                             .draggable(true));
                     startMarker.showInfoWindow();
                     startMarker_flag = true;
-                    UcMainActivity.start_URL_latlng = new StringBuilder(searchLatLng_longitude +","+searchLatLng_latitude); // Url 해당 위치로 갱신하기 위한 작업.
-                }
-
-                else if(option == DESTINATION) {
-                    if(destinationMarker_flag == true)
+                    UcMainActivity.start_URL_latlng = new StringBuilder(searchLatLng_longitude + "," + searchLatLng_latitude); // Url 해당 위치로 갱신하기 위한 작업.
+                } else if (option == DESTINATION) {
+                    if (destinationMarker_flag == true)
                         destinationMarker.remove();
                     destinationMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
                             .title("도착지\n" + searchLatLng_latitude.toString() + "\n" + searchLatLng_longitude)
@@ -82,7 +83,7 @@ public class SearchLocation {
                             .draggable(true));
                     destinationMarker.showInfoWindow();
                     destinationMarker_flag = true;
-                    UcMainActivity.destination_URL_latlng = new StringBuilder(searchLatLng_longitude +","+searchLatLng_latitude);
+                    UcMainActivity.destination_URL_latlng = new StringBuilder(searchLatLng_longitude + "," + searchLatLng_latitude);
                 }
                 gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLatLng, 16));
             } else {
@@ -93,8 +94,34 @@ public class SearchLocation {
             // 예외처리 Log로 찍어줌!
             Log.d(TAG, "예외 : " + ex.toString());
         }
+        gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (marker.getId().equals("m0")) {
+                    startMarker = marker;
+                    start_move_flag = true;
+                }
+                // 도착지에 대한 Marker일 경우 이 위치로 URL 변경해주기.
+                else if (marker.getId().equals("m1")) {
+                    destinationMarker = marker;
+                    destination_move_flag = true;
+                }
+                return false;
+            }
+        });
+        gMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition) {
+                if (start_move_flag == true) {
+                    startMarker.setPosition(cameraPosition.target);
+                } else if (destination_move_flag == true) {
+                    destinationMarker.setPosition(cameraPosition.target);
+                }
+            }
+        });
         gMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
+
             public void onMarkerDragStart(Marker marker) {
             }
 
@@ -110,14 +137,17 @@ public class SearchLocation {
                 // Marker Title 변경해주기.
                 marker.setTitle(end_LatLng.latitude + "\n" + end_LatLng.longitude);
                 // 해당 위치에 대한 searchLocation 실행
-                searchLocation(end_LatLng.latitude,end_LatLng.longitude,input_text);
+                searchLocation(end_LatLng.latitude, end_LatLng.longitude, input_text);
                 // 출발지에 대한 Marker일 경우 이 위치로 URL 변경해주기.
-                if( marker.getId().equals("m0")) {
-                    UcMainActivity.start_URL_latlng = new StringBuilder( end_LatLng.longitude +","+end_LatLng.latitude);
+                //
+                // 나중에 marker.getTitle().contains() 로 변경하기
+                //
+                if (marker.getId().equals("m0")) {
+                    UcMainActivity.start_URL_latlng = new StringBuilder(end_LatLng.longitude + "," + end_LatLng.latitude);
                 }
                 // 도착지에 대한 Marker일 경우 이 위치로 URL 변경해주기.
                 else if (marker.getId().equals("m1")) {
-                    UcMainActivity.destination_URL_latlng = new StringBuilder( end_LatLng.longitude +","+end_LatLng.latitude);
+                    UcMainActivity.destination_URL_latlng = new StringBuilder(end_LatLng.longitude + "," + end_LatLng.latitude);
                 }
 
             }
@@ -139,7 +169,7 @@ public class SearchLocation {
                 input_text.setText(outAddr.getAddressLine(0));
             }
 
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             Log.d(TAG, "예외 : " + ex.toString());
         }
 
