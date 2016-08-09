@@ -39,6 +39,8 @@ public class UcRunningActivity extends Activity {
     private LatLng currentLatLng;
     private Button arrive;
 
+    private double latitude;
+    private double longitude;
     private Marker new_taxi_marker;
     GPSListener gpsListener;
 
@@ -68,10 +70,13 @@ public class UcRunningActivity extends Activity {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria,true);
+
         Location myLocation = locationManager.getLastKnownLocation(provider);
 
-        double latitude = myLocation.getLatitude();
-        double longitude = myLocation.getLongitude();
+        if( myLocation != null ) {
+            latitude = myLocation.getLatitude();
+            longitude = myLocation.getLongitude();
+        }
         LatLng latLng = new LatLng(latitude,longitude);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
     }
