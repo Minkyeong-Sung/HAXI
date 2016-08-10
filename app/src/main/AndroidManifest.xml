@@ -33,7 +33,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/Theme.AppCompat">
 
         <!-- 라이브러리 사용 설정 -->
         <uses-library android:name="com.google.android.maps" />
@@ -55,8 +55,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".InternationalTaxi.InternationalTaxiActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
             android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
         <activity
             android:name=".UcMainActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -69,10 +73,11 @@
         <activity
             android:name=".UcNotifyActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
-        <activity
-            android:name=".InternationalTaxi.InternationalTaxiActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" />
-        <activity android:name=".UcNotifyActivity2"></activity>
+
+        <activity android:name=".UcNotifyActivity2">
+
+        </activity>
+
     </application>
 
 </manifest>

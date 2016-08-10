@@ -1,8 +1,8 @@
 package com.ensharp.haxi.InternationalTaxi;
 
-import android.annotation.SuppressLint;
-import android.app.Fragment;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +11,6 @@ import android.webkit.WebViewClient;
 
 import com.ensharp.haxi.R;
 
-/**
- * Created by min on 2016-07-24.
- */
-
-@SuppressLint("SetJavaScriptEnabled")
 public class InternationalTaxi_fare_fragment extends Fragment {
 
     WebView web;

@@ -1,38 +1,57 @@
 package com.ensharp.haxi.InternationalTaxi;
 
-import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-import android.widget.Button;
 
 import com.ensharp.haxi.R;
 
-public class InternationalTaxiActivity extends Activity {
-
-    Button reservation_btn;
-    Button serviceInfo_btn;
-    Button fare_btn;
-    Button reservationCheck_btn;
-
+public class InternationalTaxiActivity extends AppCompatActivity {
+    ViewPager mViewPager;
     InternationalTaxi_main_fragment main_fragment = new InternationalTaxi_main_fragment();
-    InternationalTaxi_reservation_fragment reservation_fragment = new InternationalTaxi_reservation_fragment();
-    InternationalTaxi_serviceInfo_fragment serviceInfo_fragment = new InternationalTaxi_serviceInfo_fragment();
-    InternationalTaxi_fare_fragment fare_fragment = new InternationalTaxi_fare_fragment();
-    InternationalTaxi_reservationConfirm_fragment reservationCheck_fragment = new InternationalTaxi_reservationConfirm_fragment();
-    FragmentTransaction ft;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_international_taxi);
 
         firstPage();
-        button_Init();
+        mViewPager = (ViewPager)findViewById(R.id.pager);
+        mViewPager.setAdapter(new SamplePagerAdapter(getSupportFragmentManager()));
+    }
+    /** Defining a FragmentPagerAdapter class for controlling the fragments to be shown when user swipes on the screen. */
+    public class SamplePagerAdapter extends FragmentPagerAdapter {
+
+        public SamplePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public android.support.v4.app.Fragment getItem(int position) {
+
+            if (position == 0) {
+                return main_fragment;}
+            else if(position == 1){
+                return new InternationalTaxi_reservation_fragment();}
+            else if(position == 2){
+                return new InternationalTaxi_reservationConfirm_fragment();}
+            else if(position == 3){
+                return new InternationalTaxi_serviceInfo_fragment();}
+            else {
+                return new InternationalTaxi_fare_fragment();}
+        }
+
+        @Override
+        public int getCount() {
+            // 5개의 page가 있다.
+            return 5;
+        }
     }
 
     public void firstPage()
@@ -55,55 +74,6 @@ public class InternationalTaxiActivity extends Activity {
             default:
                 main_fragment.url.append("http://www.intltaxi.co.kr/?lang=en"); break;
         }
-
-        ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.webView_fragment, main_fragment);
-        ft.commit();
-
-    }
-
-    public void button_Init() {
-        reservation_btn = (Button) findViewById(R.id.reservation_btn);
-        serviceInfo_btn = (Button) findViewById(R.id.serviceInfo_btn);
-        fare_btn = (Button) findViewById(R.id.fare_btn);
-        reservationCheck_btn = (Button) findViewById(R.id.reservationCheck_btn);
-
-        reservation_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.webView_fragment, reservation_fragment);
-                ft.commit();
-            }
-        });
-
-        serviceInfo_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.webView_fragment, serviceInfo_fragment);
-                ft.commit();
-
-            }
-        });
-
-        fare_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.webView_fragment, fare_fragment);
-                ft.commit();
-
-            }
-        });
-
-        reservationCheck_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.webView_fragment, reservationCheck_fragment);
-                ft.commit();
-            }
-        });
     }
 }
+
