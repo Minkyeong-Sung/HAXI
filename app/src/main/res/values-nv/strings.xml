@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">HAXI</string>
+    <string name="international_taxi_activity">International Taxi Activity</string>
+    <string name="reservation">Reservation</string>
+    <string name="reservationCheck">Reservation Confirm</string>
+    <string name="fare">Fare</string>
+    <string name="serviceInfo">Service Informations</string>
+    <string name="start">출발지</string>
+
+    <string name="tex">"Please attach receipts to compare the paths Photo</string>
+    <string name="texp">"Please take a picture of the receipt"</string>
+    <string name="photop">"Please add the path capture"</string>
+    <string name="camera">camera</string>
+    <string name="galley">"galley</string>
+    <string name="btn_tex">Receipt shooting</string>
+    <string name="btn_dec">Message</string>
+    <string name="btn_com">Complete</string>
+    <string name="korean1">1. Click on the receipt record button (Photo button)</string>
+    <string name="korean2">2. Click the message sent after receipt of shooting is completed</string>
+    <string name="korean3">3. Attach the path to capture and then passed to the character after the transfer is complete</string>
+</resources>
+

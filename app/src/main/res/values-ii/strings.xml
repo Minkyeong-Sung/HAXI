@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">HAXI</string>
+    <string name="international_taxi_activity">International Taxi Activity</string>
+    <string name="reservation">预订</string>
+    <string name="reservationCheck">确认预约</string>
+    <string name="fare">票价</string>
+    <string name="serviceInfo">服务信息</string>
+
+    <string name="tex">"请附上收据的路径照片对比</string>
+    <string name="texp">"请把收据的图片"</string>
+    <string name="photop">"请添加路径捕获"</string>
+    <string name="camera">相机</string>
+    <string name="galley">"画廊</string>
+    <string name="btn_tex">拍摄收据</string>
+    <string name="btn_dec">该消息</string>
+    <string name="btn_com">完成</string>
+    <string name="korean1">1. 点击据拍摄收据按钮（照片按钮）</string>
+    <string name="korean2">2. 完成后收到的拍摄后，点击发送邮</string>
+    <string name="korean3">3. 然后越过以字母路径，然后装上采集传输完毕</string>
+</resources>

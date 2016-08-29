@@ -35,6 +35,7 @@ public class UcNotifyActivity2 extends Activity {
     private AlertDialog mDialog;
     Button complete;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,10 +114,11 @@ public class UcNotifyActivity2 extends Activity {
      * MMS 발송	(APP TAB BOX)
      */
     private void sendMMS(Uri uri){
+
         if(uri==null)
         {
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "영수증 사진을 촬영해주세요", Toast.LENGTH_LONG);
+                    getString(R.string.texp), Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
@@ -124,12 +126,12 @@ public class UcNotifyActivity2 extends Activity {
             uri = Uri.parse("" + uri);
             Intent it = new Intent(Intent.ACTION_SEND);
             it.putExtra("address", "02-120");
-            it.putExtra("sms_body", "바가지요금 영수증을 비교할 경로사진을 첨부해주세요.");
+            it.putExtra("sms_body", getString(R.string.tex));
             it.putExtra(Intent.EXTRA_STREAM, uri);
             it.setType("image/*");
             startActivity(it);
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "경로 캡쳐본을 추가해주세요", Toast.LENGTH_LONG);
+                    getString(R.string.photop), Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }

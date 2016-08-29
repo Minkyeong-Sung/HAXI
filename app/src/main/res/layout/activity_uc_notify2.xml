@@ -9,6 +9,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ensharp.haxi.UcNotifyActivity2">
 
+
+    <TextView
+        android:id="@+id/korean1"
+        android:layout_width="wrap_content"
+        android:text="@string/korean1"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        />
+
+    <TextView
+        android:id="@+id/korean2"
+        android:layout_width="wrap_content"
+        android:text="@string/korean2"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/korean1"
+        android:textSize="25dp"
+        />
+
+    <TextView
+        android:id="@+id/korean3"
+        android:layout_width="wrap_content"
+        android:text="@string/korean3"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/korean2"
+        android:textSize="25dp"/>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -21,15 +47,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onButtonClick"
-            android:text="영주증 촬영"
-            android:layout_gravity="bottom" />
+            android:layout_gravity="bottom"
+            android:text="@string/btn_tex"/>
 
         <Button
             android:id="@+id/btn_mms"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
             android:onClick="onButtonClick"
-            android:text="신고 문자"
+            android:text="@string/btn_dec"
             android:layout_gravity="bottom" />
 
         <Button
@@ -37,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onButtonClick"
-            android:text="완료 초기화면"
+            android:text="@string/btn_com"
             android:layout_gravity="bottom"
             android:layout_weight="0.44" />
     </LinearLayout>
