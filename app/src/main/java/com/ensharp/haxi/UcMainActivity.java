@@ -8,10 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
-import android.location.Criteria;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -26,6 +23,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.ensharp.haxi.Map.GPSTracker;
 import com.ensharp.haxi.Map.SearchLocation;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -51,6 +49,7 @@ public class UcMainActivity extends Activity {
     private GoogleMap map;
     private SensorManager mSensorManager;
     private SearchLocation searchLocation;
+    private GPSTracker gps;
 
     private Geocoder geocoder;
     private EditText start_location_input;
@@ -62,6 +61,9 @@ public class UcMainActivity extends Activity {
     private Button destination_search_button;
     private Button CompleteBoarding;
 
+
+    private double latitude;
+    private double longitude;
     public static StringBuilder URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4&start=127.0738840,37.5514706&destination=126.9522394,37.4640070");
     public static StringBuilder start_URL_latlng;
     public static StringBuilder destination_URL_latlng;
@@ -74,9 +76,13 @@ public class UcMainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_main);
+
+        gps = new GPSTracker(UcMainActivity.this);
+
         // 속성 및 버튼, 텍스트 박스 Initialization.
         init_Property();
         init_Button_And_Textbox();
+
         // 초기 Map 화면 서울로 보이게 만듬
         LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 10));
@@ -372,18 +378,13 @@ public class UcMainActivity extends Activity {
     // 현재위치 버튼을 눌렀을 시에 대한 Method
     public void currentMyLocation(EditText input, int option) {
 
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);     // 장소를 관리하는 LocationManaget 선언
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria, true);                          // LocationManager와 Criteria를 연동. -> 현재 위치 받기 위하여
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+        // gpsTracker를 이용해 현재 위치를 받기
+        if(gps.canGetLocation()) {
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+        } else {
+            gps.showSettingsAlert();
         }
-        Location myLocation = locationManager.getLastKnownLocation(provider);                       // 현재 위치 받기.
-
-        double latitude = myLocation.getLatitude();                                                 // 위도값 받기.
-        double longitude = myLocation.getLongitude();                                               // 경도값 받기.
 
         LatLng latLng = new LatLng(latitude, longitude);
         map.animateCamera(CameraUpdateFactory.newLatLng(latLng));                                   // 해당 위경도로 카메라 이동!
@@ -401,7 +402,9 @@ public class UcMainActivity extends Activity {
             SearchLocation.startMarker.showInfoWindow();                                            // Marker 화면에 표시하기.
             SearchLocation.startMarker_flag = true;                                                 // Marker 생성했다고 표시해주기.
             this.start_URL_latlng = new StringBuilder(longitude + "," + latitude);                  // 해당 위 경도값 URL에 넣어주기위한 변수.
-        } else if (option == DESTINATION) {
+        }
+
+        else if (option == DESTINATION) {
             if (SearchLocation.startMarker_flag == true)
                 SearchLocation.destinationMarker.remove();
 
