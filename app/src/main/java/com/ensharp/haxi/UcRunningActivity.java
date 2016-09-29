@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ensharp.haxi.Map.AccureCurrentPath;
-import com.ensharp.haxi.Map.GPSTracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -32,7 +32,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class UcRunningActivity extends Activity {
 
     private AccureCurrentPath mAccurePath = new AccureCurrentPath();
-    private GPSTracker gps;
     private GoogleMap map;
 
     private RelativeLayout mainLayout;
@@ -68,12 +67,15 @@ public class UcRunningActivity extends Activity {
         }
         map.setMyLocationEnabled(true);
 
-        // gpsTracker를 이용해 현재 위치를 받기
-        if(gps.canGetLocation()) {
-            latitude = gps.getLatitude();
-            longitude = gps.getLongitude();
-        } else {
-            gps.showSettingsAlert();
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        String provider = locationManager.getBestProvider(criteria,true);
+
+        Location myLocation = locationManager.getLastKnownLocation(provider);
+
+        if( myLocation != null ) {
+            latitude = myLocation.getLatitude();
+            longitude = myLocation.getLongitude();
         }
         LatLng latLng = new LatLng(latitude,longitude);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
@@ -84,7 +86,6 @@ public class UcRunningActivity extends Activity {
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         // 지도 객체 참조
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
-        gps = new GPSTracker(UcRunningActivity.this);
     }
 
     public void init_button() {
@@ -126,12 +127,12 @@ public class UcRunningActivity extends Activity {
                     minDistance,
                     gpsListener);
 
-            // gpsTracker를 이용해 현재 위치를 받기
-            if(gps.canGetLocation()) {
-                latitude = gps.getLatitude();
-                longitude = gps.getLongitude();
-            } else {
-                gps.showSettingsAlert();
+            // 위치 확인이 안되는 경우에도 최근에 확인된 위치 정보 먼저 확인
+            Location lastLocation = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (lastLocation != null) {
+                Double latitude = lastLocation.getLatitude();
+                Double longitude = lastLocation.getLongitude();
+
                 Toast.makeText(getApplicationContext(), "Last Known Location : " + "Latitude : " + latitude + "\nLongitude:" + longitude, Toast.LENGTH_LONG).show();
             }
         } catch (SecurityException ex) {
@@ -149,13 +150,9 @@ public class UcRunningActivity extends Activity {
          * 위치 정보가 확인될 때 자동 호출되는 메소드
          */
         public void onLocationChanged(Location location) {
-            // gpsTracker를 이용해 현재 위치를 받기
-            if(gps.canGetLocation()) {
-                latitude = gps.getLatitude();
-                longitude = gps.getLongitude();
-            } else {
-                gps.showSettingsAlert();
-            }
+            Double latitude = location.getLatitude();
+            Double longitude = location.getLongitude();
+
             String msg = "Latitude : " + latitude + "\nLongitude:" + longitude;
             Log.i("GPSListener", msg);
 

@@ -18,8 +18,8 @@ public class AccureCurrentPath {
         if( Math.abs( pastPath.latitude - currentPath.latitude ) > 0.001 || Math.abs( pastPath.longitude - currentPath.longitude ) > 0.001 )
         {
             return false;
-        }/*
-        else if (Math.abs( pastPath.latitude - currentPath.latitude ) < 0.00005 || Math.abs( pastPath.longitude - currentPath.longitude ) < 0.00005)
+        }
+        /*else if (Math.abs( pastPath.latitude - currentPath.latitude ) < 0.000025 || Math.abs( pastPath.longitude - currentPath.longitude ) < 0.000025)
         {
             return false;
         }*/
