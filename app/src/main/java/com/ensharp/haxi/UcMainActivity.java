@@ -61,7 +61,6 @@ public class UcMainActivity extends Activity {
     private Button destination_search_button;
     private Button CompleteBoarding;
 
-
     private double latitude;
     private double longitude;
     public static StringBuilder URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4&start=127.0738840,37.5514706&destination=126.9522394,37.4640070");
@@ -92,8 +91,8 @@ public class UcMainActivity extends Activity {
         CompleteBoarding = (Button) findViewById(R.id.btn_CompleteBoarding);
         start_search_button = (Button) findViewById(R.id.start_btn);
         destination_search_button = (Button) findViewById(R.id.destination_btn);
-        current_button1 = (Button) findViewById(R.id.current_location_btn);
-        current_button2 = (Button) findViewById(R.id.current_location_btn2);
+//        current_button1 = (Button) findViewById(R.id.current_location_btn);
+//        current_button2 = (Button) findViewById(R.id.current_location_btn2);
 
         start_location_input = (EditText) findViewById(R.id.start_input);
         destination_location_input = (EditText) findViewById(R.id.destination_input);
@@ -124,24 +123,24 @@ public class UcMainActivity extends Activity {
             }
         });
 
-        // 현재 위치 버튼 누를 시
-        current_button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentMyLocation(start_location_input, START);
-                setInitflag();
-                hideSoftKeyboard(mainLayout);
-            }
-        });
-
-        current_button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setInitflag();
-                currentMyLocation(destination_location_input, DESTINATION);
-                hideSoftKeyboard(mainLayout);
-            }
-        });
+//        // 현재 위치 버튼 누를 시
+//        current_button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                currentMyLocation(start_location_input, START);
+//                setInitflag();
+//                hideSoftKeyboard(mainLayout);
+//            }
+//        });
+//
+//        current_button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setInitflag();
+//                currentMyLocation(destination_location_input, DESTINATION);
+//                hideSoftKeyboard(mainLayout);
+//            }
+//        });
 
         // 탑승 완료 입력 버튼 누를 시
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +162,8 @@ public class UcMainActivity extends Activity {
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         // 지도 객체 참조 및 지도 처음 위치 활성화
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
+
+
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
