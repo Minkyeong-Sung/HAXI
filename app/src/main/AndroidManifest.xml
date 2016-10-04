@@ -49,7 +49,8 @@
             android:value="@integer/google_play_services_version" />
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"
+                    android:theme="@android:style/Theme.Black.NoTitleBar"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

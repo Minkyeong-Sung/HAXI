@@ -86,26 +86,40 @@
             sl:scale_textsize="50" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            sl:srcCompat="@drawable/start"
-            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/image_start"
+            android:src="@drawable/start"
             sl:scale_left="50"
             sl:scale_top="1300"
             sl:scale_width="90"
-            sl:scale_height="90" />
+            sl:scale_height="90"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            sl:srcCompat="@drawable/destination"
-            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/image_destination"
+            android:src="@drawable/destination"
             sl:scale_left="50"
             sl:scale_top="1450"
             sl:scale_width="90"
-            sl:scale_height="90" />
+            sl:scale_height="90"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/path"
+            android:id="@+id/image_path"
+            sl:scale_left="75"
+            sl:scale_top="1400"
+            sl:scale_width="40"
+            sl:scale_height="40"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
-
 </RelativeLayout>
