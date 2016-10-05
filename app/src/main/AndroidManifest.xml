@@ -5,6 +5,8 @@
     <permission
         android:name="org.androidtown.lbs.map.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
+    <permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <!-- 메세지, 카메라 권한 설정-->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -57,7 +59,7 @@
         </activity>
         <activity
             android:name=".InternationalTaxi.InternationalTaxiActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />

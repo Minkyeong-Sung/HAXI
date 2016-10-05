@@ -31,6 +31,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -41,6 +43,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class UcMainActivity extends Activity {
@@ -76,6 +79,17 @@ public class UcMainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_main);
 
+        // 권한 추가부분 - HYEON
+        // 안드로이드 누가(7.0) 대응
+        // 현재 뭐가 먼저 실행되서(?) 앱이 종료 되는데, 이후에 바로 권한체크 확인문이 뜨긴함
+        // 재 실행 시, 권한있음 토스트문구가 뜨면서 정상작동
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .check();
+
+
         gps = new GPSTracker(UcMainActivity.this);
 
         // 속성 및 버튼, 텍스트 박스 Initialization.
@@ -85,6 +99,8 @@ public class UcMainActivity extends Activity {
         // 초기 Map 화면 서울로 보이게 만듬
         LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 10));
+
+
     }
 
     public void init_Button_And_Textbox() {
@@ -101,10 +117,13 @@ public class UcMainActivity extends Activity {
         start_search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("HYEON", "start_search_button 버튼클릭 함수에 들어왔어요");
                 // 사용자가 입력한 주소 정보 확인
                 String searchStr = start_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
+                Log.d("HYEON", "SearchLocation의 FindLocation을 실행하기 전이에요");
                 searchLocation.findLocation(searchStr, START, start_location_input);
+                Log.d("HYEON", "SearchLocation의 FindLocation을 실행하고 나왔어요");
                 setInitflag();
                 hideSoftKeyboard(mainLayout);
             }
@@ -164,7 +183,10 @@ public class UcMainActivity extends Activity {
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
 
 
-
+        // 권한체크 - HYEON
+        // 현재 7.0 누가에서 여기를 그냥 건너뛰는바람에 뒤에 Activity에서 오류가남
+        // 16.10.06 03:46
+        // 권한체크 더 알아볼 것
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -179,6 +201,8 @@ public class UcMainActivity extends Activity {
         // 지오코더 객체 생성
         geocoder = new Geocoder(this, Locale.KOREAN);
         searchLocation = new SearchLocation(map, geocoder);
+
+        Log.d("HYEON", "SearchLocation의 초기화를 마쳤습니다");
 
         checkDangerousPermissions();
     }
@@ -250,6 +274,7 @@ public class UcMainActivity extends Activity {
 
     public void setInitflag()
     {
+        Log.d("HYEON", "setInitFlag 함수에 도착했습니다");
         SearchLocation.start_move_flag = false;
         SearchLocation.destination_move_flag = false;
     }
@@ -420,5 +445,19 @@ public class UcMainActivity extends Activity {
 
         input.setText("내 현재 위치");                                                              // EditText에 표시해주기.
     }
+
+    PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+            Toast.makeText(UcMainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            Toast.makeText(UcMainActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+
+    };
 
 }

@@ -17,7 +17,9 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         sl:scale_base_width="1080"
-        sl:scale_base_height="1730" >
+        sl:scale_base_height="1730"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <fragment
             android:id="@+id/gmap"
@@ -39,18 +41,10 @@
             sl:scale_left="200"
             sl:scale_top="1300"
             sl:scale_width="600"
-            sl:scale_height="100" />
+            sl:scale_height="100"
+            sl:scale_textsize="30" />
 
-        <EditText
-            android:id="@+id/destination_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            sl:scale_left="200"
-            sl:scale_top="1450"
-            sl:scale_width="600"
-            sl:scale_height="100" />
+        //android:background="@null"
 
         <Button
             android:id="@+id/start_btn"
@@ -78,34 +72,25 @@
             android:id="@+id/btn_CompleteBoarding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/black_round_button"
             android:text="탑승 완료"
             sl:scale_left="150"
             sl:scale_top="1600"
             sl:scale_width="800"
             sl:scale_height="100"
-            sl:scale_textsize="50" />
+            sl:scale_textsize="40"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/image_start"
             android:src="@drawable/start"
-            sl:scale_left="50"
-            sl:scale_top="1300"
-            sl:scale_width="90"
-            sl:scale_height="90"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/image_destination"
-            android:src="@drawable/destination"
-            sl:scale_left="50"
-            sl:scale_top="1450"
-            sl:scale_width="90"
-            sl:scale_height="90"
+            sl:scale_left="100"
+            sl:scale_top="1325"
+            sl:scale_width="50"
+            sl:scale_height="50"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
@@ -114,12 +99,37 @@
             android:layout_height="match_parent"
             android:src="@drawable/path"
             android:id="@+id/image_path"
-            sl:scale_left="75"
-            sl:scale_top="1400"
-            sl:scale_width="40"
-            sl:scale_height="40"
+            sl:scale_left="110"
+            sl:scale_top="1410"
+            sl:scale_width="30"
+            sl:scale_height="30"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/image_destination"
+            android:src="@drawable/destination"
+            sl:scale_left="100"
+            sl:scale_top="1470"
+            sl:scale_width="50"
+            sl:scale_height="50"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:id="@+id/destination_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            sl:scale_left="200"
+            sl:scale_top="1450"
+            sl:scale_width="600"
+            sl:scale_height="100"
+            sl:scale_textsize="30" />
+
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 </RelativeLayout>

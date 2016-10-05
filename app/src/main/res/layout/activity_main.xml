@@ -9,47 +9,60 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     tools:context="com.ensharp.haxi.MainActivity"
-    android:background="@drawable/main_background_2">
+    android:background="#000000">
 
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/main_background_2"
         sl:scale_base_width="1080"
-        sl:scale_base_height="1730" >
+        sl:scale_base_height="1760" >
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/haxi_logo_white"
-            android:id="@+id/imageView"
+            android:id="@+id/image_main_haxi_logo"
             sl:scale_left="290"
             sl:scale_top="150"
             sl:scale_width="500"
             sl:scale_height="500" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/main_introduce"
+            android:id="@+id/image_main_introduce"
+            sl:scale_left="330"
+            sl:scale_top="500"
+            sl:scale_width="450"
+            sl:scale_height="200" />
+
         <Button
             android:text="시작하기"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_haxi"
+            android:id="@+id/btn_openUcActivity"
             android:background="@drawable/roundedbutton"
             sl:scale_left="200"
             sl:scale_top="1400"
             sl:scale_width="700"
             sl:scale_height="120"
-            sl:scale_textsize="50" />
+            sl:scale_textsize="50"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
 
         <Button
             android:text="International Taxi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_internationalTaxi"
+            android:id="@+id/btn_openInternationalTaxiActivity"
             android:background="@drawable/roundedbutton"
             sl:scale_left="200"
             sl:scale_top="1550"
             sl:scale_width="700"
             sl:scale_height="120"
-            sl:scale_textsize="50" />
+            sl:scale_textsize="50"
+            android:textColor="@android:color/black" />
     </com.ssomai.android.scalablelayout.ScalableLayout>
 </RelativeLayout>

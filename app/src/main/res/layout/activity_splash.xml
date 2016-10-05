@@ -17,15 +17,6 @@
         android:background="#f5b019"
         sl:scale_base_width="1080"
         sl:scale_base_height="1730">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/image_taxi"
-            android:src="@drawable/image_taxi"
-            sl:scale_left="270"
-            sl:scale_top="230"
-            sl:scale_width="550"
-            sl:scale_height="500" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -36,6 +27,16 @@
             sl:scale_top="1620"
             sl:scale_width="300"
             sl:scale_height="90" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/image_splash_taxi"
+            android:src="@drawable/image_taxi"
+            sl:scale_left="270"
+            sl:scale_top="230"
+            sl:scale_width="550"
+            sl:scale_height="500" />
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 </RelativeLayout>
