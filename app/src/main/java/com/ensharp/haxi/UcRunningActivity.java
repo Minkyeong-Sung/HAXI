@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensharp.haxi.Map.AccureCurrentPath;
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import static com.ensharp.haxi.UcMainActivity.split_stringBuilder;
 
 public class UcRunningActivity extends Activity {
 
@@ -47,6 +50,8 @@ public class UcRunningActivity extends Activity {
     private boolean first_Taximakrer_show = false;
     private boolean first_path = false;
 
+    private TextView taxi_fare;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +61,10 @@ public class UcRunningActivity extends Activity {
         init_map();
         init_button();
         startLocationService();
+
+        taxi_fare = (TextView)findViewById(R.id.text_taxifare);
+
+        taxi_fare.setText(split_stringBuilder[9]);
     }
 
     public void init_map()

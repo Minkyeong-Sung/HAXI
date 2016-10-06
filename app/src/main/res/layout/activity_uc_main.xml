@@ -130,6 +130,19 @@
             sl:scale_height="100"
             sl:scale_textsize="30" />
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gps_current_location"
+            android:id="@+id/iBtn_currentLocation"
+            android:background="#00000000"
+            android:padding="0sp"
+            android:scaleType="centerCrop"
+            sl:scale_left="970"
+            sl:scale_top="1100"
+            sl:scale_width="100"
+            sl:scale_height="100" />
+
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 </RelativeLayout>

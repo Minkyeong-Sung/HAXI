@@ -2,7 +2,6 @@ package com.ensharp.haxi;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +19,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -58,6 +58,7 @@ public class UcMainActivity extends Activity {
     private EditText start_location_input;
     private EditText destination_location_input;
 
+    private ImageButton current_button;
     private Button current_button1;
     private Button current_button2;
     private Button start_search_button;
@@ -107,8 +108,11 @@ public class UcMainActivity extends Activity {
         CompleteBoarding = (Button) findViewById(R.id.btn_CompleteBoarding);
         start_search_button = (Button) findViewById(R.id.start_btn);
         destination_search_button = (Button) findViewById(R.id.destination_btn);
+        current_button = (ImageButton)findViewById(R.id.iBtn_currentLocation);
 //        current_button1 = (Button) findViewById(R.id.current_location_btn);
 //        current_button2 = (Button) findViewById(R.id.current_location_btn2);
+
+
 
         start_location_input = (EditText) findViewById(R.id.start_input);
         destination_location_input = (EditText) findViewById(R.id.destination_input);
@@ -117,13 +121,10 @@ public class UcMainActivity extends Activity {
         start_search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("HYEON", "start_search_button 버튼클릭 함수에 들어왔어요");
                 // 사용자가 입력한 주소 정보 확인
                 String searchStr = start_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                Log.d("HYEON", "SearchLocation의 FindLocation을 실행하기 전이에요");
                 searchLocation.findLocation(searchStr, START, start_location_input);
-                Log.d("HYEON", "SearchLocation의 FindLocation을 실행하고 나왔어요");
                 setInitflag();
                 hideSoftKeyboard(mainLayout);
             }
@@ -137,6 +138,15 @@ public class UcMainActivity extends Activity {
                 String searchStr = destination_location_input.getText().toString();
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
                 searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
+                setInitflag();
+                hideSoftKeyboard(mainLayout);
+            }
+        });
+
+        current_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMyLocation(start_location_input, START);
                 setInitflag();
                 hideSoftKeyboard(mainLayout);
             }
@@ -160,6 +170,8 @@ public class UcMainActivity extends Activity {
 //                hideSoftKeyboard(mainLayout);
 //            }
 //        });
+
+
 
         // 탑승 완료 입력 버튼 누를 시
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
@@ -201,8 +213,6 @@ public class UcMainActivity extends Activity {
         // 지오코더 객체 생성
         geocoder = new Geocoder(this, Locale.KOREAN);
         searchLocation = new SearchLocation(map, geocoder);
-
-        Log.d("HYEON", "SearchLocation의 초기화를 마쳤습니다");
 
         checkDangerousPermissions();
     }
@@ -274,7 +284,6 @@ public class UcMainActivity extends Activity {
 
     public void setInitflag()
     {
-        Log.d("HYEON", "setInitFlag 함수에 도착했습니다");
         SearchLocation.start_move_flag = false;
         SearchLocation.destination_move_flag = false;
     }
@@ -382,22 +391,25 @@ public class UcMainActivity extends Activity {
             String a = stringBuilder.toString();                                                   // 총 거리, 소요 시간, 택시비 정보를
             split_stringBuilder = a.split("[:,]");                                                 // 배열부분에 담는다
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(UcMainActivity.this);            // Alert창 띄우기
-            builder.setTitle("택시비 정보 입니다.")
-                    .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리: " + split_stringBuilder[1] + "\n소요 시간: " + split_stringBuilder[3])
-                    .setPositiveButton("누적거리 시작", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent runningIntent = new Intent(((Dialog) dialog).getContext(), UcRunningActivity.class);
-                            startActivity(runningIntent);                                          // OK 버튼 누를시 누적거리 Activity 띄우기
-                        }
-                    })
-                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {                                   // No 버튼 누를시 Alert창 닫기.
-                            dialog.cancel();
-                        }
-                    }).show();
+            Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
+            startActivity(runningIntent);
+
+//            AlertDialog.Builder builder = new AlertDialog.Builder(UcMainActivity.this);            // Alert창 띄우기
+//            builder.setTitle("택시비 정보 입니다.")
+//                    .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리: " + split_stringBuilder[1] + "\n소요 시간: " + split_stringBuilder[3])
+//                    .setPositiveButton("누적거리 시작", new DialogInterface.OnClickListener(){
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            Intent runningIntent = new Intent(((Dialog) dialog).getContext(), UcRunningActivity.class);
+//                            startActivity(runningIntent);                                          // OK 버튼 누를시 누적거리 Activity 띄우기
+//                        }
+//                    })
+//                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int id) {                                   // No 버튼 누를시 Alert창 닫기.
+//                            dialog.cancel();
+//                        }
+//                    }).show();
         }
     }
 
