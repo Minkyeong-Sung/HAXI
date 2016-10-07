@@ -303,6 +303,7 @@ public class UcRunningActivity extends Activity {
         stopwatch_handler.removeCallbacks(updateTimer);
     }
 
+    /* 뒤로가기 버튼 눌렀을 시*/
     @Override
     public void onBackPressed() {
         backPressCloseHandler.onBackPressed();
