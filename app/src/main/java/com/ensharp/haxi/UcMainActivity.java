@@ -72,6 +72,7 @@ public class UcMainActivity extends Activity {
     private static final int START = 1;
     private static final int DESTINATION = 2;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

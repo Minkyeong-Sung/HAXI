@@ -12,11 +12,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensharp.haxi.Map.AccureCurrentPath;
@@ -47,6 +50,18 @@ public class UcRunningActivity extends Activity {
     private boolean first_Taximakrer_show = false;
     private boolean first_path = false;
 
+    /* stopwatch에 관한 변수들 */
+    private TextView stopwatch_view;
+    private long starttime = 0L;
+    private long timeInMilliseconds = 0L;
+    private long timeSwapBuff = 0L;
+    private long updatedtime = 0L;
+    private int t = 1;
+    private int secs = 0;
+    private int mins = 0;
+    private int milliseconds = 0;
+    Handler stopwatch_handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +71,10 @@ public class UcRunningActivity extends Activity {
         init_map();
         init_button();
         startLocationService();
+
+        /* stopWatch 시작 */
+        starttime = SystemClock.uptimeMillis();
+        stopwatch_handler.postDelayed(updateTimer, 0);            // 녹음 시작시 stopWatch 시작
     }
 
     public void init_map()
@@ -86,6 +105,8 @@ public class UcRunningActivity extends Activity {
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         // 지도 객체 참조
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
+        stopwatch_view = (TextView)findViewById(R.id.stopwatch);
+
     }
 
     public void init_button() {
@@ -93,6 +114,7 @@ public class UcRunningActivity extends Activity {
         arrive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                initStopWatch();
                 Intent resultIntent = new Intent(UcRunningActivity.this, UcResultActivity.class);
                 startActivity(resultIntent);
             }
@@ -246,15 +268,36 @@ public class UcRunningActivity extends Activity {
     {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         manager.removeUpdates(gpsListener);
     }
+
+
+    /* stopWatch 시작 */
+    public Runnable updateTimer = new Runnable() {
+
+        public void run() {
+
+            timeInMilliseconds = SystemClock.uptimeMillis() - starttime;
+            updatedtime = timeSwapBuff + timeInMilliseconds;
+            secs = (int) (updatedtime / 1000);
+            mins = secs / 60;
+            secs = secs % 60;
+            milliseconds = (int) (updatedtime % 1000);     // -> 밀리세컨즈는 빼도 될듯
+            stopwatch_view.setText("" + mins + ":" + String.format("%02d", secs) + ":"
+                    + String.format("%03d", milliseconds));
+            stopwatch_view.setTextColor(Color.RED);
+            stopwatch_handler.postDelayed(this, 0);
+        }
+
+    };
+
+    /* 스탑워치 reset */
+    private void initStopWatch()
+    {
+        timeSwapBuff += timeInMilliseconds;
+        stopwatch_handler.removeCallbacks(updateTimer);
+    }
+
 }
