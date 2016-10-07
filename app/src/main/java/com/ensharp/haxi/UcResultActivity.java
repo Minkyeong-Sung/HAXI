@@ -9,6 +9,7 @@ import android.widget.Button;
 public class UcResultActivity extends Activity {
 
     Button notify;
+    Button success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,11 +17,24 @@ public class UcResultActivity extends Activity {
         setContentView(R.layout.activity_uc_result);
 
         notify = (Button)findViewById(R.id.btn_notify);
+        success = (Button)findViewById(R.id.btn_success);
+
+        // 이상해요 버튼
         notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent notifyIntent = new Intent(UcResultActivity.this, UcNotifyActivity.class);
                 startActivity(notifyIntent);
+            }
+        });
+
+        // 비슷해요 버튼
+        success.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent endIntent = new Intent(UcResultActivity.this, EndActivity.class);
+                startActivity(endIntent);
+
             }
         });
     }

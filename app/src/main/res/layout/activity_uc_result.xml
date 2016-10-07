@@ -15,7 +15,8 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         sl:scale_base_width="1080"
-        sl:scale_base_height="1730">
+        sl:scale_base_height="1730"
+        android:id="@+id/scalableLayout">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -65,8 +66,66 @@
             sl:scale_textsize="40"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
-
         //android:textColor="#F44336"
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="0"
+            android:id="@+id/running_hour"
+            sl:scale_left="360"
+            sl:scale_top="960"
+            sl:scale_width="100"
+            sl:scale_height="100"
+            sl:scale_textsize="50"
+            android:textStyle="bold"
+            android:textColor="#FF9800"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="00"
+            android:id="@+id/running_minute"
+            sl:scale_left="520"
+            sl:scale_top="960"
+            sl:scale_width="115"
+            sl:scale_height="100"
+            sl:scale_textsize="50"
+            android:textStyle="bold"
+            android:textColor="#FF9800"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="00"
+            android:id="@+id/running_second"
+            sl:scale_left="655"
+            sl:scale_top="960"
+            sl:scale_width="115"
+            sl:scale_height="100"
+            sl:scale_textsize="50"
+            android:textStyle="bold"
+            android:textColor="#FF9800"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/running_taxi_fare"
+            android:text="10000"
+            sl:scale_left="475"
+            sl:scale_top="1050"
+            sl:scale_width="250"
+            sl:scale_height="80"
+            sl:scale_textsize="50"
+            android:textStyle="bold"
+            android:textColor="#FF9800"
+            android:gravity="center" />
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 </RelativeLayout>
