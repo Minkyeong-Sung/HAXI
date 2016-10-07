@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class UcRunningActivity extends Activity {
 
     private AccureCurrentPath mAccurePath = new AccureCurrentPath();
+    private BackPressCloseHandler backPressCloseHandler;
     private GoogleMap map;
 
     private RelativeLayout mainLayout;
@@ -75,6 +76,8 @@ public class UcRunningActivity extends Activity {
         /* stopWatch 시작 */
         starttime = SystemClock.uptimeMillis();
         stopwatch_handler.postDelayed(updateTimer, 0);            // 녹음 시작시 stopWatch 시작
+
+        backPressCloseHandler = new BackPressCloseHandler(this);
     }
 
     public void init_map()
@@ -298,6 +301,11 @@ public class UcRunningActivity extends Activity {
     {
         timeSwapBuff += timeInMilliseconds;
         stopwatch_handler.removeCallbacks(updateTimer);
+    }
+
+    @Override
+    public void onBackPressed() {
+        backPressCloseHandler.onBackPressed();
     }
 
 }

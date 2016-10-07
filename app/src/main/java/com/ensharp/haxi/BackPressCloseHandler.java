@@ -16,19 +16,13 @@ public class BackPressCloseHandler {
     }
 
     public void onBackPressed() {
-        // 한번 눌렸을 경우
+        // 뒤로가기 버튼 눌렀을 시 뒤로가기가 안먹힘
+        // 누른 시간 2초 이하, 2초 이상 모두 return함으로써 어떤 경우에도 뒤로가기가 안 먹히게 만듬.
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
-            // 해당 시간을 저장시켜놓는다
-            backKeyPressedTime = System.currentTimeMillis();
-            showGuide();
             return;
         }
-        // 만약 2초 내에 눌렸다면
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            // 해당 activity 종료
-            activity.finish();
-            // 알림문구도 종료
-            toast.cancel();
+            return;
         }
     }
 
