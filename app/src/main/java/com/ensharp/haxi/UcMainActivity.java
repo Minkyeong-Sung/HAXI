@@ -97,6 +97,7 @@ public class UcMainActivity extends Activity {
         // 속성 및 버튼, 텍스트 박스 Initialization.
         init_Property();
         init_Button_And_Textbox();
+        currentMyLocation(start_location_input, START);
 
         // 초기 Map 화면 서울로 보이게 만듬
         LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
@@ -127,7 +128,6 @@ public class UcMainActivity extends Activity {
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
                 searchLocation.findLocation(searchStr, START, start_location_input);
                 setInitflag();
-                hideSoftKeyboard(mainLayout);
             }
         });
 
@@ -140,7 +140,6 @@ public class UcMainActivity extends Activity {
                 // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
                 searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
                 setInitflag();
-                hideSoftKeyboard(mainLayout);
             }
         });
 
@@ -149,7 +148,6 @@ public class UcMainActivity extends Activity {
             public void onClick(View v) {
                 currentMyLocation(start_location_input, START);
                 setInitflag();
-                hideSoftKeyboard(mainLayout);
             }
         });
 
@@ -287,6 +285,7 @@ public class UcMainActivity extends Activity {
     {
         SearchLocation.start_move_flag = false;
         SearchLocation.destination_move_flag = false;
+        hideSoftKeyboard(mainLayout);
     }
 
 
