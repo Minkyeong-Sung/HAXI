@@ -13,7 +13,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
@@ -164,7 +163,7 @@ public class UcRunningActivity extends Activity {
                 Double latitude = lastLocation.getLatitude();
                 Double longitude = lastLocation.getLongitude();
 
-                Toast.makeText(getApplicationContext(), "Last Known Location : " + "Latitude : " + latitude + "\nLongitude:" + longitude, Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), "Last Known Location : " + "Latitude : " + latitude + "\nLongitude:" + longitude, Toast.LENGTH_LONG).show();
             }
         } catch (SecurityException ex) {
             ex.printStackTrace();
@@ -213,7 +212,7 @@ public class UcRunningActivity extends Activity {
                 first_path = true;
                 return;
             }
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
         }
 
         public void onProviderDisabled(String provider) {
