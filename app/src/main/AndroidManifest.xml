@@ -5,11 +5,12 @@
     <permission
         android:name="org.androidtown.lbs.map.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
+    <permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!-- 메세지, 카메라 권한 설정-->
+    <!-- 메세지, 카메라 권한 설정 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -47,20 +48,22 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:theme="@android:style/Theme.Black.NoTitleBar" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".InternationalTaxi.InternationalTaxiActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
         <activity
             android:name=".UcMainActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
@@ -72,12 +75,12 @@
             android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
             android:name=".UcNotifyActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar" />
-
-        <activity android:name=".UcNotifyActivity2">
-
-        </activity>
-
+            android:theme="@style/MyMaterialTheme" />
+        <activity android:name=".UcNotifyActivity2"></activity>
+        <activity
+            android:name=".EndActivity"
+            android:label="@string/title_activity_end"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
     </application>
 
 </manifest>

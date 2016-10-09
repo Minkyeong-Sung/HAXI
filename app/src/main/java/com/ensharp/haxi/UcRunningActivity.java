@@ -32,6 +32,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import static com.ensharp.haxi.UcMainActivity.split_stringBuilder;
+
 public class UcRunningActivity extends Activity {
 
     private AccureCurrentPath mAccurePath = new AccureCurrentPath();
@@ -62,6 +64,7 @@ public class UcRunningActivity extends Activity {
     private int mins = 0;
     private int milliseconds = 0;
     Handler stopwatch_handler = new Handler();
+    private TextView taxi_fare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +76,14 @@ public class UcRunningActivity extends Activity {
         init_button();
         startLocationService();
 
-        /* stopWatch 시작 */
-        starttime = SystemClock.uptimeMillis();
-        stopwatch_handler.postDelayed(updateTimer, 0);            // 녹음 시작시 stopWatch 시작
+//        /* stopWatch 시작 */
+//        starttime = SystemClock.uptimeMillis();
+//        stopwatch_handler.postDelayed(updateTimer, 0);            // 녹음 시작시 stopWatch 시작
 
         backPressCloseHandler = new BackPressCloseHandler(this);
+        taxi_fare = (TextView)findViewById(R.id.text_taxifare);
+
+        taxi_fare.setText(split_stringBuilder[9]);
     }
 
     public void init_map()
@@ -108,7 +114,7 @@ public class UcRunningActivity extends Activity {
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         // 지도 객체 참조
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
-        stopwatch_view = (TextView)findViewById(R.id.stopwatch);
+        //stopwatch_view = (TextView)findViewById(R.id.stopwatch);
 
     }
 
@@ -117,7 +123,7 @@ public class UcRunningActivity extends Activity {
         arrive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initStopWatch();
+                //initStopWatch();
                 Intent resultIntent = new Intent(UcRunningActivity.this, UcResultActivity.class);
                 startActivity(resultIntent);
             }
@@ -277,31 +283,31 @@ public class UcRunningActivity extends Activity {
     }
 
 
-    /* stopWatch 시작 */
-    public Runnable updateTimer = new Runnable() {
-
-        public void run() {
-
-            timeInMilliseconds = SystemClock.uptimeMillis() - starttime;
-            updatedtime = timeSwapBuff + timeInMilliseconds;
-            secs = (int) (updatedtime / 1000);
-            mins = secs / 60;
-            secs = secs % 60;
-            milliseconds = (int) (updatedtime % 1000);     // -> 밀리세컨즈는 빼도 될듯
-            stopwatch_view.setText("" + mins + ":" + String.format("%02d", secs) + ":"
-                    + String.format("%03d", milliseconds));
-            stopwatch_view.setTextColor(Color.RED);
-            stopwatch_handler.postDelayed(this, 0);
-        }
-
-    };
-
-    /* 스탑워치 reset */
-    private void initStopWatch()
-    {
-        timeSwapBuff += timeInMilliseconds;
-        stopwatch_handler.removeCallbacks(updateTimer);
-    }
+//    /* stopWatch 시작 */
+//    public Runnable updateTimer = new Runnable() {
+//
+//        public void run() {
+//
+//            timeInMilliseconds = SystemClock.uptimeMillis() - starttime;
+//            updatedtime = timeSwapBuff + timeInMilliseconds;
+//            secs = (int) (updatedtime / 1000);
+//            mins = secs / 60;
+//            secs = secs % 60;
+//            milliseconds = (int) (updatedtime % 1000);     // -> 밀리세컨즈는 빼도 될듯
+//            stopwatch_view.setText("" + mins + ":" + String.format("%02d", secs) + ":"
+//                    + String.format("%03d", milliseconds));
+//            stopwatch_view.setTextColor(Color.RED);
+//            stopwatch_handler.postDelayed(this, 0);
+//        }
+//
+//    };
+//
+//    /* 스탑워치 reset */
+//    private void initStopWatch()
+//    {
+//        timeSwapBuff += timeInMilliseconds;
+//        stopwatch_handler.removeCallbacks(updateTimer);
+//    }
 
     /* 뒤로가기 버튼 눌렀을 시*/
     @Override

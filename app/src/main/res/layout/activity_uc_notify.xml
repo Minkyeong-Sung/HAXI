@@ -1,71 +1,97 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".UcNotifyActivity"
-    android:orientation="vertical"
-    android:weightSum="1">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="받는사람 02-120" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="형식에 맞게 입력하세요" />
-
-    <EditText
-        android:id="@+id/smsText"
-        android:layout_width="352dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:gravity="top"
-        android:hint="You're name"
-        android:scrollbars="vertical" />
-
-    <EditText
-        android:id="@+id/smsText2"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:gravity="top"
-        android:hint="연락처"
-        android:scrollbars="vertical"
-        android:layout_gravity="center_horizontal" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <EditText
-        android:id="@+id/smsText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="top"
-        android:hint="주소(상세히) ex) 서울 중구 태평로"
-        android:scrollbars="vertical" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </android.support.design.widget.AppBarLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:onClick="sendSMS"
-        android:text="Send" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="60dp"
+        android:weightSum="1">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="다음"
-        android:id="@+id/btn_next"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/notify_guide_text"
+            android:id="@+id/imageView2"
+            android:layout_weight="1.2" />
 
-</LinearLayout>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="@string/hint_name" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/input_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="@string/hint_contact" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/input_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/hint_address" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button android:id="@+id/btn_signup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_send"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="40dp"
+            android:textColor="@android:color/white"/>
+
+        <Button android:id="@+id/btn_next"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_next"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/white"/>
+
+
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

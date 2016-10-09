@@ -2,7 +2,6 @@ package com.ensharp.haxi;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +19,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -31,6 +31,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -41,6 +43,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class UcMainActivity extends Activity {
@@ -55,12 +58,12 @@ public class UcMainActivity extends Activity {
     private EditText start_location_input;
     private EditText destination_location_input;
 
+    private ImageButton current_button;
     private Button current_button1;
     private Button current_button2;
     private Button start_search_button;
     private Button destination_search_button;
     private Button CompleteBoarding;
-
 
     private double latitude;
     private double longitude;
@@ -78,6 +81,17 @@ public class UcMainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_main);
 
+        // 권한 추가부분 - HYEON
+        // 안드로이드 누가(7.0) 대응
+        // 현재 뭐가 먼저 실행되서(?) 앱이 종료 되는데, 이후에 바로 권한체크 확인문이 뜨긴함
+        // 재 실행 시, 권한있음 토스트문구가 뜨면서 정상작동
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .check();
+
+
         gps = new GPSTracker(UcMainActivity.this);
 
         // 속성 및 버튼, 텍스트 박스 Initialization.
@@ -87,14 +101,19 @@ public class UcMainActivity extends Activity {
         // 초기 Map 화면 서울로 보이게 만듬
         LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 10));
+
+
     }
 
     public void init_Button_And_Textbox() {
         CompleteBoarding = (Button) findViewById(R.id.btn_CompleteBoarding);
         start_search_button = (Button) findViewById(R.id.start_btn);
         destination_search_button = (Button) findViewById(R.id.destination_btn);
-        current_button1 = (Button) findViewById(R.id.current_location_btn);
-        current_button2 = (Button) findViewById(R.id.current_location_btn2);
+        current_button = (ImageButton)findViewById(R.id.iBtn_currentLocation);
+//        current_button1 = (Button) findViewById(R.id.current_location_btn);
+//        current_button2 = (Button) findViewById(R.id.current_location_btn2);
+
+
 
         start_location_input = (EditText) findViewById(R.id.start_input);
         destination_location_input = (EditText) findViewById(R.id.destination_input);
@@ -125,8 +144,7 @@ public class UcMainActivity extends Activity {
             }
         });
 
-        // 현재 위치 버튼 누를 시
-        current_button1.setOnClickListener(new View.OnClickListener() {
+        current_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentMyLocation(start_location_input, START);
@@ -135,14 +153,26 @@ public class UcMainActivity extends Activity {
             }
         });
 
-        current_button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setInitflag();
-                currentMyLocation(destination_location_input, DESTINATION);
-                hideSoftKeyboard(mainLayout);
-            }
-        });
+//        // 현재 위치 버튼 누를 시
+//        current_button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                currentMyLocation(start_location_input, START);
+//                setInitflag();
+//                hideSoftKeyboard(mainLayout);
+//            }
+//        });
+//
+//        current_button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                setInitflag();
+//                currentMyLocation(destination_location_input, DESTINATION);
+//                hideSoftKeyboard(mainLayout);
+//            }
+//        });
+
+
 
         // 탑승 완료 입력 버튼 누를 시
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
@@ -165,6 +195,11 @@ public class UcMainActivity extends Activity {
         // 지도 객체 참조 및 지도 처음 위치 활성화
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
 
+
+        // 권한체크 - HYEON
+        // 현재 7.0 누가에서 여기를 그냥 건너뛰는바람에 뒤에 Activity에서 오류가남
+        // 16.10.06 03:46
+        // 권한체크 더 알아볼 것
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -357,22 +392,25 @@ public class UcMainActivity extends Activity {
             String a = stringBuilder.toString();                                                   // 총 거리, 소요 시간, 택시비 정보를
             split_stringBuilder = a.split("[:,]");                                                 // 배열부분에 담는다
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(UcMainActivity.this);            // Alert창 띄우기
-            builder.setTitle("택시비 정보 입니다.")
-                    .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리: " + split_stringBuilder[1] + "\n소요 시간: " + split_stringBuilder[3])
-                    .setPositiveButton("누적거리 시작", new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            Intent runningIntent = new Intent(((Dialog) dialog).getContext(), UcRunningActivity.class);
-                            startActivity(runningIntent);                                          // OK 버튼 누를시 누적거리 Activity 띄우기
-                        }
-                    })
-                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {                                   // No 버튼 누를시 Alert창 닫기.
-                            dialog.cancel();
-                        }
-                    }).show();
+            Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
+            startActivity(runningIntent);
+
+//            AlertDialog.Builder builder = new AlertDialog.Builder(UcMainActivity.this);            // Alert창 띄우기
+//            builder.setTitle("택시비 정보 입니다.")
+//                    .setMessage("택시비: " + split_stringBuilder[9] + "\n총 거리: " + split_stringBuilder[1] + "\n소요 시간: " + split_stringBuilder[3])
+//                    .setPositiveButton("누적거리 시작", new DialogInterface.OnClickListener(){
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            Intent runningIntent = new Intent(((Dialog) dialog).getContext(), UcRunningActivity.class);
+//                            startActivity(runningIntent);                                          // OK 버튼 누를시 누적거리 Activity 띄우기
+//                        }
+//                    })
+//                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int id) {                                   // No 버튼 누를시 Alert창 닫기.
+//                            dialog.cancel();
+//                        }
+//                    }).show();
         }
     }
 
@@ -420,5 +458,19 @@ public class UcMainActivity extends Activity {
 
         input.setText("내 현재 위치");                                                              // EditText에 표시해주기.
     }
+
+    PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+            Toast.makeText(UcMainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            Toast.makeText(UcMainActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+
+    };
 
 }
