@@ -1,15 +1,14 @@
 package com.ensharp.haxi.InternationalTaxi;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.inputmethod.InputMethodManager;
-import android.view.inputmethod.InputMethodSubtype;
 
 import com.ensharp.haxi.R;
+
+import java.util.Locale;
 
 public class InternationalTaxiActivity extends AppCompatActivity {
     ViewPager mViewPager;
@@ -56,20 +55,17 @@ public class InternationalTaxiActivity extends AppCompatActivity {
 
     public void firstPage()
     {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        InputMethodSubtype ims = imm.getCurrentInputMethodSubtype();
-        String locale = ims.getLocale();
+        Locale locale = getResources().getConfiguration().locale;
+        String language =  locale.getLanguage();
 
         main_fragment.url.delete(0,main_fragment.url.length());
         // ja_JP
-        switch (locale) {
-            case "ko_KR":
+        switch (language) {
+            case "kr":
                 main_fragment.url.append("http://www.intltaxi.co.kr/?lang=ko"); break;
-            case "ja_JP":
+            case "ja":
                 main_fragment.url.append("http://www.intltaxi.co.kr/?lang=jp"); break;
-            case "zh_TW":
-            case "zh_HK":
-            case "zh_CN":
+            case "zh":
                 main_fragment.url.append("http://www.intltaxi.co.kr/?lang=cn"); break;
             default:
                 main_fragment.url.append("http://www.intltaxi.co.kr/?lang=en"); break;
