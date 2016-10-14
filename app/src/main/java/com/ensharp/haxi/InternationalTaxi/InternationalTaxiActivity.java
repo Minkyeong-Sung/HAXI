@@ -59,9 +59,9 @@ public class InternationalTaxiActivity extends AppCompatActivity {
         String language =  locale.getLanguage();
 
         main_fragment.url.delete(0,main_fragment.url.length());
-        // ja_JP
+
         switch (language) {
-            case "kr":
+            case "ko":
                 main_fragment.url.append("http://www.intltaxi.co.kr/?lang=ko"); break;
             case "ja":
                 main_fragment.url.append("http://www.intltaxi.co.kr/?lang=jp"); break;
