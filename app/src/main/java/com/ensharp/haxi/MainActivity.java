@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.ensharp.haxi.InternationalTaxi.InternationalTaxiActivity;
-
 
 public class MainActivity extends Activity {
 
@@ -30,13 +28,13 @@ public class MainActivity extends Activity {
             }
         });
 
-        openIT_activity = (Button)findViewById(R.id.btn_openInternationalTaxiActivity);
-        openIT_activity.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent internationalIntent = new Intent(MainActivity.this, InternationalTaxiActivity.class);
-                startActivity(internationalIntent);
-            }
-        });
+//        openIT_activity = (Button)findViewById(R.id.btn_openInternationalTaxiActivity);
+//        openIT_activity.setOnClickListener(new View.OnClickListener(){
+//            public void onClick(View v){
+//                Intent internationalIntent = new Intent(MainActivity.this, InternationalTaxiActivity.class);
+//                startActivity(internationalIntent);
+//            }
+//        });
     };
 }
 

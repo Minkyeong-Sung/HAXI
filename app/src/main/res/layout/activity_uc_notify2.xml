@@ -1,53 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:sl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.ensharp.haxi.UcNotifyActivity2">
+    tools:context="com.ensharp.haxi.UcNotifyActivity2"
+    android:background="@drawable/request_receipt">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:weightSum="1">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frameLayout_notify"></FrameLayout>
 
+    <com.ssomai.android.scalablelayout.ScalableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        sl:scale_base_width="1080"
+        sl:scale_base_height="100"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="49dp">
 
         <Button
             android:id="@+id/btn_image_crop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onButtonClick"
-            android:text="영주증 촬영"
-            android:layout_gravity="bottom" />
-
-        <Button
-            android:id="@+id/btn_mms"
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:onClick="onButtonClick"
-            android:text="신고 문자"
-            android:layout_gravity="bottom" />
-
-        <Button
-            android:id="@+id/btn_complete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onButtonClick"
-            android:text="완료 초기화면"
+            android:text="영수증 촬영"
+            android:background="@drawable/roundedbutton"
             android:layout_gravity="bottom"
-            android:layout_weight="0.44" />
-    </LinearLayout>
+            sl:scale_left="90"
+            sl:scale_top="0"
+            sl:scale_width="900"
+            sl:scale_height="100"
+            sl:scale_textsize="30"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+    </com.ssomai.android.scalablelayout.ScalableLayout>
 
 
-    <ImageView
-        android:id="@+id/img_bitmap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        />
+    <!--<LinearLayout-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:weightSum="1">-->
 
+
+    <!--<Button-->
+    <!--android:id="@+id/btn_image_crop"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:onClick="onButtonClick"-->
+    <!--android:text="영주증 촬영"-->
+    <!--android:layout_gravity="bottom" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/btn_mms"-->
+    <!--android:layout_width="100dip"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:onClick="onButtonClick"-->
+    <!--android:text="신고 문자"-->
+    <!--android:layout_gravity="bottom" />-->
+
+    <!--<Button-->
+    <!--android:id="@+id/btn_complete"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:onClick="onButtonClick"-->
+    <!--android:text="완료 초기화면"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:layout_weight="0.44" />-->
+    <!--</LinearLayout>-->
+
+
+    <!--<ImageView-->
+    <!--android:id="@+id/img_bitmap"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--/>-->
 </RelativeLayout>

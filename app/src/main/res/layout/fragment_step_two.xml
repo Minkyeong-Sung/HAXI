@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sl="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.ssomai.android.scalablelayout.ScalableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        sl:scale_base_width="1080"
+        sl:scale_base_height="1720"
+        android:background="#ffffff">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@color/colorPrimaryDark"
+            android:id="@+id/imageView3"
+            sl:scale_left="0"
+            sl:scale_top="0"
+            sl:scale_width="1080"
+            sl:scale_height="1225" />
+    </com.ssomai.android.scalablelayout.ScalableLayout>
+
+</LinearLayout>

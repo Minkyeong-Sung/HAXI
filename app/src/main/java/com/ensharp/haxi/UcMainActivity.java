@@ -14,6 +14,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,15 +23,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensharp.haxi.Map.GPSTracker;
 import com.ensharp.haxi.Map.SearchLocation;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
@@ -46,7 +54,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class UcMainActivity extends Activity {
+public class UcMainActivity extends Activity implements PlaceSelectionListener {
 
     private RelativeLayout mainLayout;
     private GoogleMap map;
@@ -75,6 +83,14 @@ public class UcMainActivity extends Activity {
     private static final int START = 1;
     private static final int DESTINATION = 2;
 
+    private static final String LOG_TAG = "PlaceSelectionListener";
+    private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
+            new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
+    private TextView locationTextView;
+    private TextView attributionsTextView;
+
+    private String str_destination;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,55 +117,84 @@ public class UcMainActivity extends Activity {
 
         // 초기 Map 화면 서울로 보이게 만듬
         LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 10));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 11));
+
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_fragment);
+        autocompleteFragment.setOnPlaceSelectedListener(this);
+        autocompleteFragment.setHint("도착지를 입력하세요");
+        autocompleteFragment.setBoundsBias(BOUNDS_MOUNTAIN_VIEW);
 
 
     }
 
+    @Override
+    public void onPlaceSelected(Place place) {
+        Log.i(LOG_TAG, "Place Selected: " + place.getName());
+//        locationTextView.setText(getString(R.string.formatted_place_data, place
+//                .getName(), place.getAddress(), place.getPhoneNumber(), place
+//                .getWebsiteUri(), place.getRating(), place.getId()));
+        str_destination = place.getName().toString();
+        if (!TextUtils.isEmpty(place.getAttributions())){
+            attributionsTextView.setText(Html.fromHtml(place.getAttributions().toString()));
+        }
+
+        searchLocation.findLocation(str_destination, DESTINATION, destination_location_input);
+        setInitflag();
+        Log.i(LOG_TAG, "onPlaceSelected 함수에서 findLoaction 를 완료하였습니다");
+    }
+
+    @Override
+    public void onError(Status status) {
+        Log.e(LOG_TAG, "onError: Status = " + status.toString());
+        Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+
     public void init_Button_And_Textbox() {
         CompleteBoarding = (Button) findViewById(R.id.btn_CompleteBoarding);
-        start_search_button = (Button) findViewById(R.id.start_btn);
-        destination_search_button = (Button) findViewById(R.id.destination_btn);
-        current_button = (ImageButton)findViewById(R.id.iBtn_currentLocation);
+//        start_search_button = (Button) findViewById(R.id.start_btn);
+//        destination_search_button = (Button) findViewById(R.id.destination_btn);
+//        current_button = (ImageButton)findViewById(R.id.iBtn_currentLocation);
 //        current_button1 = (Button) findViewById(R.id.current_location_btn);
 //        current_button2 = (Button) findViewById(R.id.current_location_btn2);
 
 
 
-        start_location_input = (EditText) findViewById(R.id.start_input);
+//        start_location_input = (EditText) findViewById(R.id.start_input);
         destination_location_input = (EditText) findViewById(R.id.destination_input);
 
-        // 출발지 입력 버튼 누를 시
-        start_search_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 사용자가 입력한 주소 정보 확인
-                String searchStr = start_location_input.getText().toString();
-                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                searchLocation.findLocation(searchStr, START, start_location_input);
-                setInitflag();
-            }
-        });
+//        // 출발지 입력 버튼 누를 시
+//        start_search_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // 사용자가 입력한 주소 정보 확인
+//                String searchStr = start_location_input.getText().toString();
+//                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
+//                searchLocation.findLocation(searchStr, START, start_location_input);
+//                setInitflag();
+//            }
+//        });
 
-        // 도착지 입력 버튼 누를 시
-        destination_search_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 사용자가 입력한 주소 정보 확인
-                String searchStr = destination_location_input.getText().toString();
-                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
-                setInitflag();
-            }
-        });
+//        // 도착지 입력 버튼 누를 시
+//        destination_search_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // 사용자가 입력한 주소 정보 확인
+//                String searchStr = destination_location_input.getText().toString();
+//                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
+//                searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
+//                setInitflag();
+//            }
+//        });
 
-        current_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentMyLocation(start_location_input, START);
-                setInitflag();
-            }
-        });
+//        current_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                currentMyLocation(start_location_input, START);
+//                setInitflag();
+//            }
+//        });
 
 //        // 현재 위치 버튼 누를 시
 //        current_button1.setOnClickListener(new View.OnClickListener() {
@@ -176,6 +221,9 @@ public class UcMainActivity extends Activity {
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String searchStr = str_destination.toString();
+                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
+                searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
                 setInitflag();
                 show_Taxifare_distance();
             }
@@ -198,6 +246,8 @@ public class UcMainActivity extends Activity {
         // 현재 7.0 누가에서 여기를 그냥 건너뛰는바람에 뒤에 Activity에서 오류가남
         // 16.10.06 03:46
         // 권한체크 더 알아볼 것
+        checkDangerousPermissions();
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -212,8 +262,6 @@ public class UcMainActivity extends Activity {
         // 지오코더 객체 생성
         geocoder = new Geocoder(this, Locale.KOREAN);
         searchLocation = new SearchLocation(map, geocoder);
-
-        checkDangerousPermissions();
     }
 
     // 권한 설정 check 메소드
@@ -455,7 +503,7 @@ public class UcMainActivity extends Activity {
             this.destination_URL_latlng = new StringBuilder(longitude + "," + latitude);
         }
 
-        input.setText("내 현재 위치");                                                              // EditText에 표시해주기.
+//        input.setText("내 현재 위치");                                                              // EditText에 표시해주기.
     }
 
     PermissionListener permissionlistener = new PermissionListener() {

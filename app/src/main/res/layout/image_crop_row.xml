@@ -2,19 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:baselineAligned="false">
 
     <Button
         android:id="@+id/btn_camera_crop"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/black_round_button"
+        android:textSize="16dp"
         android:text="카메라"
-        />
+        android:textStyle="bold" />
+
     <Button
-        android:id="@+id/btn_gellary_crop"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="갤러리"
-        />
+    android:id="@+id/btn_gellary_crop"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="갤러리"
+    android:background="@drawable/black_round_button"
+    android:textSize="16dp"
+    android:textStyle="bold" />
 
 </LinearLayout>

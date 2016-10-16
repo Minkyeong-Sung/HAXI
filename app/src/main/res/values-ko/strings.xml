@@ -17,4 +17,7 @@
     <string name="err_msg_name">이름이 입력되지 않았습니다.</string>
     <string name="err_msg_contact">연락처가 입력되지 않았습니다.</string>
     <string name="err_msg_address">주소가 입력되지 않았습니다.</string>
+
+    // activity_uc_main
+    <string name="destination_hint">도착지를 입력하세요</string>
 </resources>

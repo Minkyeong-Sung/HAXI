@@ -2,14 +2,17 @@ package com.ensharp.haxi;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -17,12 +20,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class UcNotifyActivity2 extends Activity {
 
@@ -40,14 +47,26 @@ public class UcNotifyActivity2 extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_notify2);
         setLayout();
-        complete = (Button)findViewById(R.id.btn_complete);
-        complete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent notify3Intent = new Intent(UcNotifyActivity2.this, MainActivity.class);
-                startActivity(notify3Intent);
-            }
-        });
+//        complete = (Button)findViewById(R.id.btn_complete);
+//        complete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent notify3Intent = new Intent(UcNotifyActivity2.this, MainActivity.class);
+//                startActivity(notify3Intent);
+//            }
+//        });
+
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .check();
+
+//        FragmentManager fm = getFragmentManager();
+//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//        fragmentTransaction.add(R.id.frameLayout_notify, new FragmentStepTwo());
+//        fragmentTransaction.commit();
+
     }
 
     /**
@@ -55,18 +74,42 @@ public class UcNotifyActivity2 extends Activity {
      */
     public void onButtonClick(View v){
         switch (v.getId()) {
-
-            case R.id.btn_mms:
-                Log.e(TAG, "mImageCaptureUri = " + mImageCaptureUri);
-                sendMMS(mImageCaptureUri);
-//			sendMMSG();
-                break;
+//            case R.id.btn_mms:
+//                Log.e(TAG, "mImageCaptureUri = " + mImageCaptureUri);
+//                sendMMS(mImageCaptureUri);
+////			sendMMSG();
+//                break;
+            // 영수증 촬영 버튼을 눌렀을 때
             case R.id.btn_image_crop:
-                mDialog = createDialog();
-                mDialog.show();
+//                mDialog = createDialog();
+//                mDialog.show();
+                // 카메라 바로 실행시킴
+//                doTakePhotoAction();
+//                setDismiss(mDialog);
+                Fragment fr;
+                fr = new FragmentStepTwo();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
+                fragmentTransaction.commit();
                 break;
         }
     }
+
+    // 권한
+    PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+            Toast.makeText(UcNotifyActivity2.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            Toast.makeText(UcNotifyActivity2.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
 
     /**
      * 다이얼로그 생성
@@ -223,8 +266,13 @@ public class UcNotifyActivity2 extends Activity {
 
                 Log.w(TAG, "비트맵 Image path = "+photo_path);
 
+                Log.i("HYEON", "1");
+
+                // 에러나는 부분
                 Bitmap photo = BitmapFactory.decodeFile(photo_path);
+                Log.i("HYEON", "2");
                 mPhotoImageView.setImageBitmap(photo);
+                Log.i("HYEON", "3");
 
                 break;
             }
@@ -322,6 +370,6 @@ public class UcNotifyActivity2 extends Activity {
     private ImageView mPhotoImageView;
 
     private void setLayout(){
-        mPhotoImageView = (ImageView)findViewById(R.id.img_bitmap);
+//        mPhotoImageView = (ImageView)findViewById(R.id.img_bitmap);
     }
 }

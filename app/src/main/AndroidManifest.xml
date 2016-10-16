@@ -7,6 +7,9 @@
         android:protectionLevel="signature" />
     <permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <permission android:name="android.permission.CAMERA" />
+    <permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- 메세지, 카메라 권한 설정 -->
     <uses-permission android:name="android.permission.CAMERA" />
@@ -40,9 +43,13 @@
         <uses-library android:name="com.google.android.maps" />
 
         <!-- 구글맵 API v2 키 설정 -->
+        <!--<meta-data-->
+            <!--android:name="com.google.android.maps.v2.API_KEY"-->
+            <!--android:value="AIzaSyCz_XK92GPvvKwxfI9m1rrzOMhRSs8v-S4"/>-->
+            <!--&lt;!&ndash;android:value="AIzaSyBppXZnX69T9Uq4k-nMywrN-bHAfJ4Pzag" />&ndash;&gt;-->
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBppXZnX69T9Uq4k-nMywrN-bHAfJ4Pzag" />
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCz_XK92GPvvKwxfI9m1rrzOMhRSs8v-S4"/>
 
         <!-- GMS 라이브러리 버전 설정 -->
         <meta-data
