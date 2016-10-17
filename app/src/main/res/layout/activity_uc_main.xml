@@ -142,8 +142,8 @@
             android:inputType="textPersonName"
             sl:scale_left="200"
             sl:scale_top="1520"
-            sl:scale_width="600"
-            sl:scale_height="100"
+            sl:scale_width="0"
+            sl:scale_height="0"
             sl:scale_textsize="30" />
 
 

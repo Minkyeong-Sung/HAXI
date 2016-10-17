@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@color/colorPrimaryDark"
-            android:id="@+id/imageView3"
+            android:id="@+id/image_receipt"
             sl:scale_left="0"
             sl:scale_top="0"
             sl:scale_width="1080"

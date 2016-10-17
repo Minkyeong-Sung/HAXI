@@ -42,6 +42,8 @@ public class UcNotifyActivity2 extends Activity {
     private AlertDialog mDialog;
     Button complete;
 
+    Bitmap photo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,14 +86,17 @@ public class UcNotifyActivity2 extends Activity {
 //                mDialog = createDialog();
 //                mDialog.show();
                 // 카메라 바로 실행시킴
-//                doTakePhotoAction();
-//                setDismiss(mDialog);
-                Fragment fr;
-                fr = new FragmentStepTwo();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
-                fragmentTransaction.commit();
+                doTakePhotoAction();
+                setDismiss(mDialog);
+
+                // Fragment 전환 부분
+//                Fragment fr;
+//                fr = new FragmentStepTwo();
+//                FragmentManager fm = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
+//                fragmentTransaction.commit();
+
                 break;
         }
     }
@@ -251,6 +256,20 @@ public class UcNotifyActivity2 extends Activity {
 //			intent.putExtra("return-data", true);
                 startActivityForResult(intent, CROP_FROM_CAMERA);
 
+//                ImageView receiptImage;
+//                receiptImage = (ImageView)findViewById(R.id.image_receipt);
+//
+//                String full_path = mImageCaptureUri.getPath();
+//                String photo_path = full_path.substring(4, full_path.length());
+//
+//                photo = BitmapFactory.decodeFile(full_path);
+//
+//                Log.i("HYEON", "setImageBitmap을 마치기 전입니다");
+//                Log.i("HYEON", photo.toString());
+//
+//                receiptImage.setImageBitmap(photo);
+//
+//                Log.i("HYEON", "setImageBitmap을 마쳤습니다");
                 break;
             }
 
@@ -269,10 +288,18 @@ public class UcNotifyActivity2 extends Activity {
                 Log.i("HYEON", "1");
 
                 // 에러나는 부분
-                Bitmap photo = BitmapFactory.decodeFile(photo_path);
+                Bitmap photo = BitmapFactory.decodeFile(full_path);
                 Log.i("HYEON", "2");
                 mPhotoImageView.setImageBitmap(photo);
                 Log.i("HYEON", "3");
+
+
+                Fragment fr;
+                fr = new FragmentStepTwo();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
+                fragmentTransaction.commit();
 
                 break;
             }
@@ -370,6 +397,6 @@ public class UcNotifyActivity2 extends Activity {
     private ImageView mPhotoImageView;
 
     private void setLayout(){
-//        mPhotoImageView = (ImageView)findViewById(R.id.img_bitmap);
+        mPhotoImageView = (ImageView)findViewById(R.id.image_receipt);
     }
 }

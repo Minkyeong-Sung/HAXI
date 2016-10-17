@@ -139,6 +139,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
             attributionsTextView.setText(Html.fromHtml(place.getAttributions().toString()));
         }
 
+        destination_location_input.setText(place.getName().toString());
         searchLocation.findLocation(str_destination, DESTINATION, destination_location_input);
         setInitflag();
         Log.i(LOG_TAG, "onPlaceSelected 함수에서 findLoaction 를 완료하였습니다");

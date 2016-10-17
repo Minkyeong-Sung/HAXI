@@ -43,13 +43,13 @@
         <uses-library android:name="com.google.android.maps" />
 
         <!-- 구글맵 API v2 키 설정 -->
-        <!--<meta-data-->
-            <!--android:name="com.google.android.maps.v2.API_KEY"-->
-            <!--android:value="AIzaSyCz_XK92GPvvKwxfI9m1rrzOMhRSs8v-S4"/>-->
-            <!--&lt;!&ndash;android:value="AIzaSyBppXZnX69T9Uq4k-nMywrN-bHAfJ4Pzag" />&ndash;&gt;-->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.maps.v2.API_KEY" -->
+        <!-- android:value="AIzaSyCz_XK92GPvvKwxfI9m1rrzOMhRSs8v-S4"/> -->
+        <!-- &lt;!&ndash;android:value="AIzaSyBppXZnX69T9Uq4k-nMywrN-bHAfJ4Pzag" />&ndash;&gt; -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCz_XK92GPvvKwxfI9m1rrzOMhRSs8v-S4"/>
+            android:value="AIzaSyCz_XK92GPvvKwxfI9m1rrzOMhRSs8v-S4" />
 
         <!-- GMS 라이브러리 버전 설정 -->
         <meta-data
@@ -83,11 +83,12 @@
         <activity
             android:name=".UcNotifyActivity"
             android:theme="@style/MyMaterialTheme" />
-        <activity android:name=".UcNotifyActivity2"></activity>
+        <activity android:name=".UcNotifyActivity2" />
         <activity
             android:name=".EndActivity"
             android:label="@string/title_activity_end"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity android:name=".TedPermissionActivity"></activity>
     </application>
 
 </manifest>
