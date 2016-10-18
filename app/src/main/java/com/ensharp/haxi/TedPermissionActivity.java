@@ -1,4 +1,4 @@
-package com.gun0912.tedpermission;
+package com.ensharp.haxi;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -11,7 +11,6 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
@@ -264,7 +263,7 @@ public class TedPermissionActivity extends Activity {
 
 
             if(TextUtils.isEmpty(settingButtonText)){
-                settingButtonText = getString(R.string.tedpermission_setting);
+                settingButtonText = getString(com.gun0912.tedpermission.R.string.tedpermission_setting);
             }
 
             builder.setPositiveButton(settingButtonText, new DialogInterface.OnClickListener() {

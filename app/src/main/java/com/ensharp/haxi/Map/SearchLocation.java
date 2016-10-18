@@ -68,7 +68,7 @@ public class SearchLocation {
                     if (startMarker_flag == true)            // 출발지에 대한 Marker가 이미 존재할 때 삭제 해주기.
                         startMarker.remove();
                     startMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
-                            .title("출발지\n" + searchLatLng_latitude.toString() + "\n" + searchLatLng_longitude)
+                            .title("출발지")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                             .draggable(true));
                     startMarker.showInfoWindow();
@@ -78,7 +78,7 @@ public class SearchLocation {
                     if (destinationMarker_flag == true)
                         destinationMarker.remove();
                     destinationMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
-                            .title("도착지\n" + searchLatLng_latitude.toString() + "\n" + searchLatLng_longitude)
+                            .title("도착지")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                             .draggable(true));
                     destinationMarker.showInfoWindow();

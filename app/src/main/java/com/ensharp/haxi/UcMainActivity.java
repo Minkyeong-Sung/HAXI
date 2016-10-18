@@ -116,8 +116,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         currentMyLocation(start_location_input, START);
 
         // 초기 Map 화면 서울로 보이게 만듬
-        LatLng firstMapLocation = new LatLng(37.5666102, 126.9783881);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(firstMapLocation, 11));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gps.getLatitude(),gps.getLongitude()),13 ));
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_fragment);
@@ -483,7 +482,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
                 SearchLocation.startMarker.remove();
 
             SearchLocation.startMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))  // Marker 생성.
-                    .title("출발지\n" + latitude + "\n" + longitude)
+                    .title("출발지")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                     .draggable(true));
             SearchLocation.startMarker.showInfoWindow();                                            // Marker 화면에 표시하기.
@@ -496,7 +495,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
                 SearchLocation.destinationMarker.remove();
 
             SearchLocation.destinationMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
-                    .title("도착지\n" + latitude + "\n" + longitude)
+                    .title("도착지")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                     .draggable(true));
             SearchLocation.destinationMarker.showInfoWindow();
