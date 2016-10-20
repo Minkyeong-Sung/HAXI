@@ -12,13 +12,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +30,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 
 import static com.ensharp.haxi.UcMainActivity.split_stringBuilder;
@@ -53,27 +48,14 @@ public class UcRunningActivity extends Activity {
     private double latitude;
     private double longitude;
     private Marker new_taxi_marker;
-    GPSListener gpsListener;
+    private GPSListener gpsListener;
 
     private boolean first_Taximakrer_show = false;
     private boolean first_path = false;
-
-    /* stopwatch에 관한 변수들 */
-    private TextView stopwatch_view;
-    private long starttime = 0L;
-    private long timeInMilliseconds = 0L;
-    private long timeSwapBuff = 0L;
-    private long updatedtime = 0L;
-    private int t = 1;
-    private int secs = 0;
-    private int mins = 0;
-    private int milliseconds = 0;
-    Handler stopwatch_handler = new Handler();
     private TextView taxi_fare;
 
-    byte[] mBytes;
     public static Bitmap mbitmap;
-    ImageView imageView3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,21 +106,26 @@ public class UcRunningActivity extends Activity {
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
         //stopwatch_view = (TextView)findViewById(R.id.stopwatch);
 
-        imageView3 = (ImageView)findViewById(R.id.imageView3);
     }
 
     public void init_button() {
         arrive = (Button) findViewById(R.id.btn_arrive);
+        /* 도착 버튼 눌렀을시 스크린샷 활성화 */
         arrive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /* map.snapshot(callback)으로 인해 콜백 함수 활성화 */
+                /* map.snapshot(callback)을 먼저실행 -> 이 콜백으로 옴 */
                 GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
 
                     @Override
                     public void onSnapshotReady(Bitmap snapshot) {
+                        /* 구글 API가 지원하는 스냅샷 메소드 */
+                        /* bitmap에 현재 구글지도 screenshot을 넣고 */
                         mbitmap = snapshot;
                         try {
 
+                            /* 저장 결로를 얻은 뒤 압축하기 */
                             FileOutputStream out = new FileOutputStream("/mnt/sdcard/Download/TeleSensors.png");
                             mbitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
                         } catch (Exception e) {
@@ -338,35 +325,6 @@ public class UcRunningActivity extends Activity {
     @Override
     public void onBackPressed() {
         backPressCloseHandler.onBackPressed();
-    }
-
-    public void screenShot(View view) {
-        mbitmap = Bitmap.createBitmap(view.getDrawingCache());
-        //mbitmap = getBitmapOFRootView(arrive);
-        createImage(mbitmap);
-    }
-
-    public Bitmap getBitmapOFRootView(View v) {
-        View rootview = v.getRootView();
-        rootview.setDrawingCacheEnabled(true);
-        Bitmap bitmap1 = rootview.getDrawingCache();
-        return bitmap1;
-    }
-
-    public void createImage(Bitmap bmp) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
-        mBytes = bytes.toByteArray();
-        File file = new File(Environment.getExternalStorageDirectory() +
-                "/capturedscreenandroid.jpg");
-        try {
-            file.createNewFile();
-            FileOutputStream outputStream = new FileOutputStream(file);
-            outputStream.write(bytes.toByteArray());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }

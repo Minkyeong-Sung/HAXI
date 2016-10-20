@@ -46,6 +46,7 @@ public class UcResultActivity extends Activity {
         notify = (Button)findViewById(R.id.btn_notify);
         success = (Button)findViewById(R.id.btn_success);
         imageView = (ImageView)findViewById(R.id.image_map);
+        /* ucRunning액티비티에서 압축한 ScreenShot 적용 */
         imageView.setImageBitmap(UcRunningActivity.mbitmap);
 
     }
