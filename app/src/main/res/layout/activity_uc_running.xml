@@ -17,7 +17,8 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         sl:scale_base_height="1730"
-        sl:scale_base_width="1080">
+        sl:scale_base_width="1080"
+        android:id="@+id/view">
 
         <fragment
             android:id="@+id/gmap"
@@ -41,16 +42,6 @@
             <!--android:gravity="center"-->
             <!--android:text=""-->
             <!--android:textSize="20dp"/>-->
-
-        <ImageView
-            android:id="@+id/image_running_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/running_guide_text"
-            sl:scale_height="300"
-            sl:scale_left="90"
-            sl:scale_top="1300"
-            sl:scale_width="900" />
 
         <Button
             android:id="@+id/btn_arrive"
@@ -80,5 +71,5 @@
             sl:scale_width="250" />
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
-    >>>>>>> feature/UI
+
 </RelativeLayout>

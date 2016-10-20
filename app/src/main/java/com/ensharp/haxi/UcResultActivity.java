@@ -5,19 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class UcResultActivity extends Activity {
 
     Button notify;
     Button success;
 
+    private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_result);
 
-        notify = (Button)findViewById(R.id.btn_notify);
-        success = (Button)findViewById(R.id.btn_success);
+
+        initProperty();
 
         // 이상해요 버튼
         notify.setOnClickListener(new View.OnClickListener() {
@@ -38,4 +40,14 @@ public class UcResultActivity extends Activity {
             }
         });
     }
+
+    public void initProperty()
+    {
+        notify = (Button)findViewById(R.id.btn_notify);
+        success = (Button)findViewById(R.id.btn_success);
+        imageView = (ImageView)findViewById(R.id.image_map);
+        imageView.setImageBitmap(UcRunningActivity.mbitmap);
+
+    }
+
 }

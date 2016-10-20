@@ -21,7 +21,6 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/map_temp"
             android:id="@+id/image_map"
             sl:scale_left="0"
             sl:scale_top="0"
