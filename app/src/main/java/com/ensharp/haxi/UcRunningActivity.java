@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.FileOutputStream;
+import java.text.NumberFormat;
 
 import static com.ensharp.haxi.UcMainActivity.split_stringBuilder;
 
@@ -74,6 +75,12 @@ public class UcRunningActivity extends Activity {
         taxi_fare = (TextView)findViewById(R.id.text_taxifare);
 
         taxi_fare.setText(split_stringBuilder[9]);
+
+        // UcResult 에서 쓸 taxi 요금데이터 구성 ( 3단위 콤마 적용)
+        MyApplication.taxi_fare_int = Integer.parseInt(split_stringBuilder[9]);
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumIntegerDigits(5);
+        MyApplication.taxi_fare_string = nf.format(MyApplication.taxi_fare_int);
     }
 
     public void init_map()

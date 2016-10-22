@@ -40,7 +40,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -96,17 +95,6 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_main);
-
-        // 권한 추가부분 - HYEON
-        // 안드로이드 누가(7.0) 대응
-        // 현재 뭐가 먼저 실행되서(?) 앱이 종료 되는데, 이후에 바로 권한체크 확인문이 뜨긴함
-        // 재 실행 시, 권한있음 토스트문구가 뜨면서 정상작동
-        new TedPermission(this)
-                .setPermissionListener(permissionlistener)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
-                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                .check();
-
 
         gps = new GPSTracker(UcMainActivity.this);
 

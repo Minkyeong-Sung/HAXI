@@ -1,16 +1,22 @@
 package com.ensharp.haxi;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 public class UcResultActivity extends Activity {
 
     Button notify;
     Button success;
+
+    TextView view_taxiFare;
 
     private ImageView imageView;
     @Override
@@ -20,6 +26,8 @@ public class UcResultActivity extends Activity {
 
 
         initProperty();
+
+        view_taxiFare.setText(MyApplication.taxi_fare_string);
 
         // 이상해요 버튼
         notify.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +49,13 @@ public class UcResultActivity extends Activity {
         });
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+
+    }
+
     public void initProperty()
     {
         notify = (Button)findViewById(R.id.btn_notify);
@@ -48,6 +63,7 @@ public class UcResultActivity extends Activity {
         imageView = (ImageView)findViewById(R.id.image_map);
         /* ucRunning액티비티에서 압축한 ScreenShot 적용 */
         imageView.setImageBitmap(UcRunningActivity.mbitmap);
+        view_taxiFare = (TextView)findViewById(R.id.result_taxiFare);
 
     }
 
