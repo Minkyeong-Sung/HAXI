@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
 import android.location.Geocoder;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -60,6 +61,8 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     private SensorManager mSensorManager;
     private SearchLocation searchLocation;
     private GPSTracker gps;
+    boolean isGPSEnabled = false;
+    protected LocationManager locationManager;
 
     private Geocoder geocoder;
     private EditText start_location_input;
@@ -103,9 +106,10 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         init_Button_And_Textbox();
         currentMyLocation(start_location_input, START);
 
-        // 초기 Map 화면 서울로 보이게 만듬
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gps.getLatitude(),gps.getLongitude()),13 ));
-
+        if(isGPSEnabled) {
+            // 초기 Map 화면 서울로 보이게 만듬
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gps.getLatitude(), gps.getLongitude()), 13));
+        }
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_fragment);
         autocompleteFragment.setOnPlaceSelectedListener(this);
@@ -113,6 +117,40 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         autocompleteFragment.setBoundsBias(BOUNDS_MOUNTAIN_VIEW);
 
 
+    }
+
+    public void init_Property() {
+        // 메인 레이아웃 객체 참조
+        mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        // 지도 객체 참조 및 지도 처음 위치 활성화
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
+
+        locationManager = (LocationManager) getApplication()
+                .getSystemService(LOCATION_SERVICE);
+
+        isGPSEnabled = locationManager
+                .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // 권한체크 - HYEON
+        // 현재 7.0 누가에서 여기를 그냥 건너뛰는바람에 뒤에 Activity에서 오류가남
+        // 16.10.06 03:46
+        // 권한체크 더 알아볼 것
+        checkDangerousPermissions();
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        map.setMyLocationEnabled(true);
+        //map.getUiSettings().setMyLocationButtonEnabled(false);
+        //map.setPadding(0,900,0,0);
+        // 센서 관리자 객체 참조
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        // 지오코더 객체 생성
+        geocoder = new Geocoder(this, Locale.KOREAN);
+        searchLocation = new SearchLocation(map, geocoder);
     }
 
     @Override
@@ -221,35 +259,6 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     protected void hideSoftKeyboard(View view) {
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
-
-    public void init_Property() {
-        // 메인 레이아웃 객체 참조
-        mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
-        // 지도 객체 참조 및 지도 처음 위치 활성화
-        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
-
-
-        // 권한체크 - HYEON
-        // 현재 7.0 누가에서 여기를 그냥 건너뛰는바람에 뒤에 Activity에서 오류가남
-        // 16.10.06 03:46
-        // 권한체크 더 알아볼 것
-        checkDangerousPermissions();
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
-        }
-        map.setMyLocationEnabled(true);
-        //map.getUiSettings().setMyLocationButtonEnabled(false);
-        //map.setPadding(0,900,0,0);
-        // 센서 관리자 객체 참조
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-        // 지오코더 객체 생성
-        geocoder = new Geocoder(this, Locale.KOREAN);
-        searchLocation = new SearchLocation(map, geocoder);
     }
 
     // 권한 설정 check 메소드
