@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ensharp.haxi.Map.AccureCurrentPath;
+import com.ensharp.haxi.Map.GPSTracker;
+import com.ensharp.haxi.Map.SearchLocation;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -40,6 +41,7 @@ public class UcRunningActivity extends Activity {
     private AccureCurrentPath mAccurePath = new AccureCurrentPath();
     private BackPressCloseHandler backPressCloseHandler;
     private GoogleMap map;
+    private GPSTracker gps;
 
     private RelativeLayout mainLayout;
     private LatLng oldLatLng;
@@ -85,25 +87,13 @@ public class UcRunningActivity extends Activity {
 
     public void init_map()
     {
-        if (ActivityCompat.checkSelfPermission(UcRunningActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(UcRunningActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        map.setMyLocationEnabled(true);
-
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria,true);
-
-        Location myLocation = locationManager.getLastKnownLocation(provider);
-
-        if( myLocation != null ) {
-            latitude = myLocation.getLatitude();
-            longitude = myLocation.getLongitude();
-        }
-        LatLng latLng = new LatLng(latitude,longitude);
+        LatLng latLng = new LatLng(gps.getLatitude(),gps.getLongitude());
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+
+        Marker startMarker = map.addMarker(new MarkerOptions().position(new LatLng(gps.getLatitude(), gps.getLongitude()))  // Marker 생성.
+                .title("출발지")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        SearchLocation.startMarker.showInfoWindow();                                            // Marker 화면에 표시하기.
     }
 
     public void init_Property() {
@@ -112,6 +102,7 @@ public class UcRunningActivity extends Activity {
         // 지도 객체 참조
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
         //stopwatch_view = (TextView)findViewById(R.id.stopwatch);
+        gps = new GPSTracker(UcRunningActivity.this);
 
     }
 
@@ -131,7 +122,6 @@ public class UcRunningActivity extends Activity {
                         /* bitmap에 현재 구글지도 screenshot을 넣고 */
                         mbitmap = snapshot;
                         try {
-
                             /* 저장 결로를 얻은 뒤 압축하기 */
                             FileOutputStream out = new FileOutputStream("/mnt/sdcard/Download/TeleSensors.png");
                             mbitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
