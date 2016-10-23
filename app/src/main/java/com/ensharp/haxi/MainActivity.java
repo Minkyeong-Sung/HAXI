@@ -21,7 +21,7 @@ public class MainActivity extends Activity {
 
         chkGpsService();
         // 스플래시 화면 띄우는 부분
-        //startActivity(new Intent(this, SplashActivity.class));
+        startActivity(new Intent(this, SplashActivity.class));
 
         openUc_activity = (Button)findViewById(R.id.btn_openUcActivity);
         openUc_activity.setOnClickListener(new View.OnClickListener(){

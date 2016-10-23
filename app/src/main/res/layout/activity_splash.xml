@@ -9,7 +9,8 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     tools:context="com.ensharp.haxi.SplashActivity"
-    android:background="@drawable/splash">
+    android:background="@drawable/haxi_splash_resize">
+    <!--android:background="@drawable/splash">-->
 
     <!--<com.ssomai.android.scalablelayout.ScalableLayout-->
     <!--android:layout_width="match_parent"-->
@@ -39,4 +40,11 @@
     <!--sl:scale_height="500" />-->
 
     <!--</com.ssomai.android.scalablelayout.ScalableLayout>-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        sl:srcCompat="@drawable/splash"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView3"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

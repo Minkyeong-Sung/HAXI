@@ -14,7 +14,7 @@
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/mainactivity_2"
+        android:background="@drawable/mainactivity_2_resize"
         sl:scale_base_width="1080"
         sl:scale_base_height="1730" >
 
