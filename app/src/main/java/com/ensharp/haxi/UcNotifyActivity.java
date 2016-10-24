@@ -1,48 +1,45 @@
 package com.ensharp.haxi;
 
 import android.app.Activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.WindowManager;
+import android.webkit.PermissionRequest;
+import android.widget.Button;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
-public class UcNotifyActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class UcNotifyActivity extends Activity {
     private  Context mContext;
 
     EditText name, phone, address;
     Button btn_send;
     Button next;
 
-    private Toolbar toolbar;
-    private EditText inputName, inputContact, inputAddress;
-    private TextInputLayout inputLayoutName, inputLayoutContact, inputLayoutAddress;
-    private Button btnNext;
-    private Button btnSend;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_notify);
 
-
-        btnNext = (Button)findViewById(R.id.btn_next);
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        next = (Button)findViewById(R.id.btn_next);
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent notify2Intent = new Intent(UcNotifyActivity.this,UcNotifyActivity2.class);
@@ -50,39 +47,38 @@ public class UcNotifyActivity extends AppCompatActivity {
             }
         });
         mContext = UcNotifyActivity.this;
-//
-//        name = (EditText)findViewById(R.id.smsText);
-//        phone = (EditText)findViewById(R.id.smsText2);
-//        address = (EditText)findViewById(R.id.smsText3);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        name = (EditText)findViewById(R.id.smsText);
+        phone = (EditText)findViewById(R.id.edit_phoneNum);
+        address = (EditText)findViewById(R.id.smsText3);
+    }
 
-        inputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_name);
-        inputLayoutContact = (TextInputLayout) findViewById(R.id.input_layout_contact);
-        inputLayoutAddress = (TextInputLayout) findViewById(R.id.input_layout_address);
-        inputName = (EditText) findViewById(R.id.input_name);
-        inputContact = (EditText) findViewById(R.id.input_contact);
-        inputAddress = (EditText) findViewById(R.id.input_address);
-//        btnSignUp = (Button) findViewById(R.id.btn_signup);
+    protected void onResume() {
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage("핸드폰 번호를 자동으로 입력하기 위해 권한이 필요합니다.")
+                .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                .setPermissions(Manifest.permission.READ_PHONE_STATE)
+                .check();
 
-        inputName.addTextChangedListener(new MyTextWatcher(inputName));
-        inputContact.addTextChangedListener(new MyTextWatcher(inputContact));
-        inputAddress.addTextChangedListener(new MyTextWatcher(inputAddress));
+        TelephonyManager telManager = (TelephonyManager)this.getSystemService(this.TELEPHONY_SERVICE);
+        String phoneNumber = telManager.getLine1Number();
 
-//        btnSignUp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                submitForm();
-//            }
-//        });
+        phone.setText(phoneNumber);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+
     }
 
 
     public void sendSMS(View v){
-        String strName = inputName.getText().toString();
-        String strPhone = inputContact.getText().toString();
-        String strAddress = inputAddress.getText().toString();
+        String strName = name.getText().toString();
+        String strPhone = phone.getText().toString();
+        String strAddress = address.getText().toString();
         String content = "저는 위 영수증 사진과 같이 왕십리에서 탑승하여 세종대학교에 도착하였으나, 경로를 둘러서 간 것 같으니, 확인 부탁드립니다.";
 
         String total = "신고자" + strName + '\n' + "연락처" + strPhone + '\n' + "주소" + strAddress + '\n' + content ;
@@ -146,96 +142,15 @@ public class UcNotifyActivity extends AppCompatActivity {
         Toast.makeText(this, "전송완료.", Toast.LENGTH_SHORT).show();
     }
 
-    private void submitForm() {
-        if (!validateName()) {
-            return;
+    PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+            Toast.makeText(UcNotifyActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
         }
 
-        if (!validateEmail()) {
-            return;
+        @Override
+        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            Toast.makeText(UcNotifyActivity.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
         }
-
-        if (!validatePassword()) {
-            return;
-        }
-
-        Toast.makeText(getApplicationContext(), "Thank You!", Toast.LENGTH_SHORT).show();
-    }
-
-    private boolean validateName() {
-        if (inputName.getText().toString().trim().isEmpty()) {
-            inputLayoutName.setError(getString(R.string.err_msg_name));
-            requestFocus(inputName);
-            return false;
-        } else {
-            inputLayoutName.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private boolean validateEmail() {
-        String email = inputContact.getText().toString().trim();
-
-        if (email.isEmpty() || !isValidEmail(email)) {
-            inputLayoutContact.setError(getString(R.string.err_msg_email));
-            requestFocus(inputContact);
-            return false;
-        } else {
-            inputLayoutContact.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private boolean validatePassword() {
-        if (inputAddress.getText().toString().trim().isEmpty()) {
-            inputLayoutAddress.setError(getString(R.string.err_msg_password));
-            requestFocus(inputAddress);
-            return false;
-        } else {
-            inputLayoutAddress.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
-    private class MyTextWatcher implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.input_name:
-                    validateName();
-                    break;
-                case R.id.input_contact:
-                    validateEmail();
-                    break;
-                case R.id.input_address:
-                    validatePassword();
-                    break;
-            }
-        }
-    }
+    };
 }

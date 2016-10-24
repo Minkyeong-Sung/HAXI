@@ -1,97 +1,177 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:sl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context=".UcNotifyActivity"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:weightSum="10">
 
-    <android.support.design.widget.AppBarLayout
+    <com.ssomai.android.scalablelayout.ScalableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:layout_weight="3"
+        sl:scale_base_width="1080"
+        sl:scale_base_height="400" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:text="택시 요금이 너무많은 차이가 난다면"
+            sl:scale_left="0"
+            sl:scale_top="100"
+            sl:scale_width="1080"
+            sl:scale_height="100"
+            android:gravity="center"
+            sl:scale_textsize="45"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="영수증을 요청하세요"
+            sl:scale_left="0"
+            sl:scale_top="200"
+            sl:scale_width="1080"
+            sl:scale_height="100"
+            android:gravity="center"
+            android:textColor="#F95731"
+            sl:scale_textsize="50" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="해당 택시의 부당행위 신고를 도와드리겠습니다"
+            sl:scale_left="0"
+            sl:scale_top="300"
+            sl:scale_width="1080"
+            sl:scale_height="100"
+            android:gravity="center"
+            sl:scale_textsize="45" />
+    </com.ssomai.android.scalablelayout.ScalableLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/notify_guide_text"
+        android:id="@+id/imgView_notifyGuideText"
+        android:layout_weight="3" />
+
+    <com.ssomai.android.scalablelayout.ScalableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:layout_weight="3"
+        android:layout_gravity="center_horizontal"
+        sl:scale_base_width="1080"
+        sl:scale_base_height="600" >
+
+        <TextView
+            android:text="신고를 위해 몇가지 정보가 필요합니다"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            sl:scale_left="0"
+            sl:scale_top="20"
+            sl:scale_width="1080"
+            sl:scale_height="120"
+            sl:scale_textsize="50"/>
+
+        <EditText
+            android:id="@+id/smsText"
+            android:layout_width="352dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:hint="이름을 입력하세요"
+            android:scrollbars="vertical"
+            android:layout_gravity="center_horizontal"
+            sl:scale_left="0"
+            sl:scale_top="180"
+            sl:scale_width="900"
+            sl:scale_height="120"
+            sl:scale_textsize="50" />
+
+        <EditText
+            android:id="@+id/edit_phoneNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:gravity="top"
+            android:hint="연락처"
+            android:scrollbars="vertical"
+            android:layout_gravity="center_horizontal"
+            sl:scale_left="0"
+            sl:scale_top="300"
+            sl:scale_width="900"
+            sl:scale_height="120"
+            sl:scale_textsize="50"/>
+
+        <EditText
+            android:id="@+id/smsText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="거주중인 주소를 정확히 입력하세요"
+            android:scrollbars="vertical"
+            android:layout_gravity="center_horizontal"
+            sl:scale_left="0"
+            sl:scale_top="420"
+            sl:scale_width="900"
+            sl:scale_height="120"
+            sl:scale_textsize="50"/>
+    </com.ssomai.android.scalablelayout.ScalableLayout>
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        sl:srcCompat="@color/common_google_signin_btn_text_dark_pressed"
+        android:id="@+id/imageView4"
+        android:layout_weight="0.5"/>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.AppBarLayout>
+    <com.ssomai.android.scalablelayout.ScalableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:layout_weight="0.5"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center_horizontal"
+        sl:scale_base_width="900"
+        sl:scale_base_height="120" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:paddingTop="60dp"
-        android:weightSum="1">
+        <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:onClick="sendSMS"-->
+        <!--android:text="Send"-->
+        <!--sl:scale_left="0"-->
+        <!--sl:scale_top="50"-->
+        <!--sl:scale_width="900"-->
+        <!--sl:scale_height="150"-->
+        <!--sl:scale_textsize="50" />-->
 
-        <ImageView
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/notify_guide_text"
-            android:id="@+id/imageView2"
-            android:layout_weight="1.2" />
+            android:text="다음"
+            android:textColor="#ffffff"
+            android:id="@+id/btn_next"
+            android:background="@drawable/black_round_button"
+            sl:scale_left="0"
+            sl:scale_top="0"
+            sl:scale_width="900"
+            sl:scale_textsize="50" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/input_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:hint="@string/hint_name" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_contact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/input_contact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="@string/hint_contact" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/input_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="@string/hint_address" />
-        </android.support.design.widget.TextInputLayout>
-
-        <Button android:id="@+id/btn_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_send"
-            android:background="@color/colorPrimary"
-            android:layout_marginTop="40dp"
-            android:textColor="@android:color/white"/>
-
-        <Button android:id="@+id/btn_next"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_next"
-            android:background="@color/colorPrimary"
-            android:layout_marginTop="10dp"
-            android:textColor="@android:color/white"/>
-
-
-
-    </LinearLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+    </com.ssomai.android.scalablelayout.ScalableLayout>
+</LinearLayout>

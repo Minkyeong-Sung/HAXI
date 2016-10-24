@@ -108,7 +108,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
 
         if(isGPSEnabled) {
             // 초기 Map 화면 서울로 보이게 만듬
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gps.getLatitude(), gps.getLongitude()), 13));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gps.getLatitude(), gps.getLongitude()), 17));
         }
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_fragment);
