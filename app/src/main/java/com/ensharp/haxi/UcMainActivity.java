@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +39,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.gun0912.tedpermission.PermissionListener;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -65,32 +63,27 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     protected LocationManager locationManager;
 
     private Geocoder geocoder;
-    private EditText start_location_input;
     private EditText destination_location_input;
-
-    private ImageButton current_button;
-    private Button current_button1;
-    private Button current_button2;
-    private Button start_search_button;
-    private Button destination_search_button;
     private Button CompleteBoarding;
 
-    private double latitude;
-    private double longitude;
+    /* 현재 위치 및 도착지 Intent해줄 변수들 */
+    public static ArrayList locationInfo;
+
+    /* JSON 파싱에 이용되는 변수 */
     public static StringBuilder URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4&start=127.0738840,37.5514706&destination=126.9522394,37.4640070");
     public static StringBuilder start_URL_latlng;
     public static StringBuilder destination_URL_latlng;
     public static String[] split_stringBuilder;
 
+    /* 출발지 및 도착지 구분해주는 변수 */
     private static final int START = 1;
     private static final int DESTINATION = 2;
 
+    /* 도착지에 대한 변수 */
     private static final String LOG_TAG = "PlaceSelectionListener";
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
             new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
-    private TextView locationTextView;
     private TextView attributionsTextView;
-
     private String str_destination;
 
 
@@ -104,7 +97,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         // 속성 및 버튼, 텍스트 박스 Initialization.
         init_Property();
         init_Button_And_Textbox();
-        currentMyLocation(start_location_input, START);
+        currentMyLocation(START);
 
         if(isGPSEnabled) {
             // 초기 Map 화면 서울로 보이게 만듬
@@ -115,13 +108,13 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         autocompleteFragment.setOnPlaceSelectedListener(this);
         autocompleteFragment.setHint("도착지를 입력하세요");
         autocompleteFragment.setBoundsBias(BOUNDS_MOUNTAIN_VIEW);
-
-
     }
+
 
     public void init_Property() {
         // 메인 레이아웃 객체 참조
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        locationInfo = new ArrayList();
         // 지도 객체 참조 및 지도 처음 위치 활성화
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
 
@@ -156,9 +149,6 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     @Override
     public void onPlaceSelected(Place place) {
         Log.i(LOG_TAG, "Place Selected: " + place.getName());
-//        locationTextView.setText(getString(R.string.formatted_place_data, place
-//                .getName(), place.getAddress(), place.getPhoneNumber(), place
-//                .getWebsiteUri(), place.getRating(), place.getId()));
         str_destination = place.getName().toString();
         if (!TextUtils.isEmpty(place.getAttributions())){
             attributionsTextView.setText(Html.fromHtml(place.getAttributions().toString()));
@@ -179,69 +169,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
 
     public void init_Button_And_Textbox() {
         CompleteBoarding = (Button) findViewById(R.id.btn_CompleteBoarding);
-//        start_search_button = (Button) findViewById(R.id.start_btn);
-//        destination_search_button = (Button) findViewById(R.id.destination_btn);
-//        current_button = (ImageButton)findViewById(R.id.iBtn_currentLocation);
-//        current_button1 = (Button) findViewById(R.id.current_location_btn);
-//        current_button2 = (Button) findViewById(R.id.current_location_btn2);
-
-
-
-//        start_location_input = (EditText) findViewById(R.id.start_input);
         destination_location_input = (EditText) findViewById(R.id.destination_input);
-
-//        // 출발지 입력 버튼 누를 시
-//        start_search_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // 사용자가 입력한 주소 정보 확인
-//                String searchStr = start_location_input.getText().toString();
-//                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-//                searchLocation.findLocation(searchStr, START, start_location_input);
-//                setInitflag();
-//            }
-//        });
-
-//        // 도착지 입력 버튼 누를 시
-//        destination_search_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // 사용자가 입력한 주소 정보 확인
-//                String searchStr = destination_location_input.getText().toString();
-//                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-//                searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
-//                setInitflag();
-//            }
-//        });
-
-//        current_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                currentMyLocation(start_location_input, START);
-//                setInitflag();
-//            }
-//        });
-
-//        // 현재 위치 버튼 누를 시
-//        current_button1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                currentMyLocation(start_location_input, START);
-//                setInitflag();
-//                hideSoftKeyboard(mainLayout);
-//            }
-//        });
-//
-//        current_button2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                setInitflag();
-//                currentMyLocation(destination_location_input, DESTINATION);
-//                hideSoftKeyboard(mainLayout);
-//            }
-//        });
-
-
 
         // 탑승 완료 입력 버튼 누를 시
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
@@ -256,6 +184,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         });
     }
 
+    /* 키보드판 숨겨주는 메소드 */
     protected void hideSoftKeyboard(View view) {
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(view.getWindowToken(), 0);
@@ -458,13 +387,20 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         }
     }
 
-    // 현재위치 버튼을 눌렀을 시에 대한 Method
-    public void currentMyLocation(EditText input, int option) {
+    // 현재위치에 대한 Method
+    public void currentMyLocation(int option) {
+
+        Double latitude = null;
+        Double longitude = null;
 
         // gpsTracker를 이용해 현재 위치를 받기
         if(gps.canGetLocation()) {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
+
+            /* UcRunning에서 사용할 출발지 위치 */
+            locationInfo.add(latitude);
+            locationInfo.add(longitude);
         } else {
             gps.showSettingsAlert();
         }
@@ -486,35 +422,6 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
             SearchLocation.startMarker_flag = true;                                                 // Marker 생성했다고 표시해주기.
             this.start_URL_latlng = new StringBuilder(longitude + "," + latitude);                  // 해당 위 경도값 URL에 넣어주기위한 변수.
         }
-
-        else if (option == DESTINATION) {
-            if (SearchLocation.startMarker_flag == true)
-                SearchLocation.destinationMarker.remove();
-
-            SearchLocation.destinationMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
-                    .title("도착지")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                    .draggable(true));
-            SearchLocation.destinationMarker.showInfoWindow();
-            SearchLocation.destinationMarker_flag = true;
-            this.destination_URL_latlng = new StringBuilder(longitude + "," + latitude);
-        }
-
-//        input.setText("내 현재 위치");                                                              // EditText에 표시해주기.
     }
-
-    PermissionListener permissionlistener = new PermissionListener() {
-        @Override
-        public void onPermissionGranted() {
-            Toast.makeText(UcMainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-            Toast.makeText(UcMainActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-        }
-
-
-    };
 
 }

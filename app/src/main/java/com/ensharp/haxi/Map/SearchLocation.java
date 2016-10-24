@@ -63,18 +63,7 @@ public class SearchLocation {
                 searchLatLng = new LatLng(searchLatLng_latitude, searchLatLng_longitude);
 
                 // 출발지와 도착지 Marker 구분해주기.
-                // 출발지에 관했을 경우.
-                if (option == START) {
-                    if (startMarker_flag == true)            // 출발지에 대한 Marker가 이미 존재할 때 삭제 해주기.
-                        startMarker.remove();
-                    startMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
-                            .title("출발지")
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                            .draggable(true));
-                    startMarker.showInfoWindow();
-                    startMarker_flag = true;
-                    UcMainActivity.start_URL_latlng = new StringBuilder(searchLatLng_longitude + "," + searchLatLng_latitude); // Url 해당 위치로 갱신하기 위한 작업.
-                } else if (option == DESTINATION) {
+                if (option == DESTINATION) {
                     if (destinationMarker_flag == true)
                         destinationMarker.remove();
                     destinationMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
@@ -84,6 +73,9 @@ public class SearchLocation {
                     destinationMarker.showInfoWindow();
                     destinationMarker_flag = true;
                     UcMainActivity.destination_URL_latlng = new StringBuilder(searchLatLng_longitude + "," + searchLatLng_latitude);
+                    UcMainActivity.locationInfo.add(searchLatLng_latitude);
+                    UcMainActivity.locationInfo.add(searchLatLng_longitude);
+
                 }
                 gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(searchLatLng, 16));
             } else {
