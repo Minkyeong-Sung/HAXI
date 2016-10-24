@@ -31,7 +31,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.NumberFormat;
 
 import static com.ensharp.haxi.UcMainActivity.split_stringBuilder;
@@ -74,7 +77,7 @@ public class UcRunningActivity extends Activity {
 //        stopwatch_handler.postDelayed(updateTimer, 0);            // 녹음 시작시 stopWatch 시작
 
         backPressCloseHandler = new BackPressCloseHandler(this);
-        taxi_fare = (TextView)findViewById(R.id.text_taxifare);
+        taxi_fare = (TextView) findViewById(R.id.text_taxifare);
 
         taxi_fare.setText(split_stringBuilder[9]);
 
@@ -85,10 +88,9 @@ public class UcRunningActivity extends Activity {
         MyApplication.taxi_fare_string = nf.format(MyApplication.taxi_fare_int);
     }
 
-    public void init_map()
-    {
-        LatLng latLng = new LatLng(gps.getLatitude(),gps.getLongitude());
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
+    public void init_map() {
+        LatLng latLng = new LatLng(gps.getLatitude(), gps.getLongitude());
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
         Marker startMarker = map.addMarker(new MarkerOptions().position(new LatLng(gps.getLatitude(), gps.getLongitude()))  // Marker 생성.
                 .title("출발지")
@@ -119,21 +121,35 @@ public class UcRunningActivity extends Activity {
                     @Override
                     public void onSnapshotReady(Bitmap snapshot) {
                         /* 구글 API가 지원하는 스냅샷 메소드 */
-                        /* bitmap에 현재 구글지도 screenshot을 넣고 */
-                        mbitmap = snapshot;
-                        try {
-                            /* 저장 결로를 얻은 뒤 압축하기 */
-                            FileOutputStream out = new FileOutputStream("/mnt/sdcard/Download/TeleSensors.png");
-                            mbitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        if (snapshot == null)
+                            Toast.makeText(getApplicationContext(), "null", Toast.LENGTH_SHORT).show();
+                        else {
+                            File fileCacheItem = new File("/sdcard/1.png");
+                            OutputStream out = null;
+                            try {
+                                 /* 저장 경로를 얻은 뒤 압축하기 */
+                                 /* bitmap에 현재 구글지도 screenshot을 넣고 */
+                                fileCacheItem.createNewFile();
+                                out = new FileOutputStream(fileCacheItem);
+                                snapshot.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                                mbitmap = snapshot;
+
+                                Intent resultIntent = new Intent(UcRunningActivity.this, UcResultActivity.class);
+                                startActivity(resultIntent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            } finally {
+                                try {
+                                    out.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }
                     }
                 };
                 map.snapshot(callback);
 
-                Intent resultIntent = new Intent(UcRunningActivity.this, UcResultActivity.class);
-                startActivity(resultIntent);
             }
         });
 
@@ -172,7 +188,7 @@ public class UcRunningActivity extends Activity {
                 Double latitude = lastLocation.getLatitude();
                 Double longitude = lastLocation.getLongitude();
 
-               // Toast.makeText(getApplicationContext(), "Last Known Location : " + "Latitude : " + latitude + "\nLongitude:" + longitude, Toast.LENGTH_LONG).show();
+                // Toast.makeText(getApplicationContext(), "Last Known Location : " + "Latitude : " + latitude + "\nLongitude:" + longitude, Toast.LENGTH_LONG).show();
             }
         } catch (SecurityException ex) {
             ex.printStackTrace();
@@ -203,11 +219,11 @@ public class UcRunningActivity extends Activity {
                     circleOptions.center(currentLatLng).radius(0.2).strokeColor(Color.RED).fillColor(Color.RED);
                     map.addCircle(circleOptions);
 
-                    if(first_Taximakrer_show)
+                    if (first_Taximakrer_show)
                         new_taxi_marker.remove();
 
-                    new_taxi_marker = map.addMarker(new MarkerOptions().position(new LatLng(latitude-0.000012,longitude))
-                                           .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("taxi",150,150))));
+                    new_taxi_marker = map.addMarker(new MarkerOptions().position(new LatLng(latitude - 0.000012, longitude))
+                            .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("taxi", 150, 150))));
 
                     oldLatLng = currentLatLng;
                     first_Taximakrer_show = true;
@@ -236,8 +252,8 @@ public class UcRunningActivity extends Activity {
 
 
     // taxi 이미지 줄여주는 메소드
-    public Bitmap resizeMapIcons(String iconName,int width, int height){
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(iconName, "drawable", getPackageName()));
+    public Bitmap resizeMapIcons(String iconName, int width, int height) {
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(iconName, "drawable", getPackageName()));
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
         return resizedBitmap;
     }
@@ -281,41 +297,14 @@ public class UcRunningActivity extends Activity {
             e.printStackTrace();
         }
     }
-    public void exitLocationManager()
-    {
+
+    public void exitLocationManager() {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         manager.removeUpdates(gpsListener);
     }
-
-
-//    /* stopWatch 시작 */
-//    public Runnable updateTimer = new Runnable() {
-//
-//        public void run() {
-//
-//            timeInMilliseconds = SystemClock.uptimeMillis() - starttime;
-//            updatedtime = timeSwapBuff + timeInMilliseconds;
-//            secs = (int) (updatedtime / 1000);
-//            mins = secs / 60;
-//            secs = secs % 60;
-//            milliseconds = (int) (updatedtime % 1000);     // -> 밀리세컨즈는 빼도 될듯
-//            stopwatch_view.setText("" + mins + ":" + String.format("%02d", secs) + ":"
-//                    + String.format("%03d", milliseconds));
-//            stopwatch_view.setTextColor(Color.RED);
-//            stopwatch_handler.postDelayed(this, 0);
-//        }
-//
-//    };
-//
-//    /* 스탑워치 reset */
-//    private void initStopWatch()
-//    {
-//        timeSwapBuff += timeInMilliseconds;
-//        stopwatch_handler.removeCallbacks(updateTimer);
-//    }
 
 
     /* 뒤로가기 버튼 눌렀을 시*/
