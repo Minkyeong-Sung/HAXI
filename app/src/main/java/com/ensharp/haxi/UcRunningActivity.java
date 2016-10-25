@@ -34,12 +34,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.NumberFormat;
 
 import static com.ensharp.haxi.UcMainActivity.split_stringBuilder;
+import static java.lang.System.out;
 
 public class UcRunningActivity extends Activity {
 
@@ -118,6 +116,8 @@ public class UcRunningActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                Log.i("HYEON", "init_button중 arrive Button Click Event 에 접근했습니다");
+
                 settingZoom();
                 /* map.snapshot(callback)으로 인해 콜백 함수 활성화 */
                 /* map.snapshot(callback)을 먼저실행 -> 이 콜백으로 옴 */
@@ -126,16 +126,19 @@ public class UcRunningActivity extends Activity {
                     @Override
                     public void onSnapshotReady(Bitmap snapshot) {
                         /* 구글 API가 지원하는 스냅샷 메소드 */
-                        if (snapshot == null)
+                        if (snapshot == null) {
                             Toast.makeText(getApplicationContext(), "null", Toast.LENGTH_SHORT).show();
+                            Log.i("HYEON", "snapshot이 null 조건문에 만족했습니다");
+                        }
                         else {
+
                             File fileCacheItem = new File("/sdcard/1.png");
-                            OutputStream out = null;
+//                            OutputStream out = null;
                             try {
                                  /* 저장 경로를 얻은 뒤 압축하기 */
                                  /* bitmap에 현재 구글지도 screenshot을 넣고 */
-                                fileCacheItem.createNewFile();
-                                out = new FileOutputStream(fileCacheItem);
+//                                fileCacheItem.createNewFile();
+//                                out = new FileOutputStream(fileCacheItem);
                                 snapshot.compress(Bitmap.CompressFormat.JPEG, 100, out);
                                 mbitmap = snapshot;
 
@@ -143,12 +146,6 @@ public class UcRunningActivity extends Activity {
                                 startActivity(resultIntent);
                             } catch (Exception e) {
                                 e.printStackTrace();
-                            } finally {
-                                try {
-                                    out.close();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
                             }
                         }
                     }
@@ -178,7 +175,7 @@ public class UcRunningActivity extends Activity {
         /* static 초기화 해주기 */
         UcMainActivity.locationInfo.clear();
 
-        SystemClock.sleep(1000);
+        SystemClock.sleep(3000);
 
     }
 

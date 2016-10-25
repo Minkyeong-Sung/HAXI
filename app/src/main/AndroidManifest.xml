@@ -74,7 +74,8 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".UcMainActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".UcRunningActivity"
             android:theme="@android:style/Theme.Holo.NoActionBar" />
@@ -83,7 +84,8 @@
             android:theme="@android:style/Theme.Holo.NoActionBar" />
         <activity
             android:name=".UcNotifyActivity"
-            android:theme="@style/MyMaterialTheme" />
+            android:theme="@style/MyMaterialTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".UcNotifyActivity2" />
         <activity
             android:name=".EndActivity"

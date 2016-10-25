@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.util.ArrayList;
 
@@ -36,8 +35,12 @@ public class UcNotifyActivity extends Activity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent notify2Intent = new Intent(UcNotifyActivity.this,UcNotifyActivity2.class);
-                startActivity(notify2Intent);
+                new TedPermission(UcNotifyActivity.this)
+                        .setPermissionListener(permissionlistener)
+                        .setRationaleMessage("영수증 촬영을 위한 카메라 권한이 필요해요! 꼭 허락해주세요!")
+                        .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                        .setPermissions(Manifest.permission.CAMERA)
+                        .check();
             }
         });
         mContext = UcNotifyActivity.this;
@@ -48,25 +51,13 @@ public class UcNotifyActivity extends Activity {
     }
 
     protected void onResume() {
-        new TedPermission(this)
-                .setPermissionListener(permissionlistener)
-                .setRationaleMessage("핸드폰 번호를 자동으로 입력하기 위해 권한이 필요합니다.")
-                .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
-                .setPermissions(Manifest.permission.READ_PHONE_STATE)
-                .check();
+        super.onResume();
 
         TelephonyManager telManager = (TelephonyManager)this.getSystemService(this.TELEPHONY_SERVICE);
         String phoneNumber = telManager.getLine1Number();
 
         phone.setText(phoneNumber);
     }
-
-    // 나눔고딕 폰트 적용 부분분
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-    }
-
 
     public void senSMS(View v){
         String strName = name.getText().toString();
@@ -135,10 +126,13 @@ public class UcNotifyActivity extends Activity {
         Toast.makeText(this, "전송완료.", Toast.LENGTH_SHORT).show();
     }
 
+    // TedPermission 권한 결과 받는부분
     PermissionListener permissionlistener = new PermissionListener() {
         @Override
         public void onPermissionGranted() {
             Toast.makeText(UcNotifyActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+            Intent notify2Intent = new Intent(UcNotifyActivity.this,UcNotifyActivity2.class);
+            startActivity(notify2Intent);
         }
 
         @Override
