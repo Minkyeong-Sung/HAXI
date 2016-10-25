@@ -135,7 +135,6 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        sl:srcCompat="@color/common_google_signin_btn_text_dark_pressed"
         android:id="@+id/imageView4"
         android:layout_weight="0.5"/>
 

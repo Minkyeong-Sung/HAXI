@@ -1,22 +1,17 @@
 package com.ensharp.haxi;
 
 import android.app.Activity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.view.WindowManager;
-import android.webkit.PermissionRequest;
-import android.widget.Button;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -24,7 +19,6 @@ import com.gun0912.tedpermission.TedPermission;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UcNotifyActivity extends Activity {
     private  Context mContext;
@@ -67,15 +61,14 @@ public class UcNotifyActivity extends Activity {
         phone.setText(phoneNumber);
     }
 
+    // 나눔고딕 폰트 적용 부분분
     @Override
     protected void attachBaseContext(Context newBase) {
-
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-
     }
 
 
-    public void sendSMS(View v){
+    public void senSMS(View v){
         String strName = name.getText().toString();
         String strPhone = phone.getText().toString();
         String strAddress = address.getText().toString();

@@ -1,18 +1,30 @@
 package com.ensharp.haxi;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends Activity {
 
     Button openUc_activity;
     Button openIT_activity;
+
+    Boolean permission_check = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +38,12 @@ public class MainActivity extends Activity {
         openUc_activity = (Button)findViewById(R.id.btn_openUcActivity);
         openUc_activity.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent UcIntent = new Intent(MainActivity.this, UcMainActivity.class);
-                startActivity(UcIntent);
+                new TedPermission(MainActivity.this)
+                        .setPermissionListener(permissionlistener)
+                        .setRationaleMessage("현재 위치를 찾기위해 권한이 필요합니다!")
+                        .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                        .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        .check();
             }
         });
 
@@ -40,6 +56,23 @@ public class MainActivity extends Activity {
 //        });
     };
 
+
+    // Ted Permission - 권한체크
+    PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+            Toast.makeText(MainActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+            Intent UcIntent = new Intent(MainActivity.this, UcMainActivity.class);
+            startActivity(UcIntent);
+        }
+
+        @Override
+        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            Toast.makeText(MainActivity.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+
+    };
 
     //GPS 설정 체크
     private boolean chkGpsService() {
@@ -69,6 +102,34 @@ public class MainActivity extends Activity {
 
         } else {
             return true;
+        }
+    }
+
+    // 권한 설정 check 메소드
+    private void checkDangerousPermissions() {
+        String[] permissions = {
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+        };
+
+        int permissionCheck = PackageManager.PERMISSION_GRANTED;
+        for (int i = 0; i < permissions.length; i++) {
+            permissionCheck = ContextCompat.checkSelfPermission(this, permissions[i]);
+            if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+                break;
+            }
+        }
+
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
+                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
+            } else {
+                ActivityCompat.requestPermissions(this, permissions, 1);
+            }
         }
     }
 }

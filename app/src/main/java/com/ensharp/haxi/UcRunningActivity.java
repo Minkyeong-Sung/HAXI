@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -85,6 +86,12 @@ public class UcRunningActivity extends Activity {
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumIntegerDigits(5);
         MyApplication.taxi_fare_string = nf.format(MyApplication.taxi_fare_int);
+    }
+
+    // 나눔고딕 폰트 적용 부분분
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
     public void init_map() {
