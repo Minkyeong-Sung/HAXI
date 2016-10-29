@@ -4,7 +4,7 @@
     <string name="reservation">Reservation</string>
     <string name="reservationCheck">Reservation Confirm</string>
     <string name="fare">Fare</string>
-    <string name="serviceInfo">Service Informations</string>
+    <string name="serviceInfo">Service Info</string>
     <string name="start">출발지</string>
     <string name="title_activity_end">EndActivity</string>
 
@@ -63,4 +63,6 @@
     <string name="korean1">1. 영수증촬영 버튼(사진버튼) 클릭하세요.</string>
     <string name="korean2">2. 영수증 촬영이 완료된 후 문자전송을 클릭하세요.</string>
     <string name="korean3">3. 문자로 넘어간 후 경로캡쳐본을 첨부한 후 전송완료</string>
+
+
 </resources>

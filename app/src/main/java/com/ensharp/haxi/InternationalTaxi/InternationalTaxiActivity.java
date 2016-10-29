@@ -1,56 +1,57 @@
 package com.ensharp.haxi.InternationalTaxi;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 
 import com.ensharp.haxi.R;
 
 import java.util.Locale;
 
 public class InternationalTaxiActivity extends AppCompatActivity {
-    ViewPager mViewPager;
+
     InternationalTaxi_main_fragment main_fragment = new InternationalTaxi_main_fragment();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_international_taxi);
 
-        firstPage();
-        mViewPager = (ViewPager)findViewById(R.id.pager);
-        mViewPager.setAdapter(new SamplePagerAdapter(getSupportFragmentManager()));
-    }
-    /** Defining a FragmentPagerAdapter class for controlling the fragments to be shown when user swipes on the screen. */
-    public class SamplePagerAdapter extends FragmentPagerAdapter {
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Info"));
+        tabLayout.addTab(tabLayout.newTab().setText("Fare"));
+        tabLayout.addTab(tabLayout.newTab().setText("Reserv."));
+        tabLayout.addTab(tabLayout.newTab().setText("Confirm"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        public SamplePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
 
-        @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-            if (position == 0) {
-                return main_fragment;}
-            else if(position == 1){
-                return new InternationalTaxi_reservation_fragment();}
-            else if(position == 2){
-                return new InternationalTaxi_reservationConfirm_fragment();}
-            else if(position == 3){
-                return new InternationalTaxi_serviceInfo_fragment();}
-            else {
-                return new InternationalTaxi_fare_fragment();}
-        }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
-        @Override
-        public int getCount() {
-            // 5개의 page가 있다.
-            return 5;
-        }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        //firstPage();
     }
 
     public void firstPage()

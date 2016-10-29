@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.ensharp.haxi.InternationalTaxi.InternationalTaxiActivity;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -47,13 +48,13 @@ public class MainActivity extends Activity {
             }
         });
 
-//        openIT_activity = (Button)findViewById(R.id.btn_openInternationalTaxiActivity);
-//        openIT_activity.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View v){
-//                Intent internationalIntent = new Intent(MainActivity.this, InternationalTaxiActivity.class);
-//                startActivity(internationalIntent);
-//            }
-//        });
+        openIT_activity = (Button)findViewById(R.id.btn_openInternationalTaxiActivity);
+        openIT_activity.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent internationalIntent = new Intent(MainActivity.this, InternationalTaxiActivity.class);
+                startActivity(internationalIntent);
+            }
+        });
     };
 
 
