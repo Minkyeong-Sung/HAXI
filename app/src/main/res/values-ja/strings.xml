@@ -6,4 +6,39 @@
     <string name="fare">運賃</string>
     <string name="serviceInfo">サービス情報</string>
     <string name="start">gogo</string>
+
+    //--------------------명식 수정-----------------------------------
+
+    //activity_main
+    <string name="btn_started">시작하기</string>
+
+    //activity_uc_main
+    <string name="btn_ridecp">탑승완료</string>
+
+    //activity_uc_notify
+
+    //activity_uc_result
+    <string name="checking">잘 도착하셨나요?</string>
+    <string name="excepting_tex">예상 요금은                          원 입니다</string>
+    <string name="tex_warning">교통상황에 따라 약간의 차이가 존재할 수 있습니다</string>
+    <string name="btn_good">적당해요</string>
+    <string name="btn_strage">이상해요</string>
+
+    //activity_uc_running
+    <string name="auto_checking">자동으로 움직인 거리를 기록합니다</string>
+    <string name="after">추후에 증거자료로 사용될 수 있습니다</string>
+    <string name="arrive">목적지에 도착하셨다면 눌러주세요</string>
+
+    //notify2
+    <string name="tex">"パスの写真を比較するために領収書を添付してください</string>
+    <string name="texp">"領収書の写真を撮るくださいt"</string>
+    <string name="photop">"パスのキャプチャを追加してください。"</string>
+    <string name="camera">カメラ</string>
+    <string name="galley">"ギャラリー</string>
+    <string name="btn_tex">領収書撮影</string>
+    <string name="btn_dec">メッセージ</string>
+    <string name="btn_com">完了</string>
+    <string name="korean1">1. レシート撮影ボタンをクリックします（写真ボタン）</string>
+    <string name="korean2">2. 撮影が完了した後されたメッセージをクリックします</string>
+    <string name="korean3">3. 文字に横切った後、パスのキャプチャ本を添付した後、送信完了</string>
 </resources>

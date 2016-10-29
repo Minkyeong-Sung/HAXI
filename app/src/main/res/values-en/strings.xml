@@ -1,2 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+
+<resources>
+    //--------------------명식 수정-----------------------------------
+
+    //activity_main
+    <string name="btn_started">START</string>
+
+    //activity_uc_main
+    <string name="btn_ridecp">Boarding completed</string>
+
+    //activity_uc_notify
+
+    //activity_uc_result
+    <string name="checking">Did you arrive well?</string>
+    <string name="excepting_tex">예상 요금은                          원 입니다</string>
+    <string name="tex_warning">There can be a slight difference depending on the traffic</string>
+    <string name="btn_good">Reasonably</string>
+    <string name="btn_strage">Strange</string>
+
+    //activity_uc_running
+    <string name="auto_checking">Automatically records the moving distance</string>
+    <string name="after">It can be used as evidence at a later date</string>
+    <string name="arrive">If you arrive at your destination, press</string>
+
+    //activity_uc_notify2
+    <string name="tex">"Please attach receipts to compare the paths Photo</string>
+    <string name="texp">"Please take a picture of the receipt"</string>
+    <string name="photop">"Please add the path capture"</string>
+    <string name="camera">camera</string>
+    <string name="galley">"galley</string>
+    <string name="btn_tex">Receipt shooting</string>
+    <string name="btn_dec">Message</string>
+    <string name="btn_com">Complete</string>
+    <string name="korean1">1. Click on the receipt record button (Photo button)</string>
+    <string name="korean2">2. Click the message sent after receipt of shooting is completed</string>
+    <string name="korean3">3. Attach the path to capture and then passed to the character after the transfer is complete</string>
+
+
+</resources>

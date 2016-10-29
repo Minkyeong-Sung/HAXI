@@ -20,4 +20,40 @@
 
     // activity_uc_main
     <string name="destination_hint">도착지를 입력하세요</string>
+
+    //--------------------명식 수정-----------------------------------
+
+    //activity_main
+    <string name="btn_started">시작하기</string>
+
+    //activity_uc_main
+    <string name="btn_ridecp">탑승완료</string>
+
+    //activity_uc_notify
+
+    //activity_uc_result
+    <string name="checking">잘 도착하셨나요?</string>
+    <string name="excepting_tex">예상 요금은                          원 입니다</string>
+    <string name="tex_warning">교통상황에 따라 약간의 차이가 존재할 수 있습니다</string>
+    <string name="btn_good">적당해요</string>
+    <string name="btn_strage">이상해요</string>
+
+    //activity_uc_running
+    <string name="auto_checking">자동으로 움직인 거리를 기록합니다</string>
+    <string name="after">추후에 증거자료로 사용될 수 있습니다</string>
+    <string name="arrive">목적지에 도착하셨다면 눌러주세요</string>
+
+    //notify2
+    <string name="tex">"바가지요금 영수증을 비교할 경로사진을 첨부해주세요</string>
+    <string name="texp">"영수증 사진을 촬영해주세요"</string>
+    <string name="photop">"경로 캡쳐본을 추가해 주세요"</string>
+    <string name="camera">카메라</string>
+    <string name="galley">"갤러리</string>
+    <string name="btn_tex">영수증 촬영</string>
+    <string name="btn_dec">신고 문자</string>
+    <string name="btn_com">완료</string>
+    <string name="korean1">1. 영수증촬영 버튼(사진버튼) 클릭하세요.</string>
+    <string name="korean2">2. 영수증 촬영이 완료된 후 문자전송을 클릭하세요.</string>
+    <string name="korean3">3. 문자로 넘어간 후 경로캡쳐본을 첨부한 후 전송완료</string>
+
 </resources>
