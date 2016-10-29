@@ -29,6 +29,17 @@
     <string name="after">今後の証拠資料として使用することができます</string>
     <string name="arrive">目的地に到着した場合押してください</string>
 
+    //activity_uc_notify
+    <string name="text1">"タクシー料金の差が多すぎる場合には,"</string>
+    <string name="text2">"領収書をリクエストしてください"</string>
+    <string name="text3">"該当タクシーの不当行為の申告を手伝ってあげます"</string>
+    <string name="text4">"あなたは宣言のための情報のいくつかが必要になります"</string>
+    <string name="smsText">"名前を入力してください"</string>
+    <string name="edit_phoneNum">"コンタクト"</string>
+    <string name="smsText3">"あなたが現在常駐している正確なアドレスを入力してください。"</string>
+    <string name="btn_next1">"次の"</string>
+
+
     //notify2
     <string name="tex">"パスの写真を比較するために領収書を添付してください</string>
     <string name="texp">"領収書の写真を撮るくださいt"</string>

@@ -23,6 +23,16 @@
     <string name="after">It can be used as evidence at a later date</string>
     <string name="arrive">If you arrive at your destination, press</string>
 
+    //activity_uc_notify
+    <string name="text1">"If the difference between the taxi fare is too much"</string>
+    <string name="text2">"Please request a receipt"</string>
+    <string name="text3">"We'll help the declaration of the injustice of the relevant taxi"</string>
+    <string name="text4">"You will need some of the information for the declaration"</string>
+    <string name="smsText">"Please enter a name"</string>
+    <string name="edit_phoneNum">"Contact"</string>
+    <string name="smsText3">"Please enter the exact address that you are currently resident."</string>
+    <string name="btn_next1">"Next"</string>
+
     //activity_uc_notify2
     <string name="tex">"Please attach receipts to compare the paths Photo</string>
     <string name="texp">"Please take a picture of the receipt"</string>

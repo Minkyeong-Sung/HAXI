@@ -30,7 +30,7 @@
 
     //activity_uc_result
     <string name="checking">잘 도착하셨나요?</string>
-    <string name="excepting_tex">예상 요금은                          원 입니다</string>
+    <string name="excepting_tex">예상 요금은  원 입니다</string>
     <string name="tex_warning">교통상황에 따라 약간의 차이가 존재할 수 있습니다</string>
     <string name="btn_good">적당해요</string>
     <string name="btn_strage">이상해요</string>
@@ -39,6 +39,16 @@
     <string name="auto_checking">자동으로 움직인 거리를 기록합니다</string>
     <string name="after">추후에 증거자료로 사용될 수 있습니다</string>
     <string name="arrive">목적지에 도착하셨다면 눌러주세요</string>
+
+    //activity_uc_notify
+    <string name="text1">"택시 요금이 너무많은 차이가 난다면"</string>
+    <string name="text2">"영수증을 요청하세요"</string>
+    <string name="text3">"해당 택시의 부당행위 신고를 도와드리겠습니다"</string>
+    <string name="text4">"신고를 위해 몇가지 정보가 필요합니다"</string>
+    <string name="smsText">"이름을 입력하세요"</string>
+    <string name="edit_phoneNum">"연락처"</string>
+    <string name="smsText3">"거주중인 주소를 정확히 입력하세요"</string>
+    <string name="btn_next1">"다음"</string>
 
 
     //notify2

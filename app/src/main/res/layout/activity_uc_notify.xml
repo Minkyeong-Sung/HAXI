@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
-            android:text="택시 요금이 너무많은 차이가 난다면"
+            android:text="@string/text1"
             sl:scale_left="0"
             sl:scale_top="100"
             sl:scale_width="1080"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="영수증을 요청하세요"
+            android:text="@string/text2"
             sl:scale_left="0"
             sl:scale_top="200"
             sl:scale_width="1080"
@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="해당 택시의 부당행위 신고를 도와드리겠습니다"
+            android:text="@string/text3"
             sl:scale_left="0"
             sl:scale_top="300"
             sl:scale_width="1080"
@@ -73,7 +73,7 @@
         sl:scale_base_height="600" >
 
         <TextView
-            android:text="신고를 위해 몇가지 정보가 필요합니다"
+            android:text="@string/text4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -91,7 +91,7 @@
             android:ems="10"
             android:inputType="textMultiLine"
             android:gravity="top"
-            android:hint="이름을 입력하세요"
+            android:hint="@string/smsText"
             android:scrollbars="vertical"
             android:layout_gravity="center_horizontal"
             sl:scale_left="0"
@@ -107,7 +107,7 @@
             android:ems="10"
             android:inputType="number"
             android:gravity="top"
-            android:hint="연락처"
+            android:hint="@string/edit_phoneNum"
             android:scrollbars="vertical"
             android:layout_gravity="center_horizontal"
             sl:scale_left="0"
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="top"
-            android:hint="거주중인 주소를 정확히 입력하세요"
+            android:hint="@string/smsText3"
             android:scrollbars="vertical"
             android:layout_gravity="center_horizontal"
             sl:scale_left="0"
@@ -163,7 +163,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="다음"
+            android:text="@string/btn_next1"
             android:textColor="#ffffff"
             android:id="@+id/btn_next"
             android:background="@drawable/black_round_button"

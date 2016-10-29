@@ -29,6 +29,17 @@
     <string name="after">它可以在稍后的日期作为证据</string>
     <string name="arrive">如果您在您的目的地，按到达</string>
 
+    //activity_uc_notify
+    <string name="text1">"如果出租车费的差额太大"</string>
+    <string name="text2">"请要求收据"</string>
+    <string name="text3">"我们将帮助宣布有关出租车的不公正"</string>
+    <string name="text4">"您将需要声明的一些信息"</string>
+    <string name="smsText">"请输入名称"</string>
+    <string name="edit_phoneNum">"往来"</string>
+    <string name="smsText3">目前居住的地址请输入。"</string>
+    <string name="btn_next1">"下一步"</string>
+
+
     //notify2
     <string name="tex">"请附上收据的路径照片对比</string>
     <string name="texp">"请把收据的图片"</string>
