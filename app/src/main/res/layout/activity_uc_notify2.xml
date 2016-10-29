@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onButtonClick"
-            android:text="영수증 촬영"
+            android:text="@string/btn_tex"
             android:background="@drawable/roundedbutton"
             android:layout_gravity="bottom"
             sl:scale_left="90"

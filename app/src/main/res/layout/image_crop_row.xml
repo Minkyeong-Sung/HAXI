@@ -15,12 +15,12 @@
         android:textStyle="bold" />
 
     <Button
-    android:id="@+id/btn_gellary_crop"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="갤러리"
-    android:background="@drawable/black_round_button"
-    android:textSize="16dp"
-    android:textStyle="bold" />
+        android:id="@+id/btn_gellary_crop"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="갤러리"
+        android:background="@drawable/black_round_button"
+        android:textSize="16dp"
+        android:textStyle="bold" />
 
 </LinearLayout>

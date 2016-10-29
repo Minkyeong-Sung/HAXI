@@ -23,7 +23,7 @@
         <Button
             android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:text="적당해요"
+            android:text="@string/btn_good"
             android:id="@+id/btn_success"
             android:background="@drawable/green_line_button"
             sl:scale_left="30"
@@ -37,7 +37,7 @@
         <Button
             android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:text="이상해요"
+            android:text="@string/btn_strage"
             android:id="@+id/btn_notify"
             android:background="@drawable/red_line_button"
             sl:scale_left="550"
@@ -49,62 +49,62 @@
             android:gravity="center"/>
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:inputType="textPersonName"-->
-            <!--android:text="0"-->
-            <!--android:id="@+id/running_hour"-->
-            <!--sl:scale_left="360"-->
-            <!--sl:scale_top="960"-->
-            <!--sl:scale_width="100"-->
-            <!--sl:scale_height="100"-->
-            <!--sl:scale_textsize="50"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textColor="#FF9800"-->
-            <!--android:gravity="center" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="textPersonName"-->
+        <!--android:text="0"-->
+        <!--android:id="@+id/running_hour"-->
+        <!--sl:scale_left="360"-->
+        <!--sl:scale_top="960"-->
+        <!--sl:scale_width="100"-->
+        <!--sl:scale_height="100"-->
+        <!--sl:scale_textsize="50"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="#FF9800"-->
+        <!--android:gravity="center" />-->
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:inputType="textPersonName"-->
-            <!--android:text="00"-->
-            <!--android:id="@+id/running_minute"-->
-            <!--sl:scale_left="520"-->
-            <!--sl:scale_top="960"-->
-            <!--sl:scale_width="115"-->
-            <!--sl:scale_height="100"-->
-            <!--sl:scale_textsize="50"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textColor="#FF9800"-->
-            <!--android:gravity="center" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="textPersonName"-->
+        <!--android:text="00"-->
+        <!--android:id="@+id/running_minute"-->
+        <!--sl:scale_left="520"-->
+        <!--sl:scale_top="960"-->
+        <!--sl:scale_width="115"-->
+        <!--sl:scale_height="100"-->
+        <!--sl:scale_textsize="50"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="#FF9800"-->
+        <!--android:gravity="center" />-->
 
         <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:inputType="textPersonName"-->
-            <!--android:text="00"-->
-            <!--android:id="@+id/running_second"-->
-            <!--sl:scale_left="655"-->
-            <!--sl:scale_top="960"-->
-            <!--sl:scale_width="115"-->
-            <!--sl:scale_height="100"-->
-            <!--sl:scale_textsize="50"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textColor="#FF9800"-->
-            <!--android:gravity="center" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="textPersonName"-->
+        <!--android:text="00"-->
+        <!--android:id="@+id/running_second"-->
+        <!--sl:scale_left="655"-->
+        <!--sl:scale_top="960"-->
+        <!--sl:scale_width="115"-->
+        <!--sl:scale_height="100"-->
+        <!--sl:scale_textsize="50"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textColor="#FF9800"-->
+        <!--android:gravity="center" />-->
 
         <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/result_guid_text"-->
-            <!--android:id="@+id/imageView"-->
-            <!--sl:scale_left="90"-->
-            <!--sl:scale_top="870"-->
-            <!--sl:scale_width="900"-->
-            <!--sl:scale_height="700" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/result_guid_text"-->
+        <!--android:id="@+id/imageView"-->
+        <!--sl:scale_left="90"-->
+        <!--sl:scale_top="870"-->
+        <!--sl:scale_width="900"-->
+        <!--sl:scale_height="700" />-->
 
         <TextView
-            android:text="잘 도착하셨나요?"
+            android:text="@string/checking"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/result_guideText"
@@ -129,6 +129,7 @@
             android:gravity="center"
             android:textColor="#000000"/>
 
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,7 +141,7 @@
             sl:scale_height="50" />
 
         <TextView
-            android:text="교통상황에 따라 약간의 차이가 존재할 수 있습니다"
+            android:text="@string/tex_warning"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/textView3"

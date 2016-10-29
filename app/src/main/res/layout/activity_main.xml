@@ -39,7 +39,7 @@
         <!--sl:scale_height="200" />-->
 
         <Button
-            android:text="시작하기"
+            android:text="@string/btn_started"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_openUcActivity"
