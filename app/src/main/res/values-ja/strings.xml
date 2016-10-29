@@ -10,24 +10,24 @@
     //--------------------명식 수정-----------------------------------
 
     //activity_main
-    <string name="btn_started">시작하기</string>
+    <string name="btn_started">開始</string>
 
     //activity_uc_main
-    <string name="btn_ridecp">탑승완료</string>
+    <string name="btn_ridecp">搭乗完了</string>
 
     //activity_uc_notify
 
     //activity_uc_result
-    <string name="checking">잘 도착하셨나요?</string>
+    <string name="checking">よく到着しましたか？</string>
     <string name="excepting_tex">예상 요금은                          원 입니다</string>
-    <string name="tex_warning">교통상황에 따라 약간의 차이가 존재할 수 있습니다</string>
-    <string name="btn_good">적당해요</string>
-    <string name="btn_strage">이상해요</string>
+    <string name="tex_warning">交通状況に応じて、若干の違いが存在することができます</string>
+    <string name="btn_good">適当です</string>
+    <string name="btn_strage">何かおかしい</string>
 
     //activity_uc_running
-    <string name="auto_checking">자동으로 움직인 거리를 기록합니다</string>
-    <string name="after">추후에 증거자료로 사용될 수 있습니다</string>
-    <string name="arrive">목적지에 도착하셨다면 눌러주세요</string>
+    <string name="auto_checking">自動的に動いた距離を記録します</string>
+    <string name="after">今後の証拠資料として使用することができます</string>
+    <string name="arrive">目的地に到着した場合押してください</string>
 
     //notify2
     <string name="tex">"パスの写真を比較するために領収書を添付してください</string>
