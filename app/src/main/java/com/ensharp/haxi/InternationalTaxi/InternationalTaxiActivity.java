@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
 
 import com.ensharp.haxi.R;
 
@@ -18,7 +17,6 @@ public class InternationalTaxiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_international_taxi);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
