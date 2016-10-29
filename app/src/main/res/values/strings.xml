@@ -1,19 +1,44 @@
 <resources>
     <string name="app_name">HAXI</string>
     <string name="international_taxi_activity">International Taxi Activity</string>
-    <string name="reservation">Reservation</string>
-    <string name="reservationCheck">Reservation Confirm</string>
-    <string name="fare">Fare</string>
-    <string name="serviceInfo">Service Informations</string>
-    <string name="start">출발지</string>
-    <string name="title_activity_end">EndActivity</string>
+    <string name="reservation">预订</string>
+    <string name="reservationCheck">确认预约</string>
+    <string name="fare">票价</string>
+    <string name="serviceInfo">服务信息</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="hint_name">Full Name</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="btn_sign_up">Sign Up</string>
-    <string name="err_msg_name">Enter your full name</string>
-    <string name="err_msg_email">Enter valid email address</string>
-    <string name="err_msg_password">Enter the password</string>
+
+    //--------------------명식 수정-----------------------------------
+
+    //activity_main
+    <string name="btn_started">시작하기</string>
+
+    //activity_uc_main
+    <string name="btn_ridecp">탑승완료</string>
+
+    //activity_uc_notify
+
+    //activity_uc_result
+    <string name="checking">잘 도착하셨나요?</string>
+    <string name="excepting_tex">예상 요금은                          원 입니다</string>
+    <string name="tex_warning">교통상황에 따라 약간의 차이가 존재할 수 있습니다</string>
+    <string name="btn_good">적당해요</string>
+    <string name="btn_strage">이상해요</string>
+
+    //activity_uc_running
+    <string name="auto_checking">자동으로 움직인 거리를 기록합니다</string>
+    <string name="after">추후에 증거자료로 사용될 수 있습니다</string>
+    <string name="arrive">목적지에 도착하셨다면 눌러주세요</string>
+
+    //notify2
+    <string name="tex">"请附上收据的路径照片对比</string>
+    <string name="texp">"请把收据的图片"</string>
+    <string name="photop">"请添加路径捕获"</string>
+    <string name="camera">相机</string>
+    <string name="galley">"画廊</string>
+    <string name="btn_tex">拍摄收据</string>
+    <string name="btn_dec">该消息</string>
+    <string name="btn_com">完成</string>
+    <string name="korean1">1. 点击据拍摄收据按钮（照片按钮）</string>
+    <string name="korean2">2. 完成后收到的拍摄后，点击发送邮</string>
+    <string name="korean3">3. 然后越过以字母路径，然后装上采集传输完毕</string>
 </resources>
