@@ -14,7 +14,7 @@
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/mainactivity_2_resize"
+        android:background="@drawable/mainactivity_noletter"
         sl:scale_base_width="1080"
         sl:scale_base_height="1730" >
 
@@ -38,6 +38,54 @@
         <!--sl:scale_width="450"-->
         <!--sl:scale_height="200" />-->
 
+        <com.ensharp.haxi.CustomFont
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="반갑습니다. 당신의 택시이용 중 부당요금에 대한"
+            sl:scale_left="120"
+            sl:scale_top="1060"
+            sl:scale_width="840"
+            sl:scale_height="60"
+            sl:scale_textsize="41"
+            android:textColor="#FFFFFF"
+            android:gravity="center"/>
+
+        <com.ensharp.haxi.CustomFont
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="신고를 편하게 제공해주는 어플리케이션 입니다."
+            sl:scale_left="120"
+            sl:scale_top="1120"
+            sl:scale_width="840"
+            sl:scale_height="60"
+            sl:scale_textsize="41"
+            android:textColor="#FFFFFF"
+            android:gravity="center"/>
+
+        <com.ensharp.haxi.CustomFont
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="서비스를 이용하시려면 아래의 시작하기 버튼을 눌러주세요."
+            sl:scale_left="20"
+            sl:scale_top="1180"
+            sl:scale_width="1040"
+            sl:scale_height="60"
+            sl:scale_textsize="41"
+            android:textColor="#FFFFFF"
+            android:gravity="center"/>
+
+        <com.ensharp.haxi.CustomFont
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="외국인 택시를 이용하려면 International Taxi 를 눌러주세요."
+            sl:scale_left="20"
+            sl:scale_top="1240"
+            sl:scale_width="1040"
+            sl:scale_height="60"
+            sl:scale_textsize="41"
+            android:textColor="#FFFFFF"
+            android:gravity="center"/>
+
         <Button
             android:text="@string/btn_started"
             android:layout_width="wrap_content"
@@ -45,12 +93,11 @@
             android:id="@+id/btn_openUcActivity"
             android:background="@drawable/roundedbutton"
             sl:scale_left="200"
-            sl:scale_top="1400"
+            sl:scale_top="1440"
             sl:scale_width="700"
-            sl:scale_height="120"
+            sl:scale_height="100"
             sl:scale_textsize="40"
-            android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:textColor="@android:color/white" />
 
         <Button
         android:text="International Taxi"
@@ -59,10 +106,10 @@
         android:id="@+id/btn_openInternationalTaxiActivity"
         android:background="@drawable/roundedbutton"
         sl:scale_left="200"
-        sl:scale_top="1550"
+        sl:scale_top="1560"
         sl:scale_width="700"
-        sl:scale_height="120"
-        sl:scale_textsize="50"
+        sl:scale_height="100"
+        sl:scale_textsize="40"
         android:textColor="@android:color/white" />
     </com.ssomai.android.scalablelayout.ScalableLayout>
 </RelativeLayout>

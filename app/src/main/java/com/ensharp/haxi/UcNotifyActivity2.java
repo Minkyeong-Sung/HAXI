@@ -104,7 +104,7 @@ public class UcNotifyActivity2 extends Activity {
             //Toast.makeText(UcNotifyActivity2.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
         }
     };
-    
+
     /**
      * 다이얼로그 생성
      */
