@@ -7,11 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.ensharp.haxi.R;
 
-import java.util.Locale;
-
 public class InternationalTaxiActivity extends AppCompatActivity {
 
-    public static StringBuilder URL_locale = new StringBuilder("/?lang=ko");
 
 
     @Override
@@ -26,7 +23,6 @@ public class InternationalTaxiActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Confirm"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        getLocale();
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -52,23 +48,5 @@ public class InternationalTaxiActivity extends AppCompatActivity {
 
     }
 
-    public void getLocale()
-    {
-        Locale locale = getResources().getConfiguration().locale;
-        String language =  locale.getLanguage();
-
-        URL_locale.delete(0,URL_locale.length());
-
-        switch (language) {
-            case "ko":
-                URL_locale.append("/?lang=ko"); break;
-            case "ja":
-                URL_locale.append("/?lang=jp"); break;
-            case "zh":
-                URL_locale.append("/?lang=cn"); break;
-            default:
-                URL_locale.append("/?lang=en"); break;
-        }
-    }
 }
 

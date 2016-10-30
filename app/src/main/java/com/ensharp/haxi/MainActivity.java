@@ -18,6 +18,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class MainActivity extends Activity {
@@ -25,6 +26,7 @@ public class MainActivity extends Activity {
     Button openUc_activity;
     Button openIT_activity;
 
+    public static StringBuilder URL_locale = new StringBuilder("/?lang=ko");
     Boolean permission_check = false;
 
     @Override
@@ -35,6 +37,9 @@ public class MainActivity extends Activity {
         chkGpsService();
         // 스플래시 화면 띄우는 부분
         startActivity(new Intent(this, SplashActivity.class));
+
+        // 사용 언어 받기
+        getLocale();
 
         openUc_activity = (Button)findViewById(R.id.btn_openUcActivity);
         openUc_activity.setOnClickListener(new View.OnClickListener(){
@@ -58,6 +63,24 @@ public class MainActivity extends Activity {
     };
 
 
+    public void getLocale()
+    {
+        Locale locale = getResources().getConfiguration().locale;
+        String language =  locale.getLanguage();
+
+        URL_locale.delete(0,URL_locale.length());
+
+        switch (language) {
+            case "ko":
+                URL_locale.append("/?lang=ko"); break;
+            case "ja":
+                URL_locale.append("/?lang=jp"); break;
+            case "zh":
+                URL_locale.append("/?lang=cn"); break;
+            default:
+                URL_locale.append("/?lang=en"); break;
+        }
+    }
     // Ted Permission - 권한체크
     PermissionListener permissionlistener = new PermissionListener() {
         @Override

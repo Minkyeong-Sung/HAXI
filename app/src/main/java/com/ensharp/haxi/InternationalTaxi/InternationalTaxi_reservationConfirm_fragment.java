@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.ensharp.haxi.MainActivity;
 import com.ensharp.haxi.R;
 
 public class InternationalTaxi_reservationConfirm_fragment extends Fragment {
@@ -30,7 +31,7 @@ public class InternationalTaxi_reservationConfirm_fragment extends Fragment {
         web=(WebView)view.findViewById(R.id.web);
         web.getSettings().setJavaScriptEnabled(true);
         web.setWebViewClient(new WebViewClient());
-        confirm_url.append(InternationalTaxiActivity.URL_locale);
+        confirm_url.append(MainActivity.URL_locale);
         web.loadUrl(confirm_url.toString());
     }
 }
