@@ -27,6 +27,6 @@ dependencies {
     provided 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.ssomai:android.scalablelayout:2.1.1'
     compile 'com.android.support:design:23.0.1'
-    compile 'com.tsengvn:Typekit:1.0.0'
+    compile 'com.tsengvn:typekit:1.0.1'
     compile project(':tedpermission')
 }

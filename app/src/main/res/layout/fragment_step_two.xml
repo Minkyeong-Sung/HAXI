@@ -1,26 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sl="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ssomai.android.scalablelayout.ScalableLayout
-        android:layout_width="wrap_content"
+    <!--<com.ssomai.android.scalablelayout.ScalableLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--sl:scale_base_width="1080"-->
+        <!--sl:scale_base_height="1720"-->
+        <!--android:background="#ffffff">-->
+
+
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@color/colorPrimaryDark"-->
+            <!--android:id="@+id/image_receipt"-->
+            <!--sl:scale_left="0"-->
+            <!--sl:scale_top="0"-->
+            <!--sl:scale_width="1080"-->
+            <!--sl:scale_height="1225" />-->
+    <!--</com.ssomai.android.scalablelayout.ScalableLayout>-->
+
+    <ImageView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background=""
+        android:id="@+id/image_receipt"
+        android:layout_above="@+id/sl_1st"/>
+
+    <com.ssomai.android.scalablelayout.ScalableLayout
+        android:id="@+id/sl_1st"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         sl:scale_base_width="1080"
-        sl:scale_base_height="1720"
-        android:background="#ffffff">
+        sl:scale_base_height="300"
+        android:background="#ffffff"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
-
-        <ImageView
+        <com.ensharp.haxi.CustomFont
+            android:text="영수증 사진이 제대로 보이시면 다음버튼을\n 편집하시려면 편집버튼을 이용하세요"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@color/colorPrimaryDark"
-            android:id="@+id/image_receipt"
-            sl:scale_left="0"
+            sl:scale_left="70"
             sl:scale_top="0"
-            sl:scale_width="1080"
-            sl:scale_height="1225" />
-    </com.ssomai.android.scalablelayout.ScalableLayout>
+            sl:scale_width="900"
+            sl:scale_height="150"
+            sl:scale_textsize="50"
+            android:gravity="center"
+            android:textColor="#000000"/>
 
-</LinearLayout>
+        <Button
+            android:text="편집"
+            android:id="@+id/notify_crop"
+            android:background="@drawable/black_round_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            sl:scale_left="20"
+            sl:scale_top="170"
+            sl:scale_width="500"
+            sl:scale_height="100"
+            sl:scale_textsize="50" />
+
+        <Button
+            android:text="다음"
+            android:id="@+id/notify_next"
+            android:background="@drawable/black_round_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            sl:scale_left="560"
+            sl:scale_top="170"
+            sl:scale_width="500"
+            sl:scale_height="100"
+            sl:scale_textsize="50"/>
+
+
+    </com.ssomai.android.scalablelayout.ScalableLayout>
+</RelativeLayout>

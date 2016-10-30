@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,6 +44,9 @@ public class UcNotifyActivity2 extends Activity {
     Button complete;
 
     Bitmap photo;
+
+    Button notifyNext;
+    Button notifyCrop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,21 +86,31 @@ public class UcNotifyActivity2 extends Activity {
 ////			sendMMSG();
 //                break;
             // 영수증 촬영 버튼을 눌렀을 때
-            case R.id.btn_image_crop:
+            case R.id.btn_capture:
 //                mDialog = createDialog();
 //                mDialog.show();
                 // 카메라 바로 실행시킴
-                doTakePhotoAction();
-                setDismiss(mDialog);
+//                doTakePhotoAction();
+//                setDismiss(mDialog);
+
+                Intent intent = new Intent();
+                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, PICK_FROM_CAMERA);
 
                 // Fragment 전환 부분
-//                Fragment fr;
-//                fr = new FragmentStepTwo();
-//                FragmentManager fm = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
-//                fragmentTransaction.commit();
+                Fragment fr;
+                fr = new FragmentStepTwo();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
+                fragmentTransaction.commit();
+                break;
 
+            case R.id.notify_crop:
+
+                break;
+
+            case R.id.notify_next:
                 break;
         }
     }
@@ -211,96 +226,120 @@ public class UcNotifyActivity2 extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        Log.d(TAG, "onActivityResultX");
-        if(resultCode != RESULT_OK)
-        {
-            return;
+//        Log.d(TAG, "onActivityResultX");
+//        if(resultCode != RESULT_OK)
+//        {
+//            return;
+//        }
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_FROM_CAMERA) {
+                if (data != null) {
+                    Log.e("Test", "result = " + data);
+                    Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                    if (thumbnail != null) {
+                        ImageView Imageview = (ImageView) findViewById(R.id.image_receipt);
+                        Imageview.setImageBitmap(thumbnail);
+                    }
+                }
+
+            } else if (requestCode == PICK_FROM_ALBUM) {
+                if (data != null) {
+                    Log.e("Test", "result = " + data);
+
+                    Uri thumbnail = data.getData();
+                    if (thumbnail != null) {
+                        ImageView Imageview = (ImageView) findViewById(R.id.image_receipt);
+                        Imageview.setImageURI(thumbnail);
+                    }
+                }
+            }
         }
 
-        switch(requestCode)
-        {
-            case PICK_FROM_ALBUM:
-            {
-                Log.d(TAG, "PICK_FROM_ALBUM");
-
-                // 이후의 처리가 카메라와 같으므로 일단  break없이 진행합니다.
-                // 실제 코드에서는 좀더 합리적인 방법을 선택하시기 바랍니다.
-                mImageCaptureUri = data.getData();
-                File original_file = getImageFile(mImageCaptureUri);
-
-                mImageCaptureUri = createSaveCropFile();
-                File cpoy_file = new File(mImageCaptureUri.getPath());
-
-                // SD카드에 저장된 파일을 이미지 Crop을 위해 복사한다.
-                copyFile(original_file , cpoy_file);
-            }
-
-            case PICK_FROM_CAMERA:
-            {
-                Log.d(TAG, "PICK_FROM_CAMERA");
-
-                // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정합니다.
-                // 이후에 이미지 크롭 어플리케이션을 호출하게 됩니다.
-
-                Intent intent = new Intent("com.android.camera.action.CROP");
-                intent.setDataAndType(mImageCaptureUri, "image/*");
-
-                // Crop한 이미지를 저장할 Path
-                intent.putExtra("output", mImageCaptureUri);
-
-                // Return Data를 사용하면 번들 용량 제한으로 크기가 큰 이미지는
-                // 넘겨 줄 수 없다.
-//			intent.putExtra("return-data", true);
-                startActivityForResult(intent, CROP_FROM_CAMERA);
-
-//                ImageView receiptImage;
-//                receiptImage = (ImageView)findViewById(R.id.image_receipt);
+//        switch(requestCode)
+//        {
+//            case PICK_FROM_ALBUM:
+//            {
+//                Log.d(TAG, "PICK_FROM_ALBUM");
+//
+//                // 이후의 처리가 카메라와 같으므로 일단  break없이 진행합니다.
+//                // 실제 코드에서는 좀더 합리적인 방법을 선택하시기 바랍니다.
+//                mImageCaptureUri = data.getData();
+//                File original_file = getImageFile(mImageCaptureUri);
+//
+//                mImageCaptureUri = createSaveCropFile();
+//                File cpoy_file = new File(mImageCaptureUri.getPath());
+//
+//                // SD카드에 저장된 파일을 이미지 Crop을 위해 복사한다.
+//                copyFile(original_file , cpoy_file);
+//            }
+//
+//            case PICK_FROM_CAMERA:
+//            {
+//                Log.d(TAG, "PICK_FROM_CAMERA");
+//
+//                // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정합니다.
+//                // 이후에 이미지 크롭 어플리케이션을 호출하게 됩니다.
+//
+//                Intent intent = new Intent("com.android.camera.action.CROP");
+//                intent.setDataAndType(mImageCaptureUri, "image/*");
+//
+//                // Crop한 이미지를 저장할 Path
+//                intent.putExtra("output", mImageCaptureUri);
+//
+//                // Return Data를 사용하면 번들 용량 제한으로 크기가 큰 이미지는
+//                // 넘겨 줄 수 없다.
+////			intent.putExtra("return-data", true);
+//                startActivityForResult(intent, CROP_FROM_CAMERA);
+//
+////                ImageView receiptImage;
+////                receiptImage = (ImageView)findViewById(R.id.image_receipt);
+////
+////                String full_path = mImageCaptureUri.getPath();
+////                String photo_path = full_path.substring(4, full_path.length());
+////
+////                photo = BitmapFactory.decodeFile(full_path);
+////
+////                Log.i("HYEON", "setImageBitmap을 마치기 전입니다");
+////                Log.i("HYEON", photo.toString());
+////
+////                receiptImage.setImageBitmap(photo);
+////
+////                Log.i("HYEON", "setImageBitmap을 마쳤습니다");
+//                break;
+//            }
+//
+//            case CROP_FROM_CAMERA:
+//            {
+//                Log.w(TAG, "CROP_FROM_CAMERA");
+//
+//                // Crop 된 이미지를 넘겨 받습니다.
+//                Log.w(TAG, "mImageCaptureUri = " + mImageCaptureUri);
 //
 //                String full_path = mImageCaptureUri.getPath();
 //                String photo_path = full_path.substring(4, full_path.length());
 //
-//                photo = BitmapFactory.decodeFile(full_path);
+//                Log.w(TAG, "비트맵 Image path = "+photo_path);
 //
-//                Log.i("HYEON", "setImageBitmap을 마치기 전입니다");
-//                Log.i("HYEON", photo.toString());
+//                Log.i("HYEON", "1");
 //
-//                receiptImage.setImageBitmap(photo);
+//                // 에러나는 부분
+//                Bitmap photo = BitmapFactory.decodeFile(full_path);
+//                Log.i("HYEON", "2");
+//                mPhotoImageView.setImageBitmap(photo);
+//                Log.i("HYEON", "3");
 //
-//                Log.i("HYEON", "setImageBitmap을 마쳤습니다");
-                break;
-            }
-
-            case CROP_FROM_CAMERA:
-            {
-                Log.w(TAG, "CROP_FROM_CAMERA");
-
-                // Crop 된 이미지를 넘겨 받습니다.
-                Log.w(TAG, "mImageCaptureUri = " + mImageCaptureUri);
-
-                String full_path = mImageCaptureUri.getPath();
-                String photo_path = full_path.substring(4, full_path.length());
-
-                Log.w(TAG, "비트맵 Image path = "+photo_path);
-
-                Log.i("HYEON", "1");
-
-                // 에러나는 부분
-                Bitmap photo = BitmapFactory.decodeFile(full_path);
-                Log.i("HYEON", "2");
-                mPhotoImageView.setImageBitmap(photo);
-                Log.i("HYEON", "3");
-
-
-                Fragment fr;
-                fr = new FragmentStepTwo();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
-                fragmentTransaction.commit();
-
-                break;
-            }
-        }
+//
+//                Fragment fr;
+//                fr = new FragmentStepTwo();
+//                FragmentManager fm = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
+//                fragmentTransaction.commit();
+//
+//                break;
+//            }
+//        }
     }
 
     /**
@@ -395,5 +434,14 @@ public class UcNotifyActivity2 extends Activity {
 
     private void setLayout(){
         mPhotoImageView = (ImageView)findViewById(R.id.image_receipt);
+        notifyCrop = (Button)findViewById(R.id.notify_crop);
+        notifyNext = (Button)findViewById(R.id.notify_next);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+
     }
 }

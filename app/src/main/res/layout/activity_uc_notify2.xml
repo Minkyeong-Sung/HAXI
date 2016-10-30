@@ -7,22 +7,55 @@
     tools:context="com.ensharp.haxi.UcNotifyActivity2"
     android:background="@drawable/request_receipt">
 
-    <FrameLayout
+    <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frameLayout_notify"></FrameLayout>
+        android:layout_height="wrap_content"
+        sl:scale_base_width="1080"
+        sl:scale_base_height="200"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="105dp">
+
+        <com.ensharp.haxi.CustomFont
+            android:text="영수증을 요청하시고\n아래의 버튼으로 사진을 촬영하세요"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            sl:scale_left="90"
+            sl:scale_top="0"
+            sl:scale_width="900"
+            sl:scale_height="200"
+            sl:scale_textsize="50"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+
+        <!--<com.ensharp.haxi.CustomFont-->
+            <!--android:text="아래의 버튼으로 사진을 촬영하세요"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/textView3"-->
+            <!--sl:scale_left="90"-->
+            <!--sl:scale_top="100"-->
+            <!--sl:scale_width="900"-->
+            <!--sl:scale_height="100"-->
+            <!--sl:scale_textsize="50"-->
+            <!--android:gravity="center"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="#000000"/>-->
+    </com.ssomai.android.scalablelayout.ScalableLayout>
 
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         sl:scale_base_width="1080"
-        sl:scale_base_height="100"
+        sl:scale_base_height="150"
+        android:layout_marginBottom="40dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="49dp">
+        android:layout_alignParentStart="true">
 
         <Button
-            android:id="@+id/btn_image_crop"
+            android:id="@+id/btn_capture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onButtonClick"
@@ -33,11 +66,20 @@
             sl:scale_top="0"
             sl:scale_width="900"
             sl:scale_height="100"
-            sl:scale_textsize="30"
+            sl:scale_textsize="40"
             android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frameLayout_notify"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 
     <!--<LinearLayout-->
