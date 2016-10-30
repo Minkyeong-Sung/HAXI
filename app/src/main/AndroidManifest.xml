@@ -68,7 +68,7 @@
         </activity>
         <activity
             android:name=".InternationalTaxi.InternationalTaxiActivity"
-            android:theme="@style/Theme.MyDialog" />
+            android:theme="@style/Theme.InternatioalTaxi" />
         <activity
             android:name=".SplashActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />

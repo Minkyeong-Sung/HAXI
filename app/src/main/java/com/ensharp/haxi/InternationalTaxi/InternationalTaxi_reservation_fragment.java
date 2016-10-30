@@ -28,7 +28,7 @@ public class InternationalTaxi_reservation_fragment extends Fragment {
         web=(WebView)view.findViewById(R.id.web);
         web.getSettings().setJavaScriptEnabled(true);
         web.setWebViewClient(new WebViewClient());
-        book_url.append(InternationalTaxiActivity.URL_locale);
+        //book_url.append(InternationalTaxiActivity.URL_locale);
         web.loadUrl(book_url.toString());
     }
 }

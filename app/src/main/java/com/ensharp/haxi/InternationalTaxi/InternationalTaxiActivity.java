@@ -22,7 +22,7 @@ public class InternationalTaxiActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Info"));
         tabLayout.addTab(tabLayout.newTab().setText("Fare"));
-        tabLayout.addTab(tabLayout.newTab().setText("Reserv."));
+        tabLayout.addTab(tabLayout.newTab().setText("Book"));
         tabLayout.addTab(tabLayout.newTab().setText("Confirm"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 

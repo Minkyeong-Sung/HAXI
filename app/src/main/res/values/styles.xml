@@ -15,7 +15,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="Theme.MyDialog" parent="@style/Theme.AppCompat">
+    <style name="Theme.InternatioalTaxi" parent="@style/Theme.AppCompat">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
