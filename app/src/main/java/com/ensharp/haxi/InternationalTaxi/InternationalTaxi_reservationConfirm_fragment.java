@@ -15,7 +15,7 @@ public class InternationalTaxi_reservationConfirm_fragment extends Fragment {
 
 
     WebView web;
-    String url="http://www.intltaxi.co.kr/Home/confirm";
+    StringBuilder confirm_url= new StringBuilder("http://www.intltaxi.co.kr/Home/confirm");
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,6 +30,7 @@ public class InternationalTaxi_reservationConfirm_fragment extends Fragment {
         web=(WebView)view.findViewById(R.id.web);
         web.getSettings().setJavaScriptEnabled(true);
         web.setWebViewClient(new WebViewClient());
-        web.loadUrl(url);
+        confirm_url.append(InternationalTaxiActivity.URL_locale);
+        web.loadUrl(confirm_url.toString());
     }
 }

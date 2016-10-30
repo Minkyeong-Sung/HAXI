@@ -14,7 +14,7 @@ import com.ensharp.haxi.R;
 public class InternationalTaxi_serviceInfo_fragment extends Fragment {
 
     WebView web;
-    String url="http://www.intltaxi.co.kr/Home/howtouse";
+    StringBuilder info_url= new StringBuilder("http://www.intltaxi.co.kr/Home/howtouse");
     View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,6 +28,7 @@ public class InternationalTaxi_serviceInfo_fragment extends Fragment {
         web=(WebView)view.findViewById(R.id.web);
         web.getSettings().setJavaScriptEnabled(true);
         web.setWebViewClient(new WebViewClient());
-        web.loadUrl(url);
+        info_url.append(InternationalTaxiActivity.URL_locale);
+        web.loadUrl(info_url.toString());
     }
 }

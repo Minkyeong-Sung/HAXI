@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public class InternationalTaxiActivity extends AppCompatActivity {
 
-    InternationalTaxi_main_fragment main_fragment = new InternationalTaxi_main_fragment();
+    public static StringBuilder URL_locale = new StringBuilder("/?lang=ko");
 
 
     @Override
@@ -26,6 +26,7 @@ public class InternationalTaxiActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Confirm"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        getLocale();
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
@@ -49,25 +50,24 @@ public class InternationalTaxiActivity extends AppCompatActivity {
             }
         });
 
-        //firstPage();
     }
 
-    public void firstPage()
+    public void getLocale()
     {
         Locale locale = getResources().getConfiguration().locale;
         String language =  locale.getLanguage();
 
-        main_fragment.url.delete(0,main_fragment.url.length());
+        URL_locale.delete(0,URL_locale.length());
 
         switch (language) {
             case "ko":
-                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=ko"); break;
+                URL_locale.append("/?lang=ko"); break;
             case "ja":
-                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=jp"); break;
+                URL_locale.append("/?lang=jp"); break;
             case "zh":
-                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=cn"); break;
+                URL_locale.append("/?lang=cn"); break;
             default:
-                main_fragment.url.append("http://www.intltaxi.co.kr/?lang=en"); break;
+                URL_locale.append("/?lang=en"); break;
         }
     }
 }
