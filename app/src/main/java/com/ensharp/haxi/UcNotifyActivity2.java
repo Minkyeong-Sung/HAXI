@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -15,14 +13,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.gun0912.tedpermission.PermissionListener;
-import com.tsengvn.typekit.TypekitContextWrapper;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,49 +24,40 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 
 public class UcNotifyActivity2 extends Activity {
+    private static final String TAG = "TestImageCropActivity";
 
-    private static final String TAG = "영수증 촬영";
     private static final int PICK_FROM_CAMERA = 0;
     private static final int PICK_FROM_ALBUM = 1;
     private static final int CROP_FROM_CAMERA = 2;
-    private static final int LONG_DELAY = 4500;
+
     private Uri mImageCaptureUri;
     private AlertDialog mDialog;
-    Button complete;
 
-    Bitmap photo;
+    ImageView resultImage;
 
-    Button notifyNext;
-    Button notifyCrop;
+    public static Bitmap photo;
+
+    Fragment fr;
+    FragmentManager fm;
+
+    ImageView notify_receipt;
+    TextView notify_guideText;
+    Button btnFirstCamera;
+    Button btnCamera;
+    Button btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uc_notify2);
+
         setLayout();
-//        complete = (Button)findViewById(R.id.btn_complete);
-//        complete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent notify3Intent = new Intent(UcNotifyActivity2.this, MainActivity.class);
-//                startActivity(notify3Intent);
-//            }
-//        });
-//
-//        new TedPermission(this)
-//                .setPermissionListener(permissionlistener)
-//                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
-//                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                .check();
 
-//        FragmentManager fm = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//        fragmentTransaction.add(R.id.frameLayout_notify, new FragmentStepTwo());
-//        fragmentTransaction.commit();
-
+        notify_receipt.setVisibility(View.INVISIBLE);
+        btnCamera.setVisibility(View.INVISIBLE);
+        btnNext.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -80,53 +65,27 @@ public class UcNotifyActivity2 extends Activity {
      */
     public void onButtonClick(View v){
         switch (v.getId()) {
+//            case R.id.btn_sns:
+//                sendSMS("01049122194" , "hi nice to meet you");
+//                break;
 //            case R.id.btn_mms:
 //                Log.e(TAG, "mImageCaptureUri = " + mImageCaptureUri);
 //                sendMMS(mImageCaptureUri);
-////			sendMMSG();
+////          sendMMSG();
 //                break;
-            // 영수증 촬영 버튼을 눌렀을 때
             case R.id.btn_capture:
-//                mDialog = createDialog();
-//                mDialog.show();
-                // 카메라 바로 실행시킴
-//                doTakePhotoAction();
-//                setDismiss(mDialog);
-
-                Intent intent = new Intent();
-                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, PICK_FROM_CAMERA);
-
-                // Fragment 전환 부분
-                Fragment fr;
-                fr = new FragmentStepTwo();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
-                fragmentTransaction.commit();
+                doTakePhotoAction();
+                setDismiss(mDialog);
                 break;
-
             case R.id.notify_crop:
-
+                mDialog = createDialog();
+                mDialog.show();
                 break;
-
+            // 다음버튼
             case R.id.notify_next:
                 break;
         }
     }
-
-    // TedPermission 권한 부분
-    PermissionListener permissionlistener = new PermissionListener() {
-        @Override
-        public void onPermissionGranted() {
-            Toast.makeText(UcNotifyActivity2.this, "Permission Granted", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-            Toast.makeText(UcNotifyActivity2.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
-        }
-    };
 
     /**
      * 다이얼로그 생성
@@ -154,10 +113,10 @@ public class UcNotifyActivity2 extends Activity {
         });
 
         AlertDialog.Builder ab = new AlertDialog.Builder(this);
-        ab.setTitle("영수증 첨부");
+        ab.setTitle("이미지 Crop");
         ab.setView(innerView);
 
-        return  ab.create();
+        return ab.create();
     }
 
     /**
@@ -170,30 +129,47 @@ public class UcNotifyActivity2 extends Activity {
     }
 
     /**
-     * MMS 발송	(APP TAB BOX)
+     * SMS 발송
+     */
+    private void sendSMS(String reciver , String content){
+        Uri uri = Uri.parse("smsto:"+reciver);
+        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+        it.putExtra("sms_body", content);
+        startActivity(it);
+    }
+
+    /**
+     * MMS 발송   (APP TAB BOX)
      */
     private void sendMMS(Uri uri){
-        if(uri==null)
-        {
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "영수증 사진을 촬영해주세요", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
-        else {
-            uri = Uri.parse("" + uri);
-            Intent it = new Intent(Intent.ACTION_SEND);
-            it.putExtra("address", "02-120");
-            it.putExtra("sms_body", "바가지요금 영수증을 비교할 경로사진을 첨부해주세요.");
-            it.putExtra(Intent.EXTRA_STREAM, uri);
-            it.setType("image/*");
-            startActivity(it);
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "경로 캡쳐본을 추가해주세요", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
+        uri = Uri.parse(""+uri);
+        Intent it = new Intent(Intent.ACTION_SEND);
+        it.putExtra("sms_body", "some text");
+        it.putExtra(Intent.EXTRA_STREAM, uri);
+        it.setType("image/*");
+        // 삼성 단말에서만 허용 ( 앱 선택 박스 없이 호출 )
+//      it.setComponent(new ComponentName("com.sec.mms", "com.sec.mms.Mms"));
+        startActivity(it);
     }
+
+    /**
+     * MMS 발송 ( 첨부 파일 없음 )
+     */
+    private void sendMMSG(){
+        Uri mmsUri = Uri.parse("mmsto:");
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW, mmsUri);
+        sendIntent.addCategory("android.intent.category.DEFAULT");
+        sendIntent.addCategory("android.intent.category.BROWSABLE");
+        sendIntent.putExtra("address", "01000000000");
+        sendIntent.putExtra("exit_on_sent", true);
+        sendIntent.putExtra("subject", "dfdfdf");
+        sendIntent.putExtra("sms_body", "dfdfsdf");
+        Uri dataUri = Uri.parse(""+mImageCaptureUri);
+        sendIntent.putExtra(Intent.EXTRA_STREAM, dataUri);
+
+        startActivity(sendIntent);
+    }
+
 
     /**
      * 카메라 호출 하기
@@ -226,120 +202,76 @@ public class UcNotifyActivity2 extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-//        Log.d(TAG, "onActivityResultX");
-//        if(resultCode != RESULT_OK)
-//        {
-//            return;
-//        }
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == PICK_FROM_CAMERA) {
-                if (data != null) {
-                    Log.e("Test", "result = " + data);
-                    Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                    if (thumbnail != null) {
-                        ImageView Imageview = (ImageView) findViewById(R.id.image_receipt);
-                        Imageview.setImageBitmap(thumbnail);
-                    }
-                }
-
-            } else if (requestCode == PICK_FROM_ALBUM) {
-                if (data != null) {
-                    Log.e("Test", "result = " + data);
-
-                    Uri thumbnail = data.getData();
-                    if (thumbnail != null) {
-                        ImageView Imageview = (ImageView) findViewById(R.id.image_receipt);
-                        Imageview.setImageURI(thumbnail);
-                    }
-                }
-            }
+        Log.d(TAG, "onActivityResult");
+        if(resultCode != RESULT_OK)
+        {
+            return;
         }
 
-//        switch(requestCode)
-//        {
-//            case PICK_FROM_ALBUM:
-//            {
-//                Log.d(TAG, "PICK_FROM_ALBUM");
-//
-//                // 이후의 처리가 카메라와 같으므로 일단  break없이 진행합니다.
-//                // 실제 코드에서는 좀더 합리적인 방법을 선택하시기 바랍니다.
-//                mImageCaptureUri = data.getData();
-//                File original_file = getImageFile(mImageCaptureUri);
-//
-//                mImageCaptureUri = createSaveCropFile();
-//                File cpoy_file = new File(mImageCaptureUri.getPath());
-//
-//                // SD카드에 저장된 파일을 이미지 Crop을 위해 복사한다.
-//                copyFile(original_file , cpoy_file);
-//            }
-//
-//            case PICK_FROM_CAMERA:
-//            {
-//                Log.d(TAG, "PICK_FROM_CAMERA");
-//
-//                // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정합니다.
-//                // 이후에 이미지 크롭 어플리케이션을 호출하게 됩니다.
-//
-//                Intent intent = new Intent("com.android.camera.action.CROP");
-//                intent.setDataAndType(mImageCaptureUri, "image/*");
-//
-//                // Crop한 이미지를 저장할 Path
-//                intent.putExtra("output", mImageCaptureUri);
-//
-//                // Return Data를 사용하면 번들 용량 제한으로 크기가 큰 이미지는
-//                // 넘겨 줄 수 없다.
-////			intent.putExtra("return-data", true);
-//                startActivityForResult(intent, CROP_FROM_CAMERA);
-//
-////                ImageView receiptImage;
-////                receiptImage = (ImageView)findViewById(R.id.image_receipt);
-////
-////                String full_path = mImageCaptureUri.getPath();
-////                String photo_path = full_path.substring(4, full_path.length());
-////
-////                photo = BitmapFactory.decodeFile(full_path);
-////
-////                Log.i("HYEON", "setImageBitmap을 마치기 전입니다");
-////                Log.i("HYEON", photo.toString());
-////
-////                receiptImage.setImageBitmap(photo);
-////
-////                Log.i("HYEON", "setImageBitmap을 마쳤습니다");
-//                break;
-//            }
-//
-//            case CROP_FROM_CAMERA:
-//            {
-//                Log.w(TAG, "CROP_FROM_CAMERA");
-//
-//                // Crop 된 이미지를 넘겨 받습니다.
-//                Log.w(TAG, "mImageCaptureUri = " + mImageCaptureUri);
-//
-//                String full_path = mImageCaptureUri.getPath();
-//                String photo_path = full_path.substring(4, full_path.length());
-//
-//                Log.w(TAG, "비트맵 Image path = "+photo_path);
-//
-//                Log.i("HYEON", "1");
-//
-//                // 에러나는 부분
-//                Bitmap photo = BitmapFactory.decodeFile(full_path);
-//                Log.i("HYEON", "2");
-//                mPhotoImageView.setImageBitmap(photo);
-//                Log.i("HYEON", "3");
-//
-//
-//                Fragment fr;
-//                fr = new FragmentStepTwo();
-//                FragmentManager fm = getFragmentManager();
-//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//                fragmentTransaction.replace(R.id.frameLayout_notify, fr);
-//                fragmentTransaction.commit();
-//
-//                break;
-//            }
-//        }
+        switch(requestCode)
+        {
+            case PICK_FROM_ALBUM:
+            {
+                Log.d(TAG, "PICK_FROM_ALBUM");
+
+                // 이후의 처리가 카메라와 같으므로 일단  break없이 진행합니다.
+                // 실제 코드에서는 좀더 합리적인 방법을 선택하시기 바랍니다.
+                mImageCaptureUri = data.getData();
+                File original_file = getImageFile(mImageCaptureUri);
+
+                mImageCaptureUri = createSaveCropFile();
+                File cpoy_file = new File(mImageCaptureUri.getPath());
+
+                // SD카드에 저장된 파일을 이미지 Crop을 위해 복사한다.
+                copyFile(original_file , cpoy_file);
+            }
+
+            case PICK_FROM_CAMERA:
+            {
+                Log.d(TAG, "PICK_FROM_CAMERA");
+
+                // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정합니다.
+                // 이후에 이미지 크롭 어플리케이션을 호출하게 됩니다.
+
+                Intent intent = new Intent("com.android.camera.action.CROP");
+                intent.setDataAndType(mImageCaptureUri, "image/*");
+
+                // Crop한 이미지를 저장할 Path
+                intent.putExtra("output", mImageCaptureUri);
+
+                // Return Data를 사용하면 번들 용량 제한으로 크기가 큰 이미지는
+                // 넘겨 줄 수 없다.
+//          intent.putExtra("return-data", true);
+                startActivityForResult(intent, CROP_FROM_CAMERA);
+
+                break;
+            }
+
+            case CROP_FROM_CAMERA:
+            {
+                Log.w(TAG, "CROP_FROM_CAMERA");
+
+                // Crop 된 이미지를 넘겨 받습니다.
+                Log.w(TAG, "mImageCaptureUri = " + mImageCaptureUri);
+
+                String full_path = mImageCaptureUri.getPath();
+                String photo_path = full_path.substring(4, full_path.length());
+
+                Log.w(TAG, "비트맵 Image path = "+full_path);
+
+                notify_guideText.setText("영수증이 잘 보이시나요?");
+
+                photo = BitmapFactory.decodeFile(full_path);
+                resultImage.setImageBitmap(photo);
+
+                notify_receipt.setVisibility(View.VISIBLE);
+                btnFirstCamera.setVisibility(View.INVISIBLE);
+                btnCamera.setVisibility(View.VISIBLE);
+                btnNext.setVisibility(View.VISIBLE);
+
+                break;
+            }
+        }
     }
 
     /**
@@ -433,15 +365,17 @@ public class UcNotifyActivity2 extends Activity {
     private ImageView mPhotoImageView;
 
     private void setLayout(){
-        mPhotoImageView = (ImageView)findViewById(R.id.image_receipt);
-        notifyCrop = (Button)findViewById(R.id.notify_crop);
-        notifyNext = (Button)findViewById(R.id.notify_next);
-    }
+//        mPhotoImageView = (ImageView)findViewById(R.id.image_receipt);
+        resultImage = (ImageView) findViewById(R.id.image_receipt);
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
+        notify_receipt = (ImageView) findViewById(R.id.image_receipt);
+        btnFirstCamera = (Button) findViewById(R.id.btn_capture);
+        btnCamera = (Button) findViewById(R.id.notify_reCapture);
+        btnNext = (Button) findViewById(R.id.notify_next);
+        notify_guideText = (TextView) findViewById(R.id.notify_guideText);
 
-        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-
+        // Fragment
+        fr = new FragmentStepTwo();
+        fm = getFragmentManager();
     }
 }

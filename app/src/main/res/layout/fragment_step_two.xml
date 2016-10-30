@@ -27,7 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#000000"
-        android:id="@+id/image_receipt"
         android:layout_above="@+id/sl_1st"/>
 
     <com.ssomai.android.scalablelayout.ScalableLayout
@@ -42,7 +41,7 @@
         android:layout_alignParentStart="true">
 
         <com.ensharp.haxi.CustomFont
-            android:text="영수증 사진이 제대로 보이시면 다음버튼을\n 편집하시려면 편집버튼을 이용하세요"
+            android:text="영수증 사진이 잘 보이시나요?"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             sl:scale_left="70"
@@ -54,7 +53,7 @@
             android:textColor="#000000"/>
 
         <Button
-            android:text="편집"
+            android:text="사진 편집"
             android:id="@+id/notify_crop"
             android:background="@drawable/black_round_button"
             android:layout_width="wrap_content"
@@ -64,7 +63,7 @@
             sl:scale_top="170"
             sl:scale_width="500"
             sl:scale_height="100"
-            sl:scale_textsize="50" />
+            sl:scale_textsize="40" />
 
         <Button
             android:text="다음"
@@ -77,7 +76,7 @@
             sl:scale_top="170"
             sl:scale_width="500"
             sl:scale_height="100"
-            sl:scale_textsize="50"/>
+            sl:scale_textsize="40"/>
 
 
     </com.ssomai.android.scalablelayout.ScalableLayout>

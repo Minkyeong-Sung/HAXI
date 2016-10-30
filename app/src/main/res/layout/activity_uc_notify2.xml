@@ -8,6 +8,7 @@
     android:background="@drawable/request_receipt">
 
     <com.ssomai.android.scalablelayout.ScalableLayout
+        android:id="@+id/notify_firstSL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         sl:scale_base_width="1080"
@@ -17,10 +18,10 @@
         android:layout_marginBottom="105dp">
 
         <com.ensharp.haxi.CustomFont
-            android:text="영수증을 요청하시고\n아래의 버튼으로 사진을 촬영하세요"
+            android:text="영수증을 요청하시고\n아래의 버튼으로 사진을 촬영하고 수정하세요"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2"
+            android:id="@+id/notify_guideText"
             sl:scale_left="90"
             sl:scale_top="0"
             sl:scale_width="900"
@@ -72,7 +73,40 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true" />
 
+        <Button
+            android:text="다시 찍기"
+            android:id="@+id/notify_reCapture"
+            android:background="@drawable/black_round_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            sl:scale_left="20"
+            sl:scale_top="25"
+            sl:scale_width="500"
+            sl:scale_height="100"
+            sl:scale_textsize="40" />
+
+        <Button
+            android:text="다음"
+            android:id="@+id/notify_next"
+            android:background="@drawable/black_round_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            sl:scale_left="560"
+            sl:scale_top="25"
+            sl:scale_width="500"
+            sl:scale_height="100"
+            sl:scale_textsize="40"/>
+
     </com.ssomai.android.scalablelayout.ScalableLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/image_receipt"
+        android:background="#F5F5F5"
+        android:layout_above="@+id/notify_firstSL"/>
 
     <FrameLayout
         android:layout_width="match_parent"
