@@ -45,6 +45,7 @@
     <string name="btn_next1">"Next"</string>
 
     //activity_uc_notify2
+    <string name="notify2">"Do you look good a receipt?"</string>
     <string name="tex">"Please request a receipt Shoot and edit your photos using the buttons on the bottom"</string>
     <string name="re">"Retake"</string>
     <string name="nex">"Next"</string>

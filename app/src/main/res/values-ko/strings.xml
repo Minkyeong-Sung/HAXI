@@ -67,7 +67,7 @@
 
 
     //notify2
-
+    <string name="notify2">"영수증이 잘 보이시나요?"</string>
     <string name="tex">"영수증을 요청하시고\n아래의 버튼으로 사진을 촬영하고 수정하세요"</string>
     <string name="re">"다시 찍기"</string>
     <string name="nex">"다음"</string>

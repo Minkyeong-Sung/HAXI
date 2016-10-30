@@ -305,7 +305,7 @@ public class UcNotifyActivity2 extends Activity {
 
                 Log.w(TAG, "비트맵 Image path = "+full_path);
 
-                notify_guideText.setText("영수증이 잘 보이시나요?");
+                notify_guideText.setText(getString(R.string.notify2));
 
                 photo = BitmapFactory.decodeFile(full_path);
                 resultImage.setImageBitmap(photo);
