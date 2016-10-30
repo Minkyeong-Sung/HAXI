@@ -23,7 +23,7 @@
 
     //activity_uc_result
     <string name="checking">よく到着しましたか？</string>
-    <string name="excepting_tex">"予想料金は                               "</string>
+    <string name="excepting_tex">"予想料金は                                      "</string>
     <string name="tex_warning">交通状況に応じて、若干の違いが存在することができます</string>
     <string name="btn_good">適当です</string>
     <string name="btn_strage">何かおかしい</string>
@@ -32,7 +32,7 @@
     <string name="auto_checking">自動的に動いた距離を記録します</string>
     <string name="after">今後の証拠資料として使用することができます</string>
     <string name="arrive">目的地に到着した場合押してください</string>
-    <string name="excepting">"推定タクシー料金                               "</string>
+    <string name="excepting">"推定タクシー料金                                      "</string>
 
     //activity_uc_notify
     <string name="name1">名前</string>

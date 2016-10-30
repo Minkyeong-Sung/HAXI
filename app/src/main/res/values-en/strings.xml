@@ -17,7 +17,7 @@
 
     //activity_uc_result
     <string name="checking">Did you arrive well?</string>
-    <string name="excepting_tex">"Expected rates                               "</string>
+    <string name="excepting_tex">"Expected rates                                       "</string>
     <string name="tex_warning">There can be a slight difference depending on the traffic</string>
     <string name="btn_good">Reasonably</string>
     <string name="btn_strage">Strange</string>
@@ -26,7 +26,7 @@
     <string name="auto_checking">Automatically records the moving distance</string>
     <string name="after">It can be used as evidence at a later date</string>
     <string name="arrive">If you arrive at your destination, press</string>
-    <string name="excepting">"Estimated taxi fare                               "</string>
+    <string name="excepting">"Estimated taxi fare                                        "</string>
 
     //activity_uc_notify
     <string name="name1">Name</string>
