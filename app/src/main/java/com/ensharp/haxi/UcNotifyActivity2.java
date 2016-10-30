@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -20,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.gun0912.tedpermission.PermissionListener;
 
 import java.io.File;
@@ -82,12 +85,25 @@ public class UcNotifyActivity2 extends Activity {
                 doTakePhotoAction();
                 setDismiss(mDialog);
                 break;
-            case R.id.notify_crop:
-                mDialog = createDialog();
-                mDialog.show();
+            case R.id.notify_reCapture:
+                doTakePhotoAction();
+                setDismiss(mDialog);
                 break;
             // 다음버튼
             case R.id.notify_next:
+                new MaterialDialog.Builder(this)
+                        .title("신고하기 전 확인단계 입니다")
+                        .content("주행했던 경로사진과 촬영했던 영수증사진이 함께 MMS로 전송됩니다.\n핸드폰에서 MMS 비용이 부과될 수 있습니다.\n전에 입력했던 정보들도 활용됩니다.\n확인 버튼을 누르면 다산콜센터(02-120)로 전송됩니다.")
+                        .positiveText("확인")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                Toast.makeText(UcNotifyActivity2.this, "agree", Toast.LENGTH_LONG).show();
+                                sendMMS(mImageCaptureUri);
+                            }
+                        })
+                        .negativeText("취소")
+                        .show();
                 break;
         }
     }
@@ -170,8 +186,8 @@ public class UcNotifyActivity2 extends Activity {
         else {
             uri = Uri.parse("" + uri);
             Intent it = new Intent(Intent.ACTION_SEND);
-            it.putExtra("address", "02-120");
-            it.putExtra("sms_body", getString(R.string.UcN2Text2));
+            it.putExtra("address", "01049122194");
+            it.putExtra("sms_body", "TEST 내용입니다 문자메시지 12345678910 ABCDEFGHIJKLMNOPQRSTUVWXYZ");
             it.putExtra(Intent.EXTRA_STREAM, uri);
             it.setType("image/*");
             startActivity(it);

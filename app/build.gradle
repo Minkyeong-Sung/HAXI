@@ -26,8 +26,8 @@ dependencies {
     compile 'com.google.android.gms:play-services:8.+'
     provided 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.ssomai:android.scalablelayout:2.1.1'
-    compile 'com.android.support:design:23.0.1'
     compile 'com.tsengvn:typekit:1.0.1'
     compile 'com.android.support:design:24.2.1'
+    compile 'com.afollestad.material-dialogs:core:0.9.0.2'
     compile project(':tedpermission')
 }
