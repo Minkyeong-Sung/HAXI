@@ -29,6 +29,12 @@
     <string name="excepting">"Estimated taxi fare                               "</string>
 
     //activity_uc_notify
+    <string name="name1">Name</string>
+    <string name="name2">Phone</string>
+    <string name="name3">Adress</string>
+    <string name="name4">"For example, Gwangjin-gu, Seoul Gwangnaru 369 102 101 East Lake (address) "</string>
+    <string name="name5">"           (Gunja-dong Gwangjin-gu, Seoul (503) (102) (101) East Lake (previous address)"</string>
+    <string name="name6">"           If one foreigner enter your current address Accommodation"</string>
     <string name="text1">"If the difference between the taxi fare is too much"</string>
     <string name="text2">"Please request a receipt"</string>
     <string name="text3">"We'll help the declaration of the injustice of the relevant taxi"</string>

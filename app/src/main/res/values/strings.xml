@@ -46,6 +46,12 @@
     <string name="excepting">"예상 택시요금은                             원 입니다"</string>
 
     //activity_uc_notify
+    <string name="name1">이름</string>
+    <string name="name2">휴대폰</string>
+    <string name="name3">주소</string>
+    <string name="name4">"예시 : 서울시 광진구 광나루로 369 102동 101호 (도로명 주소) "</string>
+    <string name="name5">"          (서울시 광진구 군자동 503 102동 101호 (기존 주소)"</string>
+    <string name="name6">"           외국인일 경우 현재 숙박중인 주소를 입력하세요"</string>
     <string name="text1">"택시 요금이 너무많은 차이가 난다면"</string>
     <string name="text2">"영수증을 요청하세요"</string>
     <string name="text3">"해당 택시의 부당행위 신고를 도와드리겠습니다"</string>

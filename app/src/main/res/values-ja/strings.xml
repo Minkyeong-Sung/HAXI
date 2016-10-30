@@ -35,6 +35,12 @@
     <string name="excepting">"推定タクシー料金                               "</string>
 
     //activity_uc_notify
+    <string name="name1">名前</string>
+    <string name="name2">携帯電話</string>
+    <string name="name3">アドレス</string>
+    <string name="name4">"例：ソウル市広津区クァンナルで369 102棟101号（道路名住所） "</string>
+    <string name="name5">"          （ソウル市広津区群ジャドン503 102棟101号（既存のアドレス）"</string>
+    <string name="name6">"           外国人の場合、現在の内側アドレスを入力してください"</string>
     <string name="text1">"タクシー料金の差が多すぎる場合には,"</string>
     <string name="text2">"領収書をリクエストしてください"</string>
     <string name="text3">"該当タクシーの不当行為の申告を手伝ってあげます"</string>

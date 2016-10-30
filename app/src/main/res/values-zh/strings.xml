@@ -35,6 +35,12 @@
     <string name="excepting">"预测 价格                              "</string>
 
     //activity_uc_notify
+    <string name="name1">名</string>
+    <string name="name2">手机</string>
+    <string name="name3">地址</string>
+    <string name="name4">"例如：广津区，首尔广渡口369 102 101东湖（地址） "</string>
+    <string name="name5">"          （Gunja东广津，首尔（503）（102）（101）东湖（以前的地址）"</string>
+    <string name="name6">"            如果外国人进入住宿的当前地址"</string>
     <string name="text1">"如果出租车费的差额太大"</string>
     <string name="text2">"请要求收据"</string>
     <string name="text3">"我们将帮助宣布有关出租车的不公正"</string>
