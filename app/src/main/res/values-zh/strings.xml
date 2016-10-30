@@ -19,7 +19,7 @@
 
     //activity_uc_result
     <string name="checking">你到达得很好?</string>
-    <string name="excepting_tex">예상 요금은                          원 입니다</string>
+    <string name="excepting_tex">"预测 价格                            "</string>
     <string name="tex_warning">根据交通情况，可能有轻微的差异</string>
     <string name="btn_good">合理</string>
     <string name="btn_strage">好奇怪</string>
@@ -28,6 +28,7 @@
     <string name="auto_checking">自动记录的移动距离</string>
     <string name="after">它可以在稍后的日期作为证据</string>
     <string name="arrive">如果您在您的目的地，按到达</string>
+    <string name="excepting">"预测 价格                              "</string>
 
     //activity_uc_notify
     <string name="text1">"如果出租车费的差额太大"</string>
@@ -41,12 +42,14 @@
 
 
     //notify2
-    <string name="tex">"请附上收据的路径照片对比</string>
+    <string name="tex">"请索取收据拍摄和编辑照片使用底部的按钮"</string>
+    <string name="re">"重拍"</string>
+    <string name="nex">"下一个"</string>
+    <string name="btn_tex">收据射击</string>
     <string name="texp">"请把收据的图片"</string>
     <string name="photop">"请添加路径捕获"</string>
     <string name="camera">相机</string>
     <string name="galley">"画廊</string>
-    <string name="btn_tex">拍摄收据</string>
     <string name="btn_dec">该消息</string>
     <string name="btn_com">完成</string>
     <string name="korean1">1. 点击据拍摄收据按钮（照片按钮）</string>

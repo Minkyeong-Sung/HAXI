@@ -19,7 +19,7 @@
 
     //activity_uc_result
     <string name="checking">よく到着しましたか？</string>
-    <string name="excepting_tex">예상 요금은                          원 입니다</string>
+    <string name="excepting_tex">"予想料金は                               "</string>
     <string name="tex_warning">交通状況に応じて、若干の違いが存在することができます</string>
     <string name="btn_good">適当です</string>
     <string name="btn_strage">何かおかしい</string>
@@ -28,6 +28,7 @@
     <string name="auto_checking">自動的に動いた距離を記録します</string>
     <string name="after">今後の証拠資料として使用することができます</string>
     <string name="arrive">目的地に到着した場合押してください</string>
+    <string name="excepting">"推定タクシー料金                               "</string>
 
     //activity_uc_notify
     <string name="text1">"タクシー料金の差が多すぎる場合には,"</string>
@@ -41,12 +42,14 @@
 
 
     //notify2
-    <string name="tex">"パスの写真を比較するために領収書を添付してください</string>
+    <string name="tex">"領収書を要求し、下のボタンで写真を撮影して修正してください"</string>
+    <string name="re">"再度撮影"</string>
+    <string name="nex">"次の"</string>
+    <string name="btn_tex">領収書撮影</string>
     <string name="texp">"領収書の写真を撮るくださいt"</string>
     <string name="photop">"パスのキャプチャを追加してください。"</string>
     <string name="camera">カメラ</string>
     <string name="galley">"ギャラリー</string>
-    <string name="btn_tex">領収書撮影</string>
     <string name="btn_dec">メッセージ</string>
     <string name="btn_com">完了</string>
     <string name="korean1">1. レシート撮影ボタンをクリックします（写真ボタン）</string>
@@ -59,8 +62,7 @@
     // MainActivity
     <string name="MainText">"携帯電話番号を自動的に入力するために権限が必要です."</string>
     <string name="MainText1">"現在の位置を見つけるために権限が必要です！"</string>
-    <string name="MainText2">"なぜ拒否しました...
-                     しかし、[設定]> [権限]でアクセスを許可することができます."</string>
+    <string name="MainText2">"なぜ拒否しました...\m しかし、[設定]> [権限]でアクセスを許可することができます."</string>
     <string name="MainText3">"位置情報サービスの設定"</string>
     <string name="MainText4">"ワイヤレスネットワークを使用、GPS衛星の使用をすべてチェックする必要があり、正確な位置情報サービスが可能です。
                                                    位置情報サービス機能を設定しますか？"</string>
@@ -70,8 +72,7 @@
 
     // UcNotifyActivity
     <string name="UcNText1">"領収書撮影のためのカメラの権限が必要です！"</string>
-    <string name="UcNText2">"なぜ拒否しました...
-                           しかし、[設定]> [権限]でアクセスを許可することができます."</string>
+    <string name="UcNText2">"なぜ拒否しました...\n  しかし、[設定]> [権限]でアクセスを許可することができます."</string>
     <string name="UcNText3">"私は上記の領収書の写真のように往十里で搭乗して世宗大学に到着したが、パスをレイアウト間のようだから、確認お願いします."</string>
     <string name="UcNText4">"申告者"</string>
     <string name="UcNText5">"コンタクト"</string>

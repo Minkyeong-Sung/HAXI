@@ -13,7 +13,7 @@
 
     //activity_uc_result
     <string name="checking">Did you arrive well?</string>
-    <string name="excepting_tex">예상 요금은                          원 입니다</string>
+    <string name="excepting_tex">"Expected rates                               "</string>
     <string name="tex_warning">There can be a slight difference depending on the traffic</string>
     <string name="btn_good">Reasonably</string>
     <string name="btn_strage">Strange</string>
@@ -22,6 +22,7 @@
     <string name="auto_checking">Automatically records the moving distance</string>
     <string name="after">It can be used as evidence at a later date</string>
     <string name="arrive">If you arrive at your destination, press</string>
+    <string name="excepting">"Estimated taxi fare                               "</string>
 
     //activity_uc_notify
     <string name="text1">"If the difference between the taxi fare is too much"</string>
@@ -34,12 +35,14 @@
     <string name="btn_next1">"Next"</string>
 
     //activity_uc_notify2
-    <string name="tex">"Please attach receipts to compare the paths Photo</string>
+    <string name="tex">"Please request a receipt Shoot and edit your photos using the buttons on the bottom"</string>
+    <string name="re">"Retake"</string>
+    <string name="nex">"Next"</string>
+    <string name="btn_tex">Receipt shooting</string>
     <string name="texp">"Please take a picture of the receipt"</string>
     <string name="photop">"Please add the path capture"</string>
     <string name="camera">camera</string>
     <string name="galley">"galley</string>
-    <string name="btn_tex">Receipt shooting</string>
     <string name="btn_dec">Message</string>
     <string name="btn_com">Complete</string>
     <string name="korean1">1. Click on the receipt record button (Photo button)</string>
