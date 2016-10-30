@@ -105,7 +105,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_fragment);
         autocompleteFragment.setOnPlaceSelectedListener(this);
-        setAutoCompleFragment_Text(autocompleteFragment);
+        autocompleteFragment.setHint(getString(R.string.UcText1));
 
         autocompleteFragment.setBoundsBias(BOUNDS_MOUNTAIN_VIEW);
     }

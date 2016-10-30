@@ -25,6 +25,10 @@
 
     //activity_main
     <string name="btn_started">시작하기</string>
+    <string name="acttext1">반갑습니다. 당신의 택시이용 중 부당요금에 대한</string>
+    <string name="acttext2">신고를 편하게 제공해주는 어플리케이션 입니다.</string>
+    <string name="acttext3">서비스를 이용하시려면 아래의 시작하기 버튼을 눌러주세요.</string>
+    <string name="acttext4">외국인 택시를 이용하려면 International Taxi 를 눌러주세요.</string>
 
     //activity_uc_main
     <string name="btn_ridecp">탑승완료</string>

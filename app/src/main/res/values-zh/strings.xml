@@ -11,6 +11,10 @@
 
     //activity_main
     <string name="btn_started">发射</string>
+    <string name="acttext1">认识你很高兴 使用不当票价</string>
+    <string name="acttext2">报告是提供一个简单的应用程序.</string>
+    <string name="acttext3">要开始使用此服务，请点击下面的按钮.</string>
+    <string name="acttext4">要使用国外的出租车 International Taxi点击.</string>
 
     //activity_uc_main
     <string name="btn_ridecp">登机完</string>

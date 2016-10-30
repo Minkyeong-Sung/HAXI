@@ -41,7 +41,7 @@
         <com.ensharp.haxi.CustomFont
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="반갑습니다. 당신의 택시이용 중 부당요금에 대한"
+            android:text="@string/acttext1"
             sl:scale_left="120"
             sl:scale_top="1060"
             sl:scale_width="840"
@@ -53,7 +53,7 @@
         <com.ensharp.haxi.CustomFont
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="신고를 편하게 제공해주는 어플리케이션 입니다."
+            android:text="@string/acttext2"
             sl:scale_left="120"
             sl:scale_top="1120"
             sl:scale_width="840"
@@ -65,7 +65,7 @@
         <com.ensharp.haxi.CustomFont
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="서비스를 이용하시려면 아래의 시작하기 버튼을 눌러주세요."
+            android:text="@string/acttext3"
             sl:scale_left="20"
             sl:scale_top="1180"
             sl:scale_width="1040"
@@ -77,7 +77,7 @@
         <com.ensharp.haxi.CustomFont
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="외국인 택시를 이용하려면 International Taxi 를 눌러주세요."
+            android:text="@string/acttext4"
             sl:scale_left="20"
             sl:scale_top="1240"
             sl:scale_width="1040"

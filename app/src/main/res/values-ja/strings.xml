@@ -11,6 +11,10 @@
 
     //activity_main
     <string name="btn_started">開始</string>
+    <string name="acttext1">嬉しいです。あなたのタクシー不当料金</string>
+    <string name="acttext2">申告を楽に提供してくれるプログラムです.</string>
+    <string name="acttext3">サービスを利用するには、以下の作業を開始するボタンを押してください.</string>
+    <string name="acttext4">外国人タクシーを利用するには、International Taxiを押してください.</string>
 
     //activity_uc_main
     <string name="btn_ridecp">搭乗完了</string>

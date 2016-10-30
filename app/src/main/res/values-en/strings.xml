@@ -5,6 +5,10 @@
 
     //activity_main
     <string name="btn_started">START</string>
+    <string name="acttext1">Nice to meet you. For wrongful use of your taxi fare</string>
+    <string name="acttext2">Is an application that provides an easy report.</string>
+    <string name="acttext3">To use the service, please press the button below to start.</string>
+    <string name="acttext4">To use the taxi foreign press the International Taxi.</string>
 
     //activity_uc_main
     <string name="btn_ridecp">Boarding completed</string>
