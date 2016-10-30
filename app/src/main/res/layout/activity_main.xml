@@ -39,30 +39,30 @@
         <!--sl:scale_height="200" />-->
 
         <Button
-            android:text="시작하기"
+            android:text="@string/btn_started"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_openUcActivity"
             android:background="@drawable/roundedbutton"
             sl:scale_left="200"
-            sl:scale_top="1470"
+            sl:scale_top="1400"
             sl:scale_width="700"
             sl:scale_height="120"
             sl:scale_textsize="40"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
 
-        <!--<Button-->
-        <!--android:text="International Taxi"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/btn_openInternationalTaxiActivity"-->
-        <!--android:background="@drawable/roundedbutton"-->
-        <!--sl:scale_left="200"-->
-        <!--sl:scale_top="1550"-->
-        <!--sl:scale_width="700"-->
-        <!--sl:scale_height="120"-->
-        <!--sl:scale_textsize="50"-->
-        <!--android:textColor="@android:color/white" />-->
+        <Button
+        android:text="International Taxi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_openInternationalTaxiActivity"
+        android:background="@drawable/roundedbutton"
+        sl:scale_left="200"
+        sl:scale_top="1550"
+        sl:scale_width="700"
+        sl:scale_height="120"
+        sl:scale_textsize="50"
+        android:textColor="@android:color/white" />
     </com.ssomai.android.scalablelayout.ScalableLayout>
 </RelativeLayout>

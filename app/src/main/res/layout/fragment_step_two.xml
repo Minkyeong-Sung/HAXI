@@ -26,7 +26,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background=""
+        android:background="#000000"
         android:id="@+id/image_receipt"
         android:layout_above="@+id/sl_1st"/>
 

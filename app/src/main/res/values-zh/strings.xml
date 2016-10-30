@@ -5,4 +5,51 @@
     <string name="reservationCheck">确认预约</string>
     <string name="fare">票价</string>
     <string name="serviceInfo">服务信息</string>
+
+
+    //--------------------명식 수정-----------------------------------
+
+    //activity_main
+    <string name="btn_started">发射</string>
+
+    //activity_uc_main
+    <string name="btn_ridecp">登机完</string>
+
+    //activity_uc_notify
+
+    //activity_uc_result
+    <string name="checking">你到达得很好?</string>
+    <string name="excepting_tex">예상 요금은                          원 입니다</string>
+    <string name="tex_warning">根据交通情况，可能有轻微的差异</string>
+    <string name="btn_good">合理</string>
+    <string name="btn_strage">好奇怪</string>
+
+    //activity_uc_running
+    <string name="auto_checking">自动记录的移动距离</string>
+    <string name="after">它可以在稍后的日期作为证据</string>
+    <string name="arrive">如果您在您的目的地，按到达</string>
+
+    //activity_uc_notify
+    <string name="text1">"如果出租车费的差额太大"</string>
+    <string name="text2">"请要求收据"</string>
+    <string name="text3">"我们将帮助宣布有关出租车的不公正"</string>
+    <string name="text4">"您将需要声明的一些信息"</string>
+    <string name="smsText">"请输入名称"</string>
+    <string name="edit_phoneNum">"往来"</string>
+    <string name="smsText3">目前居住的地址请输入。"</string>
+    <string name="btn_next1">"下一步"</string>
+
+
+    //notify2
+    <string name="tex">"请附上收据的路径照片对比</string>
+    <string name="texp">"请把收据的图片"</string>
+    <string name="photop">"请添加路径捕获"</string>
+    <string name="camera">相机</string>
+    <string name="galley">"画廊</string>
+    <string name="btn_tex">拍摄收据</string>
+    <string name="btn_dec">该消息</string>
+    <string name="btn_com">完成</string>
+    <string name="korean1">1. 点击据拍摄收据按钮（照片按钮）</string>
+    <string name="korean2">2. 完成后收到的拍摄后，点击发送邮</string>
+    <string name="korean3">3. 然后越过以字母路径，然后装上采集传输完毕</string>
 </resources>

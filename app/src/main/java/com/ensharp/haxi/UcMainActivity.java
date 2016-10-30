@@ -99,7 +99,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         init_Button_And_Textbox();
         currentMyLocation(START);
 
-        if(isGPSEnabled) {
+        if (isGPSEnabled) {
             // 초기 Map 화면 서울로 보이게 만듬
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(gps.getLatitude(), gps.getLongitude()), 17));
         }
@@ -150,7 +150,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     public void onPlaceSelected(Place place) {
         Log.i(LOG_TAG, "Place Selected: " + place.getName());
         str_destination = place.getName().toString();
-        if (!TextUtils.isEmpty(place.getAttributions())){
+        if (!TextUtils.isEmpty(place.getAttributions())) {
             attributionsTextView.setText(Html.fromHtml(place.getAttributions().toString()));
         }
 
@@ -175,11 +175,26 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         CompleteBoarding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String searchStr = str_destination.toString();
-                // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
-                setInitflag();
-                show_Taxifare_distance();
+                AlertDialog.Builder builder = new AlertDialog.Builder(UcMainActivity.this);
+
+                // 도착지 입력을 하지 않았을 경우
+                if (SearchLocation.destinationMarker_flag == false) {
+                    builder.setTitle("도착지 입력을 하지 않았어")
+                            .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .show();
+                }
+                else {
+                    String searchStr = str_destination.toString();
+                    // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
+                    searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
+                    show_Taxifare_distance();
+                    setInitflag();
+                }
             }
         });
     }
@@ -255,8 +270,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         }
     }
 
-    public void setInitflag()
-    {
+    public void setInitflag() {
         SearchLocation.start_move_flag = false;
         SearchLocation.destination_move_flag = false;
         hideSoftKeyboard(mainLayout);
@@ -265,36 +279,15 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
 
     // 예상 택시 요금 및 거리를 띄어주는 Alert 창.
     public void show_Taxifare_distance() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        if (!SearchLocation.startMarker_flag) {
-            builder.setTitle("출발지 입력을 하지 않았어")
-                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    })
-                    .show();
-        } else if (!SearchLocation.destinationMarker_flag) {
-            builder.setTitle("도착지 입력을 하지 않았어")
-                    .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    })
-                    .show();
-        } else {
-            if (isConnected()) {
-            }
-            // URL 갱신후
-            URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4" +
-                    "&start=" + start_URL_latlng + "&destination=" + destination_URL_latlng);
-            // 이 URL에 대한 Json 파싱시작 -> HttpAsyncTask() 메소드로 감.
-            new HttpAsyncTask().execute(URL.toString());
-
+        if (isConnected()) {
         }
+        // URL 갱신후
+        URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4" +
+                "&start=" + start_URL_latlng + "&destination=" + destination_URL_latlng);
+        // 이 URL에 대한 Json 파싱시작 -> HttpAsyncTask() 메소드로 감.
+        new HttpAsyncTask().execute(URL.toString());
+
     }
 
     public static String GET(String url) {
@@ -347,7 +340,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         @Override
         protected String doInBackground(String... urls) {
             // GET 메소드로 이동동
-           return GET(urls[0]);
+            return GET(urls[0]);
         }
 
         // onPostExecute displays the results of the AsyncTask.
@@ -394,7 +387,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         Double longitude = null;
 
         // gpsTracker를 이용해 현재 위치를 받기
-        if(gps.canGetLocation()) {
+        if (gps.canGetLocation()) {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
 
