@@ -179,7 +179,8 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
 
                 // 도착지 입력을 하지 않았을 경우
                 if (SearchLocation.destinationMarker_flag == false) {
-                    Toast.makeText(getApplication(),"도착지 입력을 하지 않았음",Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getApplication(),"도착지 입력을 하지 않았음",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplication(),getString(R.string.UcText1),Toast.LENGTH_LONG).show();
                 }
                 else {
                     String searchStr = str_destination.toString();
@@ -214,12 +215,12 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         }
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
-                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
+               // Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
             } else {
                 ActivityCompat.requestPermissions(this, permissions, 1);
             }
@@ -231,9 +232,9 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         if (requestCode == 1) {
             for (int i = 0; i < permissions.length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, permissions[i] + " 권한이 승인됨.", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(this, permissions[i] + " 권한이 승인됨.", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
                 }
             }
         }

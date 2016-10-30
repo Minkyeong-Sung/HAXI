@@ -52,4 +52,35 @@
     <string name="korean1">1. 点击据拍摄收据按钮（照片按钮）</string>
     <string name="korean2">2. 完成后收到的拍摄后，点击发送邮</string>
     <string name="korean3">3. 然后越过以字母路径，然后装上采集传输完毕</string>
+
+    //-------------------명식---------------------
+
+    // MainActivity
+    <string name="MainText">"您需要权限自动输入手机号码."</string>
+    <string name="MainText1">"此权限是需要找到您的当前位置！"</string>
+    <string name="MainText2">"你为什么要拒​​绝...
+                         但我不能[设置]> [授权]下授予权限."</string>
+    <string name="MainText3">"定位服务设置"</string>
+    <string name="MainText4">"使用无线网络，使用GPS卫星定位，必须检查所有可用的精确定位服务.
+                                                  你愿意让位置服务？"</string>
+
+    // UcMainActivity
+    <string name="UcText1">"请输入目的地"</string>
+
+    // UcNotifyActivity
+    <string name="UcNText1">"我需要收据镜头摄像机的权限！请进来不允许的！
+"</string>
+    <string name="UcNText2">"你为什么要拒​​绝...
+                         但我不能[设置]> [授权]下授予权限."</string>
+    <string name="UcNText3">"我想去肝上登录Wangsimni如上图中的收据，但到达世宗大学，铺路，检查请."</string>
+    <string name="UcNText4">"记者"</string>
+    <string name="UcNText5">"往来"</string>
+    <string name="UcNText6">"地址"</string>
+    <string name="UcNText7">"请输入所有"</string>
+
+    // UcNotifyActivity2
+    <string name="UcN2Text1">"请把收据的图片"</string>
+    <string name="UcN2Text2">"请附上收据的路径照片对比."</string>
+    <string name="UcN2Text3">"请添加路径捕获"</string>
+
 </resources>

@@ -46,5 +46,35 @@
     <string name="korean2">2. Click the message sent after receipt of shooting is completed</string>
     <string name="korean3">3. Attach the path to capture and then passed to the character after the transfer is complete</string>
 
+    //-------------------명식---------------------
+
+    // MainActivity
+    <string name="MainText">"You need permission to automatically enter the mobile phone number."</string>
+    <string name="MainText1">"This permission is required to find your current location!"</string>
+    <string name="MainText2">"Why did you refuse ...
+                     But you can not grant permission under [Settings]> [authority]."</string>
+    <string name="MainText3">"Location Services settings"</string>
+    <string name="MainText4">"Need to check both Use wireless networks, GPS satellites can be accurate location services.
+                                                   Do you want to set the location services function?"</string>
+
+    // UcMainActivity
+    <string name="UcText1">"Please enter destination"</string>
+
+    // UcNotifyActivity
+    <string name="UcNText1">"I need the camera permission for the Receipt shot! Please come allowed!"</string>
+    <string name="UcNText2">"Why did you refuse ...
+                           But you can not grant permission under [Settings]> [authority]."</string>
+    <string name="UcNText3">"I would like unto liver boarding Wangsimni as shown in the above picture of the receipt, but arrived at Sejong University, laid the path, check please."</string>
+    <string name="UcNText4">"reporter"</string>
+    <string name="UcNText5">"Contact"</string>
+    <string name="UcNText6">"address"</string>
+    <string name="UcNText7">"Please enter both"</string>
+
+    // UcNotifyActivity2
+    <string name="UcN2Text1">"Please take a picture of the receipt"</string>
+    <string name="UcN2Text2">"Please attach a picture to compare the path exorbitant fee receipt."</string>
+    <string name="UcN2Text3">"Please add the path capture"</string>
+
+
 
 </resources>

@@ -119,12 +119,12 @@ public class UcNotifyActivity2 extends Activity {
     PermissionListener permissionlistener = new PermissionListener() {
         @Override
         public void onPermissionGranted() {
-            Toast.makeText(UcNotifyActivity2.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(UcNotifyActivity2.this, "Permission Granted", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-            Toast.makeText(UcNotifyActivity2.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(UcNotifyActivity2.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -176,7 +176,7 @@ public class UcNotifyActivity2 extends Activity {
         if(uri==null)
         {
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "영수증 사진을 촬영해주세요", Toast.LENGTH_LONG);
+                    getString(R.string.UcN2Text1), Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
@@ -184,12 +184,12 @@ public class UcNotifyActivity2 extends Activity {
             uri = Uri.parse("" + uri);
             Intent it = new Intent(Intent.ACTION_SEND);
             it.putExtra("address", "02-120");
-            it.putExtra("sms_body", "바가지요금 영수증을 비교할 경로사진을 첨부해주세요.");
+            it.putExtra("sms_body", getString(R.string.UcN2Text2));
             it.putExtra(Intent.EXTRA_STREAM, uri);
             it.setType("image/*");
             startActivity(it);
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "경로 캡쳐본을 추가해주세요", Toast.LENGTH_LONG);
+                    getString(R.string.UcN2Text3), Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }

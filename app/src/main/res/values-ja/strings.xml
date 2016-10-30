@@ -52,4 +52,35 @@
     <string name="korean1">1. レシート撮影ボタンをクリックします（写真ボタン）</string>
     <string name="korean2">2. 撮影が完了した後されたメッセージをクリックします</string>
     <string name="korean3">3. 文字に横切った後、パスのキャプチャ本を添付した後、送信完了</string>
+
+
+    //-------------------명식---------------------
+
+    // MainActivity
+    <string name="MainText">"携帯電話番号を自動的に入力するために権限が必要です."</string>
+    <string name="MainText1">"現在の位置を見つけるために権限が必要です！"</string>
+    <string name="MainText2">"なぜ拒否しました...
+                     しかし、[設定]> [権限]でアクセスを許可することができます."</string>
+    <string name="MainText3">"位置情報サービスの設定"</string>
+    <string name="MainText4">"ワイヤレスネットワークを使用、GPS衛星の使用をすべてチェックする必要があり、正確な位置情報サービスが可能です。
+                                                   位置情報サービス機能を設定しますか？"</string>
+
+    // UcMainActivity
+    <string name="UcText1">"到着入力してください"</string>
+
+    // UcNotifyActivity
+    <string name="UcNText1">"領収書撮影のためのカメラの権限が必要です！"</string>
+    <string name="UcNText2">"なぜ拒否しました...
+                           しかし、[設定]> [権限]でアクセスを許可することができます."</string>
+    <string name="UcNText3">"私は上記の領収書の写真のように往十里で搭乗して世宗大学に到着したが、パスをレイアウト間のようだから、確認お願いします."</string>
+    <string name="UcNText4">"申告者"</string>
+    <string name="UcNText5">"コンタクト"</string>
+    <string name="UcNText6">"アドレス"</string>
+    <string name="UcNText7">"すべて入力してください"</string>
+
+    // UcNotifyActivity2
+    <string name="UcN2Text1">"領収書の写真を撮影してください"</string>
+    <string name="UcN2Text2">"ふっかけ料金の領収書を比較するパスの写真を添付し​​てください"</string>
+    <string name="UcN2Text3">"パスキャプチャ本を追加してください"</string>
+
 </resources>
