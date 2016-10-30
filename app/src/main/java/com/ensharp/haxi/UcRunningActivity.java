@@ -97,7 +97,6 @@ public class UcRunningActivity extends Activity {
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(start_latLng, 15));
 
         Marker startMarker = map.addMarker(new MarkerOptions().position(start_latLng)  // Marker 생성.
-                .title("출발지")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         SearchLocation.startMarker.showInfoWindow();                                            // Marker 화면에 표시하기.
     }
@@ -163,7 +162,6 @@ public class UcRunningActivity extends Activity {
         desti_Latlng = new LatLng((Double)UcMainActivity.locationInfo.get(0), (Double)UcMainActivity.locationInfo.get(1));
         Marker destinationMarker = map.addMarker(new MarkerOptions()
                 .position(desti_Latlng)  // Marker 생성.
-                .title("출발지")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();

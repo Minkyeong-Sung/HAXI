@@ -62,14 +62,14 @@ public class UcResultActivity extends Activity {
     PermissionListener permissionlistener = new PermissionListener() {
         @Override
         public void onPermissionGranted() {
-            Toast.makeText(UcResultActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(UcResultActivity.this, "권한 허가", Toast.LENGTH_SHORT).show();
             Intent notifyIntent = new Intent(UcResultActivity.this, UcNotifyActivity.class);
             startActivity(notifyIntent);
         }
 
         @Override
         public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-            Toast.makeText(UcResultActivity.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(UcResultActivity.this, "권한 거부\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
         }
     };
 

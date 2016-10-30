@@ -13,10 +13,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.gun0912.tedpermission.PermissionListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 public class UcNotifyActivity2 extends Activity {
     private static final String TAG = "TestImageCropActivity";
@@ -87,6 +92,19 @@ public class UcNotifyActivity2 extends Activity {
         }
     }
 
+    // TedPermission 권한 부분
+    PermissionListener permissionlistener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+           // Toast.makeText(UcNotifyActivity2.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+            //Toast.makeText(UcNotifyActivity2.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
+    
     /**
      * 다이얼로그 생성
      */
@@ -142,14 +160,26 @@ public class UcNotifyActivity2 extends Activity {
      * MMS 발송   (APP TAB BOX)
      */
     private void sendMMS(Uri uri){
-        uri = Uri.parse(""+uri);
-        Intent it = new Intent(Intent.ACTION_SEND);
-        it.putExtra("sms_body", "some text");
-        it.putExtra(Intent.EXTRA_STREAM, uri);
-        it.setType("image/*");
-        // 삼성 단말에서만 허용 ( 앱 선택 박스 없이 호출 )
-//      it.setComponent(new ComponentName("com.sec.mms", "com.sec.mms.Mms"));
-        startActivity(it);
+        if(uri==null)
+        {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    getString(R.string.UcN2Text1), Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+        else {
+            uri = Uri.parse("" + uri);
+            Intent it = new Intent(Intent.ACTION_SEND);
+            it.putExtra("address", "02-120");
+            it.putExtra("sms_body", getString(R.string.UcN2Text2));
+            it.putExtra(Intent.EXTRA_STREAM, uri);
+            it.setType("image/*");
+            startActivity(it);
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    getString(R.string.UcN2Text3), Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
     }
 
     /**

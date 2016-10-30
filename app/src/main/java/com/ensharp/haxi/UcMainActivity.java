@@ -3,7 +3,6 @@ package com.ensharp.haxi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
@@ -106,7 +105,8 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_fragment);
         autocompleteFragment.setOnPlaceSelectedListener(this);
-        autocompleteFragment.setHint("도착지를 입력하세요");
+        setAutoCompleFragment_Text(autocompleteFragment);
+
         autocompleteFragment.setBoundsBias(BOUNDS_MOUNTAIN_VIEW);
     }
 
@@ -179,14 +179,8 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
 
                 // 도착지 입력을 하지 않았을 경우
                 if (SearchLocation.destinationMarker_flag == false) {
-                    builder.setTitle("도착지 입력을 하지 않았어")
-                            .setNegativeButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            })
-                            .show();
+                   // Toast.makeText(getApplication(),"도착지 입력을 하지 않았음",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplication(),getString(R.string.UcText1),Toast.LENGTH_LONG).show();
                 }
                 else {
                     String searchStr = str_destination.toString();
@@ -221,12 +215,12 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         }
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
-                Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
+               // Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
             } else {
                 ActivityCompat.requestPermissions(this, permissions, 1);
             }
@@ -238,9 +232,9 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         if (requestCode == 1) {
             for (int i = 0; i < permissions.length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, permissions[i] + " 권한이 승인됨.", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(this, permissions[i] + " 권한이 승인됨.", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(this, permissions[i] + " 권한이 승인되지 않음.", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -408,7 +402,6 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
                 SearchLocation.startMarker.remove();
 
             SearchLocation.startMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))  // Marker 생성.
-                    .title("출발지")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                     .draggable(true));
             SearchLocation.startMarker.showInfoWindow();                                            // Marker 화면에 표시하기.
@@ -417,4 +410,16 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         }
     }
 
+    private void setAutoCompleFragment_Text(PlaceAutocompleteFragment autocompleteFragment){
+        switch (MainActivity.URL_locale.toString()) {
+            case "ko":
+                autocompleteFragment.setHint("도착지를 입력하세요"); break;
+            case "ja":
+                autocompleteFragment.setHint("目的地を入力してください"); break;
+            case "zh":
+                autocompleteFragment.setHint("输入目的地"); break;
+            default:
+                autocompleteFragment.setHint("Input the destination"); break;
+        }
+    }
 }
