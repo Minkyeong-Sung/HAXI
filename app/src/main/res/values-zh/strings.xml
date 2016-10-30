@@ -52,6 +52,7 @@
 
 
     //notify2
+    <string name="notify2">"你看起来好收据"</string>
     <string name="tex">"请索取收据拍摄和编辑照片使用底部的按钮"</string>
     <string name="re">"重拍"</string>
     <string name="nex">"下一个"</string>

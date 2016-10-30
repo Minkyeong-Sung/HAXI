@@ -52,6 +52,7 @@
 
 
     //notify2
+    <string name="notify2">"領収書がよく見えるんですか？"</string>
     <string name="tex">"領収書を要求し、下のボタンで写真を撮影して修正してください"</string>
     <string name="re">"再度撮影"</string>
     <string name="nex">"次の"</string>
