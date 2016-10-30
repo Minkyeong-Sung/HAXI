@@ -89,6 +89,10 @@
     <string name="UcN2Text2">"Please attach a picture to compare the path exorbitant fee receipt."</string>
     <string name="UcN2Text3">"Please add the path capture"</string>
 
-
+    //activity_uc_notify2
+    <string name="notify3">"Before the step verification report"</string>
+    <string name="notify4">"Path photos and receipts with pictures sent via MMS.\nThe MMS costs can be charged from a mobile phone.\nBefore you enter information it was also utilized.\nPressing the OK button will be sent to the Dasan Call Center (02-120)."</string>
+    <string name="notify5">"Ok"</string>
+    <string name="notify6">"Cancel"</string>
 
 </resources>

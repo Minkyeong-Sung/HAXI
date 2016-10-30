@@ -92,9 +92,9 @@ public class UcNotifyActivity2 extends Activity {
             // 다음버튼
             case R.id.notify_next:
                 new MaterialDialog.Builder(this)
-                        .title("신고하기 전 확인단계 입니다")
-                        .content("주행했던 경로사진과 촬영했던 영수증사진이 함께 MMS로 전송됩니다.\n핸드폰에서 MMS 비용이 부과될 수 있습니다.\n전에 입력했던 정보들도 활용됩니다.\n확인 버튼을 누르면 다산콜센터(02-120)로 전송됩니다.")
-                        .positiveText("확인")
+                        .title(getString(R.string.notify3))
+                        .content(getString(R.string.notify4))
+                        .positiveText(getString(R.string.notify5))
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -102,7 +102,7 @@ public class UcNotifyActivity2 extends Activity {
                                 sendMMS(mImageCaptureUri);
                             }
                         })
-                        .negativeText("취소")
+                        .negativeText(getString(R.string.notify6))
                         .show();
                 break;
         }

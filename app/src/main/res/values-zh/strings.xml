@@ -97,4 +97,10 @@
     <string name="UcN2Text2">"请附上收据的路径照片对比."</string>
     <string name="UcN2Text3">"请添加路径捕获"</string>
 
+    //activity_uc_notify2
+    <string name="notify3">"证实了前一步骤"</string>
+    <string name="notify4">"路径照片和回执发送到MMS.\nMMS费率收费.\n使用输入信息.\n如果单击确定发送茶山呼叫中心."</string>
+    <string name="notify5">"确认"</string>
+    <string name="notify6">"取消"</string>
+
 </resources>

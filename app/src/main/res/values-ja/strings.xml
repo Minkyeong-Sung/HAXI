@@ -95,4 +95,11 @@
     <string name="UcN2Text2">"ふっかけ料金の領収書を比較するパスの写真を添付し​​てください"</string>
     <string name="UcN2Text3">"パスキャプチャ本を追加してください"</string>
 
+    //activity_uc_notify2
+    <string name="notify3">"報告する前に確認のステップです"</string>
+    <string name="notify4">"走行していたパスの写真と撮影した領収書の写真が一緒にMMSで送信されます.\n携帯電話からMMSの費用がかかることがあります.\n前に入力した情報も活用されます.\n[OK]ボタンを押すと、タサンコールセンター（02-120）に転送されます."</string>
+    <string name="notify5">"確認"</string>
+    <string name="notify6">"キャンセル"</string>
+
+
 </resources>
