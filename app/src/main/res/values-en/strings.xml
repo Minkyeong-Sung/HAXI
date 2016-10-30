@@ -65,8 +65,7 @@
     // MainActivity
     <string name="MainText">"You need permission to automatically enter the mobile phone number."</string>
     <string name="MainText1">"This permission is required to find your current location!"</string>
-    <string name="MainText2">"Why did you refuse ...
-                     But you can not grant permission under [Settings]> [authority]."</string>
+    <string name="MainText2">"Why did you refuse ...\nBut you can not grant permission under [Settings]> [authority]."</string>
     <string name="MainText3">"Location Services settings"</string>
     <string name="MainText4">"Need to check both Use wireless networks, GPS satellites can be accurate location services.
                                                    Do you want to set the location services function?"</string>
@@ -76,8 +75,7 @@
 
     // UcNotifyActivity
     <string name="UcNText1">"I need the camera permission for the Receipt shot! Please come allowed!"</string>
-    <string name="UcNText2">"Why did you refuse ...
-                           But you can not grant permission under [Settings]> [authority]."</string>
+    <string name="UcNText2">"Why did you refuse ...\nBut you can not grant permission under [Settings]> [authority]."</string>
     <string name="UcNText3">"I would like unto liver boarding Wangsimni as shown in the above picture of the receipt, but arrived at Sejong University, laid the path, check please."</string>
     <string name="UcNText4">"reporter"</string>
     <string name="UcNText5">"Contact"</string>
@@ -94,5 +92,5 @@
     <string name="notify4">"Path photos and receipts with pictures sent via MMS.\nThe MMS costs can be charged from a mobile phone.\nBefore you enter information it was also utilized.\nPressing the OK button will be sent to the Dasan Call Center (02-120)."</string>
     <string name="notify5">"Ok"</string>
     <string name="notify6">"Cancel"</string>
-
+    <string name="notify7">"Please request a receipt\nTake a photo using the button below, edit"</string>
 </resources>

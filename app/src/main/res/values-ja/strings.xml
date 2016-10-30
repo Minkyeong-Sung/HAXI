@@ -100,6 +100,6 @@
     <string name="notify4">"走行していたパスの写真と撮影した領収書の写真が一緒にMMSで送信されます.\n携帯電話からMMSの費用がかかることがあります.\n前に入力した情報も活用されます.\n[OK]ボタンを押すと、タサンコールセンター（02-120）に転送されます."</string>
     <string name="notify5">"確認"</string>
     <string name="notify6">"キャンセル"</string>
-
+    <string name="notify7">"領収書を要求し\n下のボタンで写真を撮影して修正してください"</string>
 
 </resources>

@@ -72,8 +72,7 @@
     // MainActivity
     <string name="MainText">"您需要权限自动输入手机号码."</string>
     <string name="MainText1">"此权限是需要找到您的当前位置！"</string>
-    <string name="MainText2">"你为什么要拒​​绝...
-                         但我不能[设置]> [授权]下授予权限."</string>
+    <string name="MainText2">"你为什么要拒​​绝...\n但我不能[设置]> [授权]下授予权限."</string>
     <string name="MainText3">"定位服务设置"</string>
     <string name="MainText4">"使用无线网络，使用GPS卫星定位，必须检查所有可用的精确定位服务.
                                                   你愿意让位置服务？"</string>
@@ -84,8 +83,7 @@
     // UcNotifyActivity
     <string name="UcNText1">"我需要收据镜头摄像机的权限！请进来不允许的！
 "</string>
-    <string name="UcNText2">"你为什么要拒​​绝...
-                         但我不能[设置]> [授权]下授予权限."</string>
+    <string name="UcNText2">"你为什么要拒​​绝...\n但我不能[设置]> [授权]下授予权限."</string>
     <string name="UcNText3">"我想去肝上登录Wangsimni如上图中的收据，但到达世宗大学，铺路，检查请."</string>
     <string name="UcNText4">"记者"</string>
     <string name="UcNText5">"往来"</string>
@@ -102,5 +100,5 @@
     <string name="notify4">"路径照片和回执发送到MMS.\nMMS费率收费.\n使用输入信息.\n如果单击确定发送茶山呼叫中心."</string>
     <string name="notify5">"确认"</string>
     <string name="notify6">"取消"</string>
-
+    <string name="notify7">"请索取收据\n下面的按钮 拍照和编辑"</string>
 </resources>
