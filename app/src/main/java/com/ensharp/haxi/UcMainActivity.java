@@ -512,8 +512,4 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         return bf.toString();
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> dd7580f9a80ebeb669ca4f0b9708f3884e82f9f4
 }

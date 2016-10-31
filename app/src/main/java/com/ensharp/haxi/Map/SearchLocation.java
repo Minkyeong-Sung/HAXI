@@ -89,13 +89,13 @@ public class SearchLocation {
         gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                if (marker.getTitle().contains("출")) {
+                if (marker.getId()=="m0") {
                     startMarker = marker;
                     start_move_flag = true;
                     destination_move_flag = false;
                 }
                 // 도착지에 대한 Marker일 경우 이 위치로 URL 변경해주기.
-                else if (marker.getTitle().contains("도")) {
+                else if (marker.getId()=="m1") {
                     destinationMarker = marker;
                     start_move_flag = false;
                     destination_move_flag = true;
@@ -128,10 +128,11 @@ public class SearchLocation {
                 // Drag 끝냈을 경우 해당 위치에 대한 Position값(위,경도) 저장.
                 LatLng end_LatLng = marker.getPosition();
 
+                Log.e(TAG,marker.getId());
                 // 해당 위치에 대한 searchLocation 실행
                 searchLocation(end_LatLng.latitude, end_LatLng.longitude, input_text);
                 // 도착지에 대한 Marker일 경우 이 위치로 URL 변경해주기.
-                if (marker.getTitle().contains("도")) {
+                if (marker.getId()=="m1") {
                     UcMainActivity.destination_URL_latlng = new StringBuilder(marker.getPosition().longitude + "," + marker.getPosition().latitude);
                 }
 
