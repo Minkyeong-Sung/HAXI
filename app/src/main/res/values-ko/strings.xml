@@ -115,4 +115,6 @@
     <string name="notify5">"확인"</string>
     <string name="notify6">"취소"</string>
     <string name="notify7">"영수증을 요청하시고\n아래의 버튼으로 사진을 촬영하고 수정하세요"</string>
+    <string name="notify8">"종료하기"</string>
+
 </resources>

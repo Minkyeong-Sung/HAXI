@@ -101,5 +101,6 @@
     <string name="notify5">"確認"</string>
     <string name="notify6">"キャンセル"</string>
     <string name="notify7">"領収書を要求し\n下のボタンで写真を撮影して修正してください"</string>
+    <string name="notify8">"終了"</string>
 
 </resources>

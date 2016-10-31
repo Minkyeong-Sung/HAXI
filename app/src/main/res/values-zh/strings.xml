@@ -101,4 +101,6 @@
     <string name="notify5">"确认"</string>
     <string name="notify6">"取消"</string>
     <string name="notify7">"请索取收据\n下面的按钮 拍照和编辑"</string>
+    <string name="notify8">"结束"</string>
+
 </resources>

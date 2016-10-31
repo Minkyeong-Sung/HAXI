@@ -19,7 +19,7 @@
         android:layout_marginBottom="105dp">
 
         <com.ensharp.haxi.CustomFont
-            android:text="영수증을 요청하시고\n아래의 버튼으로 사진을 촬영하고 수정하세요"
+            android:text="@string/notify7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/notify_guideText"
@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onButtonClick"
-            android:text="종료하기"
+            android:text="@string/notify8"
             android:background="@drawable/roundedbutton"
             android:layout_gravity="bottom"
             sl:scale_left="90"

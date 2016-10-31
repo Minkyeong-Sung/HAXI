@@ -93,4 +93,5 @@
     <string name="notify5">"Ok"</string>
     <string name="notify6">"Cancel"</string>
     <string name="notify7">"Please request a receipt\nTake a photo using the button below, edit"</string>
+    <string name="notify8">"End"</string>
 </resources>
