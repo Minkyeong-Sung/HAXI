@@ -118,8 +118,8 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
 
     public void showProgressDeterminateDialog() {
         new MaterialDialog.Builder(this)
-                .title("로딩중")
-                .content("지도를 구성하고 있습니다")
+                .title(getString(R.string.UcText2))
+                .content(getString(R.string.UcText3))
                 .contentGravity(GravityEnum.CENTER)
                 .progress(false, 50, true)
                 .cancelListener(new DialogInterface.OnCancelListener() {
@@ -151,7 +151,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
                                     @Override
                                     public void run() {
                                         mThread = null;
-                                        dialog.setContent("완료");
+                                        dialog.setContent(getString(R.string.UcText3));
                                     }
                                 });
 
@@ -167,8 +167,8 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
 
     private void showIndeterminateProgressDialog(boolean horizontal) {
         new MaterialDialog.Builder(this)
-                .title("로딩중")
-                .content("지도를 구성중입니다")
+                .title(getString(R.string.UcText2))
+                .content(getString(R.string.UcText4))
                 .progress(true, 0)
                 .progressIndeterminateStyle(horizontal)
                 .show();
@@ -235,7 +235,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     @Override
     public void onError(Status status) {
         Log.e(LOG_TAG, "onError: Status = " + status.toString());
-        Toast.makeText(this, "Place selection failed: " + status.getStatusMessage(),
+        Toast.makeText(this, getString(R.string.UcText5) + status.getStatusMessage(),
                 Toast.LENGTH_SHORT).show();
     }
 
@@ -504,8 +504,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
             }
 
         } catch (IOException e) {
-            Toast.makeText(UcMainActivity.this, "주소취득 실패"
-                    , Toast.LENGTH_LONG).show();
+            Toast.makeText(UcMainActivity.this, getString(R.string.UcText5), Toast.LENGTH_LONG).show();
 
             e.printStackTrace();
         }
@@ -513,4 +512,8 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         return bf.toString();
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dd7580f9a80ebeb669ca4f0b9708f3884e82f9f4
 }

@@ -79,6 +79,10 @@
 
     // UcMainActivity
     <string name="UcText1">"请输入目的地"</string>
+    <string name="UcText2">"载入中"</string>
+    <string name="UcText3">"完成"</string>
+    <string name="UcText4">"地图配置"</string>
+    <string name="UcText5">"地址获取失败"</string>
 
     // UcNotifyActivity
     <string name="UcNText1">"我需要收据镜头摄像机的权限！请进来不允许的！
@@ -94,6 +98,7 @@
     <string name="UcN2Text1">"请把收据的图片"</string>
     <string name="UcN2Text2">"请附上收据的路径照片对比."</string>
     <string name="UcN2Text3">"请添加路径捕获"</string>
+
 
     //activity_uc_notify2
     <string name="notify3">"证实了前一步骤"</string>

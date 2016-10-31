@@ -80,6 +80,10 @@
 
     // UcMainActivity
     <string name="UcText1">"到着入力してください"</string>
+    <string name="UcText2">"ロード中"</string>
+    <string name="UcText3">"完了"</string>
+    <string name="UcText4">"地図を構成しています"</string>
+    <string name="UcText5">"アドレス取得に失敗し"</string>
 
     // UcNotifyActivity
     <string name="UcNText1">"領収書撮影のためのカメラの権限が必要です！"</string>
