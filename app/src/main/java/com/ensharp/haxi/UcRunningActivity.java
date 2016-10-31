@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.ensharp.haxi.Map.AccureCurrentPath;
 import com.ensharp.haxi.Map.SearchLocation;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -77,13 +78,14 @@ public class UcRunningActivity extends Activity {
 
         backPressCloseHandler = new BackPressCloseHandler(this);
         taxi_fare = (TextView) findViewById(R.id.text_taxifare);
-        taxi_fare.setText(split_stringBuilder[9]);
+        //taxi_fare.setText(split_stringBuilder[9]);
 
         // UcResult 에서 쓸 taxi 요금데이터 구성 ( 3단위 콤마 적용)
         MyApplication.taxi_fare_int = Integer.parseInt(split_stringBuilder[9]);
         NumberFormat nf = NumberFormat.getInstance();
-        nf.setMaximumIntegerDigits(5);
+        nf.setMaximumIntegerDigits(6);
         MyApplication.taxi_fare_string = nf.format(MyApplication.taxi_fare_int);
+        taxi_fare.setText(MyApplication.taxi_fare_string);
     }
 
     // 나눔고딕 폰트 적용 부분분
@@ -116,6 +118,8 @@ public class UcRunningActivity extends Activity {
             public void onClick(View v) {
 
                 Log.i("HYEON", "init_button중 arrive Button Click Event 에 접근했습니다");
+
+                showProgressHorizontalIndeterminateDialog();
 
                 settingZoom();
                 /* map.snapshot(callback)으로 인해 콜백 함수 활성화 */
@@ -154,6 +158,19 @@ public class UcRunningActivity extends Activity {
             }
         });
 
+    }
+
+    public void showProgressHorizontalIndeterminateDialog() {
+        showIndeterminateProgressDialog(true);
+    }
+
+    private void showIndeterminateProgressDialog(boolean horizontal) {
+        new MaterialDialog.Builder(this)
+                .title("로딩중")
+                .content("지도 경로를 계산하고, 이미지로 만드는중...")
+                .progress(true, 0)
+                .progressIndeterminateStyle(horizontal)
+                .show();
     }
 
     /* 출발지 도착지에 따른 자동 Zoom 설정 */

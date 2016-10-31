@@ -1,19 +1,23 @@
 package com.ensharp.haxi;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.tsengvn.typekit.TypekitContextWrapper;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class UcResultActivity extends Activity {
@@ -73,12 +77,6 @@ public class UcResultActivity extends Activity {
         }
     };
 
-    // 나눔고딕 폰트설정
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-    }
-
     public void initProperty()
     {
         notify = (Button)findViewById(R.id.btn_notify);
@@ -86,8 +84,34 @@ public class UcResultActivity extends Activity {
         imageView = (ImageView)findViewById(R.id.image_map);
         /* ucRunning액티비티에서 압축한 ScreenShot 적용 */
         imageView.setImageBitmap(UcRunningActivity.mbitmap);
+        saveBitmaptoJpeg(UcRunningActivity.mbitmap, "", "pathMap");
         view_taxiFare = (TextView)findViewById(R.id.result_taxiFare);
 
+    }
+
+    public static void saveBitmaptoJpeg(Bitmap bitmap, String folder, String name){
+        String ex_storage = Environment.getExternalStorageDirectory().getAbsolutePath();
+        // Get Absolute Path in External Sdcard
+        String foler_name = "/"+folder+"/";
+        String file_name = name+".jpg";
+        String string_path = ex_storage+foler_name;
+
+        File file_path;
+        try{
+            file_path = new File(string_path);
+            if(!file_path.isDirectory()){
+                file_path.mkdirs();
+            }
+            FileOutputStream out = new FileOutputStream(string_path+file_name);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+
+        }catch(FileNotFoundException exception){
+            Log.e("FileNotFoundException", exception.getMessage());
+        }catch(IOException exception){
+            Log.e("IOException", exception.getMessage());
+        }
     }
 
 }

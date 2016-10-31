@@ -4,20 +4,27 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +39,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+
+import static android.widget.Toast.makeText;
 
 public class UcNotifyActivity2 extends Activity {
     private static final String TAG = "TestImageCropActivity";
@@ -55,6 +64,12 @@ public class UcNotifyActivity2 extends Activity {
     Button btnFirstCamera;
     Button btnCamera;
     Button btnNext;
+    Button btnExit;
+
+    private long backKeyPressedTime = 0;
+    Toast toast;
+
+    RelativeLayout rl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +81,28 @@ public class UcNotifyActivity2 extends Activity {
         notify_receipt.setVisibility(View.INVISIBLE);
         btnCamera.setVisibility(View.INVISIBLE);
         btnNext.setVisibility(View.INVISIBLE);
+        btnExit.setVisibility(View.INVISIBLE);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            showGuide();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            Intent endIntent = new Intent(UcNotifyActivity2.this, EndActivity.class);
+            startActivity(endIntent);
+            toast.cancel();
+        }
+    }
+
+    public void showGuide() {
+        toast = Toast.makeText(UcNotifyActivity2.this,
+                "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     /**
@@ -98,14 +135,44 @@ public class UcNotifyActivity2 extends Activity {
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                Toast.makeText(UcNotifyActivity2.this, "agree", Toast.LENGTH_LONG).show();
+                                makeText(UcNotifyActivity2.this, "SMS신고는 완료됬습니다.\n보내는곳은 02-112 입니다.\nMMS창에서 전송을 눌러주세요", Toast.LENGTH_LONG).show();
+                                autoSendSMS("01049122194", "부당요금을 신고합니다. 출발지는 " + MyApplication.startAddress + " 이며, 도착지는 " + MyApplication.destinationAddress +" 입니다. Naver, Daum, T-Map의 평균 택시요금은 " + MyApplication.taxi_fare_int + "원 이였으나 이 이상으로 요금이 많이나와 증거자료와 함께 신고합니다. 신고자는 " + MyApplication.name + "이며, 거주중인 주소는 " + MyApplication.address + " 입니다.");
                                 sendMMS(mImageCaptureUri);
                             }
                         })
                         .negativeText(getString(R.string.notify6))
                         .show();
                 break;
+            case R.id.btn_exit:
+                Intent exitIntent = new Intent(UcNotifyActivity2.this, EndActivity.class);
+                startActivity(exitIntent);
+                break;
         }
+    }
+
+    private void autoSendSMS(String phoneNumber, String message) {
+        String SENT = "SMS_SENT";
+        String DELIVERED = "SMS_DELIVERED";
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(SENT), 0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0, new Intent(DELIVERED), 0);
+
+        //---when the SMS has been sent---
+        registerReceiver(new BroadcastReceiver() {
+            public void onReceive(Context arg0, Intent arg1) {
+                switch (getResultCode()) {
+                    case Activity.RESULT_OK:
+                        makeText(getBaseContext(), "알림 문자 메시지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        }, new IntentFilter(SENT));
+
+        SmsManager sms = SmsManager.getDefault();
+        ArrayList<String> messageParts = sms.divideMessage(message);
+
+        //sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+        sms.sendMultipartTextMessage(phoneNumber, null, messageParts, null, null);
     }
 
     // TedPermission 권한 부분
@@ -178,23 +245,37 @@ public class UcNotifyActivity2 extends Activity {
     private void sendMMS(Uri uri){
         if(uri==null)
         {
-            Toast toast = Toast.makeText(getApplicationContext(),
+            Toast toast = makeText(getApplicationContext(),
                     getString(R.string.UcN2Text1), Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
         else {
             uri = Uri.parse("" + uri);
-            Intent it = new Intent(Intent.ACTION_SEND);
-            it.putExtra("address", "01049122194");
-            it.putExtra("sms_body", "TEST 내용입니다 문자메시지 12345678910 ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-            it.putExtra(Intent.EXTRA_STREAM, uri);
+            Uri uri2 = Uri.parse("file:///storage/emulated/0/pathMap.jpg");
+            Intent it = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            ArrayList uris = new ArrayList();
+            uris.add(mImageCaptureUri);
+            uris.add(uri2);
+            //it.putExtra("sms_body", "TEST 내용입니다 문자메시지 12345678910 ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            it.putExtra(Intent.EXTRA_STREAM, uris);
             it.setType("image/*");
+            //it.putExtra("address", "01033911537");
             startActivity(it);
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    getString(R.string.UcN2Text3), Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
+
+            new Handler().postDelayed(new Runnable() {// 10 초 후에 실행
+                @Override
+                public void run() {
+                    notify_guideText.setText("신고문자가 완료되었습니다.");
+
+                    rl.setBackgroundResource(R.drawable.notify2_background);
+                    btnExit.setVisibility(View.VISIBLE);
+
+                    resultImage.setVisibility(View.INVISIBLE);
+                    btnCamera.setVisibility(View.INVISIBLE);
+                    btnNext.setVisibility(View.INVISIBLE);
+                }
+            }, 10000);
         }
     }
 
@@ -206,7 +287,7 @@ public class UcNotifyActivity2 extends Activity {
         Intent sendIntent = new Intent(Intent.ACTION_VIEW, mmsUri);
         sendIntent.addCategory("android.intent.category.DEFAULT");
         sendIntent.addCategory("android.intent.category.BROWSABLE");
-        sendIntent.putExtra("address", "01000000000");
+        sendIntent.putExtra("address", "01049122194");
         sendIntent.putExtra("exit_on_sent", true);
         sendIntent.putExtra("subject", "dfdfdf");
         sendIntent.putExtra("sms_body", "dfdfsdf");
@@ -419,7 +500,9 @@ public class UcNotifyActivity2 extends Activity {
         btnCamera = (Button) findViewById(R.id.notify_reCapture);
         btnNext = (Button) findViewById(R.id.notify_next);
         notify_guideText = (TextView) findViewById(R.id.notify_guideText);
+        btnExit = (Button) findViewById(R.id.btn_exit);
 
+        rl = (RelativeLayout) findViewById(R.id.notify2_layout);
         // Fragment
         fr = new FragmentStepTwo();
         fm = getFragmentManager();

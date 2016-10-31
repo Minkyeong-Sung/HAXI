@@ -18,26 +18,6 @@
         sl:scale_base_width="1080"
         sl:scale_base_height="1730" >
 
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/haxi_logo_white"-->
-        <!--android:id="@+id/image_main_haxi_logo"-->
-        <!--sl:scale_left="290"-->
-        <!--sl:scale_top="150"-->
-        <!--sl:scale_width="500"-->
-        <!--sl:scale_height="500" />-->
-
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/main_introduce"-->
-        <!--android:id="@+id/image_main_introduce"-->
-        <!--sl:scale_left="330"-->
-        <!--sl:scale_top="500"-->
-        <!--sl:scale_width="450"-->
-        <!--sl:scale_height="200" />-->
-
         <com.ensharp.haxi.CustomFont
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

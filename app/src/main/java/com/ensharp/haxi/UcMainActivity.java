@@ -3,9 +3,11 @@ package com.ensharp.haxi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
+import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -25,6 +27,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.ensharp.haxi.Map.GPSTracker;
 import com.ensharp.haxi.Map.SearchLocation;
 import com.google.android.gms.common.api.Status;
@@ -49,6 +53,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class UcMainActivity extends Activity implements PlaceSelectionListener {
@@ -85,6 +90,8 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     private TextView attributionsTextView;
     private String str_destination;
 
+    private Thread mThread;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +115,71 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         autocompleteFragment.setHint(getString(R.string.UcText1));
 
         autocompleteFragment.setBoundsBias(BOUNDS_MOUNTAIN_VIEW);
+    }
+
+    public void showProgressDeterminateDialog() {
+        new MaterialDialog.Builder(this)
+                .title("로딩중")
+                .content("지도를 구성하고 있습니다")
+                .contentGravity(GravityEnum.CENTER)
+                .progress(false, 50, true)
+                .cancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        if (mThread != null)
+                            mThread.interrupt();
+                    }
+                })
+                .showListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+                        final MaterialDialog dialog = (MaterialDialog) dialogInterface;
+                        startThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                while (dialog.getCurrentProgress() != dialog.getMaxProgress() &&
+                                        !Thread.currentThread().isInterrupted()) {
+                                    if (dialog.isCancelled())
+                                        break;
+                                    try {
+                                        Thread.sleep(50);
+                                    } catch (InterruptedException e) {
+                                        break;
+                                    }
+                                    dialog.incrementProgress(1);
+                                }
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mThread = null;
+                                        dialog.setContent("완료");
+                                    }
+                                });
+
+                            }
+                        });
+                    }
+                }).show();
+    }
+
+    public void showProgressHorizontalIndeterminateDialog() {
+        showIndeterminateProgressDialog(true);
+    }
+
+    private void showIndeterminateProgressDialog(boolean horizontal) {
+        new MaterialDialog.Builder(this)
+                .title("로딩중")
+                .content("지도를 구성중입니다")
+                .progress(true, 0)
+                .progressIndeterminateStyle(horizontal)
+                .show();
+    }
+
+    private void startThread(Runnable run) {
+        if (mThread != null)
+            mThread.interrupt();
+        mThread = new Thread(run);
+        mThread.start();
     }
 
 
@@ -155,6 +227,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         }
 
         destination_location_input.setText(place.getName().toString());
+        MyApplication.destinationAddress = place.getName().toString();
         searchLocation.findLocation(str_destination, DESTINATION, destination_location_input);
         setInitflag();
         Log.i(LOG_TAG, "onPlaceSelected 함수에서 findLoaction 를 완료하였습니다");
@@ -188,6 +261,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
                     searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
                     show_Taxifare_distance();
                     setInitflag();
+                    showProgressHorizontalIndeterminateDialog();
                 }
             }
         });
@@ -384,6 +458,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         if (gps.canGetLocation()) {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
+            findAddress(latitude, longitude);
 
             /* UcRunning에서 사용할 출발지 위치 */
             locationInfo.add(latitude);
@@ -408,6 +483,38 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
             SearchLocation.startMarker_flag = true;                                                 // Marker 생성했다고 표시해주기.
             this.start_URL_latlng = new StringBuilder(longitude + "," + latitude);                  // 해당 위 경도값 URL에 넣어주기위한 변수.
         }
+    }
+
+    private String findAddress(double lat, double lng) {
+        String currentLocationAddress;
+        StringBuffer bf = new StringBuffer();
+        Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+        List<Address> address;
+        try {
+            if (geocoder != null) {
+                // 세번째 인수는 최대결과값인데 하나만 리턴받도록 설정했다
+                address = geocoder.getFromLocation(lat, lng, 1);
+                // 설정한 데이터로 주소가 리턴된 데이터가 있으면
+                if (address != null && address.size() > 0) {
+                    // 주소
+                    currentLocationAddress = address.get(0).getAddressLine(0).toString();
+
+
+                    // 전송할 주소 데이터 (위도/경도 포함 편집)
+                    bf.append(currentLocationAddress);
+//                    bf.append(lat).append("#");
+//                    bf.append(lng);
+                }
+            }
+
+        } catch (IOException e) {
+            Toast.makeText(UcMainActivity.this, "주소취득 실패"
+                    , Toast.LENGTH_LONG).show();
+
+            e.printStackTrace();
+        }
+        MyApplication.startAddress = bf.toString();
+        return bf.toString();
     }
 
     private void setAutoCompleFragment_Text(PlaceAutocompleteFragment autocompleteFragment){

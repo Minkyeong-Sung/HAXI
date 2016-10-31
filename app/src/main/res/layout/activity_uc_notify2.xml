@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ensharp.haxi.UcNotifyActivity2"
-    android:background="@drawable/request_receipt">
+    android:background="@drawable/request_receipt"
+    android:id="@+id/notify2_layout">
 
     <com.ssomai.android.scalablelayout.ScalableLayout
         android:id="@+id/notify_firstSL"
@@ -100,6 +101,24 @@
             sl:scale_width="500"
             sl:scale_height="100"
             sl:scale_textsize="40"/>
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onButtonClick"
+            android:text="종료하기"
+            android:background="@drawable/roundedbutton"
+            android:layout_gravity="bottom"
+            sl:scale_left="90"
+            sl:scale_top="0"
+            sl:scale_width="900"
+            sl:scale_height="100"
+            sl:scale_textsize="40"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 

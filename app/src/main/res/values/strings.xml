@@ -110,7 +110,7 @@
 
     //activity_uc_notify2
     <string name="notify3">"신고하기 전 확인단계 입니다"</string>
-    <string name="notify4">"주행했던 경로사진과 촬영했던 영수증 사진이 함께 MMS로 전송됩니다.\n핸드폰에서 MMS 비용이 부과될 수 있습니다.\n전에 입력했던 정보들도 활용됩니다.\n확인 버튼을 누르면 다산콜센터(02-120)로 전송됩니다."</string>
+    <string name="notify4">"다음에 실행되는 MMS 창에서 전송버튼을 꼭 눌러주세요.\n핸드폰에서 약간의 비용(SMS,MMS)이 부과될 수 있습니다.\n전에 입력했던 정보들도 활용됩니다.\n확인 버튼을 누르면 다산콜센터(02-120)로 전송됩니다."</string>
     <string name="notify5">"확인"</string>
     <string name="notify6">"취소"</string>
 

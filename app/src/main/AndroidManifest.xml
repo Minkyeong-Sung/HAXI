@@ -10,6 +10,8 @@
     <permission android:name="android.permission.CAMERA" />
     <permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <permission android:name="android.permission.READ_PHONE_STATE" />
+    <permission android:name="android.permission.SEND_SMS"/>
+    <permission android:name="android.permission.RECEIVE_SMS"/>
 
     <!-- 메세지, 카메라 권한 설정 -->
     <uses-permission android:name="android.permission.CAMERA" />

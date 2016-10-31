@@ -12,35 +12,21 @@
     android:paddingTop="0dp"
     tools:context="com.ensharp.haxi.UcRunningActivity">
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gmap"
+        android:layout_above="@+id/runningFirstScalable"
+        class="com.google.android.gms.maps.MapFragment" />
+
     <com.ssomai.android.scalablelayout.ScalableLayout
+        android:id="@+id/runningFirstScalable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        sl:scale_base_height="1730"
+        android:layout_alignParentBottom="true"
         sl:scale_base_width="1080"
-        android:id="@+id/view"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
-
-        <fragment
-            android:id="@+id/gmap"
-            class="com.google.android.gms.maps.MapFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            sl:scale_height="1300"
-            sl:scale_left="0"
-            sl:scale_top="0"
-            sl:scale_width="1080" />
-
-        <!--<ImageView-->
-        <!--android:id="@+id/image_running_guide"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/running_guide_text"-->
-        <!--sl:scale_height="300"-->
-        <!--sl:scale_left="90"-->
-        <!--sl:scale_top="1300"-->
-        <!--sl:scale_width="900" />-->
+        sl:scale_base_height="400" >
 
         <Button
             android:id="@+id/btn_arrive"
@@ -49,58 +35,56 @@
             android:background="@drawable/black_round_button"
             android:text="@string/arrive"
             android:textColor="#FFFFFF"
-            android:textStyle="bold"
+            sl:scale_left="40"
+            sl:scale_top="280"
+            sl:scale_width="1000"
             sl:scale_height="100"
-            sl:scale_left="150"
-            sl:scale_textsize="40"
-            sl:scale_top="1600"
-            sl:scale_width="800" />
+            sl:scale_textsize="40" />
 
-        <TextView
+        <com.ensharp.haxi.CustomFont
             android:id="@+id/text_taxifare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="#FF9800"
-            android:textStyle="bold"
-            sl:scale_left="440"
-            sl:scale_top="1510"
-            sl:scale_width="350"
+            sl:scale_left="460"
+            sl:scale_top="180"
+            sl:scale_width="300"
             sl:scale_height="80"
             sl:scale_textsize="70" />
 
-        <TextView
+        <com.ensharp.haxi.CustomFont
             android:text="@string/auto_checking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             sl:scale_left="0"
-            sl:scale_top="1300"
+            sl:scale_top="20"
             sl:scale_width="1080"
-            sl:scale_height="100"
+            sl:scale_height="80"
             sl:scale_textsize="50"
             android:gravity="center"
             android:textColor="#000000"/>
 
-        <TextView
+        <com.ensharp.haxi.CustomFont
             android:text="@string/after"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             sl:scale_left="0"
-            sl:scale_top="1400"
+            sl:scale_top="100"
             sl:scale_width="1080"
-            sl:scale_height="100"
+            sl:scale_height="80"
             sl:scale_textsize="50"
             android:gravity="center"
             android:textColor="#000000"/>
 
-        <TextView
+        <com.ensharp.haxi.CustomFont
             android:text="@string/excepting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             sl:scale_left="0"
-            sl:scale_top="1500"
+            sl:scale_top="180"
             sl:scale_width="1080"
-            sl:scale_height="100"
+            sl:scale_height="80"
             sl:scale_textsize="50"
             android:gravity="center"
             android:textColor="#000000"/>

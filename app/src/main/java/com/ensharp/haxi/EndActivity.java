@@ -15,8 +15,9 @@ public class EndActivity extends Activity {
             @Override
             public void run() {
                 moveTaskToBack(true);
-                finish();
-                android.os.Process.killProcess(android.os.Process.myPid());
+                finishAffinity();
+                System.runFinalizersOnExit(true);
+                System.exit(0);
             }
         }, 3000);
     }

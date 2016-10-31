@@ -7,59 +7,21 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF">
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gmap"
+        class="com.google.android.gms.maps.MapFragment"
+        android:layout_above="@+id/ucMainScalable"/>
+
     <com.ssomai.android.scalablelayout.ScalableLayout
+        android:id="@+id/ucMainScalable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
+        android:layout_alignParentBottom="true"
         sl:scale_base_width="1080"
-        sl:scale_base_height="1730">
-
-        <fragment
-            android:id="@+id/gmap"
-            class="com.google.android.gms.maps.MapFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            sl:scale_left="0"
-            sl:scale_top="0"
-            sl:scale_width="1080"
-            sl:scale_height="1400" />
-
-
-        <!--<EditText-->
-        <!--android:id="@+id/start_input"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:ems="10"-->
-        <!--android:inputType="textPersonName"-->
-        <!--sl:scale_left="200"-->
-        <!--sl:scale_top="1300"-->
-        <!--sl:scale_width="600"-->
-        <!--sl:scale_height="100"-->
-        <!--sl:scale_textsize="30" />-->
-
-        //android:background="@null"
-
-        <!--<Button-->
-        <!--android:id="@+id/start_btn"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="출발지검색"-->
-        <!--sl:scale_left="850"-->
-        <!--sl:scale_top="1300"-->
-        <!--sl:scale_width="200"-->
-        <!--sl:scale_height="100"-->
-        <!--sl:scale_textsize="30" />-->
-
-        <!--<Button-->
-        <!--android:id="@+id/destination_btn"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="도착지검색"-->
-        <!--sl:scale_left="850"-->
-        <!--sl:scale_top="1450"-->
-        <!--sl:scale_width="200"-->
-        <!--sl:scale_height="100"-->
-        <!--sl:scale_textsize="30" />-->
+        sl:scale_base_height="350">
 
         <Button
             android:id="@+id/btn_CompleteBoarding"
@@ -68,61 +30,12 @@
             android:background="@drawable/black_round_button"
             android:text="@string/btn_ridecp"
             sl:scale_left="40"
-            sl:scale_top="1600"
+            sl:scale_top="200"
             sl:scale_width="1000"
             sl:scale_height="100"
             sl:scale_textsize="40"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
-
-        <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/image_start"-->
-        <!--android:src="@drawable/start"-->
-        <!--sl:scale_left="100"-->
-        <!--sl:scale_top="1325"-->
-        <!--sl:scale_width="50"-->
-        <!--sl:scale_height="50"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true" />-->
-
-        <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:src="@drawable/path"-->
-        <!--android:id="@+id/image_path"-->
-        <!--sl:scale_left="110"-->
-        <!--sl:scale_top="1410"-->
-        <!--sl:scale_width="30"-->
-        <!--sl:scale_height="30"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true" />-->
-
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/image_destination"-->
-        <!--android:src="@drawable/destination"-->
-        <!--sl:scale_left="100"-->
-        <!--sl:scale_top="1470"-->
-        <!--sl:scale_width="50"-->
-        <!--sl:scale_height="50"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_centerHorizontal="true" />-->
-
-        <!--<ImageButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/gps_current_location"-->
-        <!--android:id="@+id/iBtn_currentLocation"-->
-        <!--android:background="#00000000"-->
-        <!--android:padding="0sp"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--sl:scale_left="970"-->
-        <!--sl:scale_top="1100"-->
-        <!--sl:scale_width="100"-->
-        <!--sl:scale_height="100" />-->
 
         <fragment
             android:layout_width="wrap_content"
@@ -130,7 +43,7 @@
             android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
             android:id="@+id/place_fragment"
             sl:scale_left="10"
-            sl:scale_top="1450"
+            sl:scale_top="50"
             sl:scale_width="1060"
             sl:scale_height="100" />
 
@@ -140,8 +53,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            sl:scale_left="200"
-            sl:scale_top="1520"
+            sl:scale_left="0"
+            sl:scale_top="0"
             sl:scale_width="0"
             sl:scale_height="0"
             sl:scale_textsize="30" />

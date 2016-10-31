@@ -13,6 +13,13 @@ public class MyApplication extends Application {
     public static String taxi_fare_string;
     public static int taxi_fare_int;
 
+    public static String startAddress;
+    public static String destinationAddress;
+
+    public static String name;
+    public static String address;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -21,5 +28,4 @@ public class MyApplication extends Application {
                 .addNormal(Typekit.createFromAsset(this, "fonts/NanumBarunGothic.otf"))
                 .addBold(Typekit.createFromAsset(this, "fonts/NanumBarunGothicBold.otf"));
     }
-
 }

@@ -35,12 +35,28 @@ public class UcNotifyActivity extends Activity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TedPermission(UcNotifyActivity.this)
-                        .setPermissionListener(permissionlistener)
-                        .setRationaleMessage(getString(R.string.UcNText1))
-                        .setDeniedMessage(getString(R.string.UcNText2))
-                        .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .check();
+                if(name.length() == 0)
+                {
+                    Toast.makeText(UcNotifyActivity.this, "이름이 입력되지 않았습니다", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+                if(address.length() == 0)
+                {
+                    Toast.makeText(UcNotifyActivity.this, "주소가 입력되지 않았습니다", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+
+                if(name.length() > 0 && address.length() >0) {
+                    MyApplication.name = name.getText().toString();
+                    MyApplication.address = address.getText().toString();
+
+                    new TedPermission(UcNotifyActivity.this)
+                            .setPermissionListener(permissionlistener)
+                            .setRationaleMessage(getString(R.string.UcNText1))
+                            .setDeniedMessage(getString(R.string.UcNText2))
+                            .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS)
+                            .check();
+                }
             }
         });
         mContext = UcNotifyActivity.this;

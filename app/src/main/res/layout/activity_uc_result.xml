@@ -10,15 +10,21 @@
     android:paddingTop="0dp"
     tools:context="com.ensharp.haxi.UcResultActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/image_map"
+        android:layout_above="@+id/scalableLayout"
+        android:background="#F5F5F5"/>
+
     <com.ssomai.android.scalablelayout.ScalableLayout
+        android:id="@+id/scalableLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
         sl:scale_base_width="1080"
-        sl:scale_base_height="1730"
-        android:id="@+id/scalableLayout"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        sl:scale_base_height="400"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:layout_width="190dp"
@@ -27,7 +33,7 @@
             android:id="@+id/btn_success"
             android:background="@drawable/green_line_button"
             sl:scale_left="30"
-            sl:scale_top="1600"
+            sl:scale_top="280"
             sl:scale_width="500"
             sl:scale_height="100"
             sl:scale_textsize="40"
@@ -41,67 +47,12 @@
             android:id="@+id/btn_notify"
             android:background="@drawable/red_line_button"
             sl:scale_left="550"
-            sl:scale_top="1600"
+            sl:scale_top="280"
             sl:scale_width="500"
             sl:scale_height="100"
             sl:scale_textsize="40"
             android:textColor="#000000"
             android:gravity="center"/>
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:inputType="textPersonName"-->
-        <!--android:text="0"-->
-        <!--android:id="@+id/running_hour"-->
-        <!--sl:scale_left="360"-->
-        <!--sl:scale_top="960"-->
-        <!--sl:scale_width="100"-->
-        <!--sl:scale_height="100"-->
-        <!--sl:scale_textsize="50"-->
-        <!--android:textStyle="bold"-->
-        <!--android:textColor="#FF9800"-->
-        <!--android:gravity="center" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:inputType="textPersonName"-->
-        <!--android:text="00"-->
-        <!--android:id="@+id/running_minute"-->
-        <!--sl:scale_left="520"-->
-        <!--sl:scale_top="960"-->
-        <!--sl:scale_width="115"-->
-        <!--sl:scale_height="100"-->
-        <!--sl:scale_textsize="50"-->
-        <!--android:textStyle="bold"-->
-        <!--android:textColor="#FF9800"-->
-        <!--android:gravity="center" />-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:inputType="textPersonName"-->
-        <!--android:text="00"-->
-        <!--android:id="@+id/running_second"-->
-        <!--sl:scale_left="655"-->
-        <!--sl:scale_top="960"-->
-        <!--sl:scale_width="115"-->
-        <!--sl:scale_height="100"-->
-        <!--sl:scale_textsize="50"-->
-        <!--android:textStyle="bold"-->
-        <!--android:textColor="#FF9800"-->
-        <!--android:gravity="center" />-->
-
-        <!--<ImageView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:src="@drawable/result_guid_text"-->
-        <!--android:id="@+id/imageView"-->
-        <!--sl:scale_left="90"-->
-        <!--sl:scale_top="870"-->
-        <!--sl:scale_width="900"-->
-        <!--sl:scale_height="700" />-->
 
         <TextView
             android:text="@string/checking"
@@ -109,7 +60,7 @@
             android:layout_height="match_parent"
             android:id="@+id/result_guideText"
             sl:scale_left="250"
-            sl:scale_top="1300"
+            sl:scale_top="30"
             sl:scale_width="580"
             sl:scale_height="80"
             sl:scale_textsize="50"
@@ -122,7 +73,7 @@
             android:layout_height="match_parent"
             android:id="@+id/result_guideText_2"
             sl:scale_left="100"
-            sl:scale_top="1400"
+            sl:scale_top="110"
             sl:scale_width="880"
             sl:scale_height="80"
             sl:scale_textsize="50"
@@ -134,9 +85,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/attention"
-            android:id="@+id/imageView"
-            sl:scale_left="150"
-            sl:scale_top="1500"
+            sl:scale_left="175"
+            sl:scale_top="200"
             sl:scale_width="50"
             sl:scale_height="50" />
 
@@ -145,8 +95,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/textView3"
-            sl:scale_left="200"
-            sl:scale_top="1500"
+            sl:scale_left="225"
+            sl:scale_top="200"
             sl:scale_width="680"
             sl:scale_height="50"
             sl:scale_textsize="30"
@@ -154,25 +104,15 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/result_taxiFare"
-            android:text=""
-            sl:scale_left="370"
-            sl:scale_top="1390"
-            sl:scale_width="300"
+            sl:scale_left="390"
+            sl:scale_top="90"
+            sl:scale_width="350"
             sl:scale_height="100"
             sl:scale_textsize="80"
             android:textColor="#F95731"
-            android:gravity="right" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/image_map"
-            sl:scale_left="0"
-            sl:scale_top="0"
-            sl:scale_width="1080"
-            sl:scale_height="1280" />
+            android:gravity="center" />
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 </RelativeLayout>

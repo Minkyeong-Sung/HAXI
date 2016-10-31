@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.ensharp.haxi.InternationalTaxi.InternationalTaxiActivity;
 import com.gun0912.tedpermission.PermissionListener;
@@ -50,7 +49,7 @@ public class MainActivity extends Activity {
                         .setRationaleMessage(getString(R.string.MainText1))
                         //.setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
                         .setRationaleMessage(getString(R.string.MainText2))
-                        .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .check();
             }
         });

@@ -9,14 +9,35 @@
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    tools:context="com.ensharp.haxi.EndActivity">
+    tools:context="com.ensharp.haxi.EndActivity"
+    android:background="@drawable/end_activity">
 
-    <com.ssomai.android.scalablelayout.ScalableLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/end_activity"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/endScalable"/>
+
+    <com.ssomai.android.scalablelayout.ScalableLayout
+        android:id="@+id/endScalable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         sl:scale_base_width="1080"
-        sl:scale_base_height="1790">
+        sl:scale_base_height="800"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <com.ensharp.haxi.CustomFont
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="HAXI와 함께\n대한민국 서울에서 즐거운 시간 되시기 바랍니다"
+            android:textColor="#000000"
+            android:gravity="center"
+            sl:scale_left="0"
+            sl:scale_top="270"
+            sl:scale_width="1080"
+            sl:scale_height="200"
+            sl:scale_textsize="50"/>
 
     </com.ssomai.android.scalablelayout.ScalableLayout>
 

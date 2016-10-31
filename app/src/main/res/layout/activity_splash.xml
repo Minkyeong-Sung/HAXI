@@ -9,42 +9,10 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     tools:context="com.ensharp.haxi.SplashActivity"
-    android:background="@drawable/haxi_splash_resize">
-    <!--android:background="@drawable/splash">-->
-
-    <!--<com.ssomai.android.scalablelayout.ScalableLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="#f5b019"-->
-    <!--sl:scale_base_width="1080"-->
-    <!--sl:scale_base_height="1730">-->
+    android:background="@drawable/splash">
 
     <!--<ImageView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/imgae_iseoulu"-->
-    <!--android:src="@drawable/iseoulu"-->
-    <!--sl:scale_left="390"-->
-    <!--sl:scale_top="1620"-->
-    <!--sl:scale_width="300"-->
-    <!--sl:scale_height="90" />-->
-
-    <!--<ImageView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/image_splash_taxi"-->
-    <!--android:src="@drawable/image_taxi"-->
-    <!--sl:scale_left="270"-->
-    <!--sl:scale_top="230"-->
-    <!--sl:scale_width="550"-->
-    <!--sl:scale_height="500" />-->
-
-    <!--</com.ssomai.android.scalablelayout.ScalableLayout>-->
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        sl:srcCompat="@drawable/splash"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/imageView3"
-        android:layout_alignParentTop="true" />
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--sl:srcCompat="@drawable/splash" />-->
 </RelativeLayout>
