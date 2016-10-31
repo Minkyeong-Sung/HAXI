@@ -37,6 +37,7 @@ import com.tsengvn.typekit.TypekitContextWrapper;
 import java.io.File;
 import java.text.NumberFormat;
 
+import static com.ensharp.haxi.UcMainActivity.distanceString;
 import static com.ensharp.haxi.UcMainActivity.split_stringBuilder;
 import static java.lang.System.out;
 
@@ -63,6 +64,9 @@ public class UcRunningActivity extends Activity {
     private TextView taxi_fare;
     private Button arrive;
 
+    TextView minute;
+    TextView distance;
+
     /* SnapShot에 이용되는 변수 */
     public static Bitmap mbitmap;
 
@@ -77,7 +81,7 @@ public class UcRunningActivity extends Activity {
         startLocationService();
 
         backPressCloseHandler = new BackPressCloseHandler(this);
-        taxi_fare = (TextView) findViewById(R.id.text_taxifare);
+//        taxi_fare = (TextView) findViewById(R.id.text_taxifare);
         //taxi_fare.setText(split_stringBuilder[9]);
 
         // UcResult 에서 쓸 taxi 요금데이터 구성 ( 3단위 콤마 적용)
@@ -85,7 +89,10 @@ public class UcRunningActivity extends Activity {
         NumberFormat nf = NumberFormat.getInstance();
         nf.setMaximumIntegerDigits(6);
         MyApplication.taxi_fare_string = nf.format(MyApplication.taxi_fare_int);
-        taxi_fare.setText(MyApplication.taxi_fare_string);
+//        taxi_fare.setText(MyApplication.taxi_fare_string);
+
+        minute.setText(split_stringBuilder[3]);
+        distance.setText(distanceString);
     }
 
     // 나눔고딕 폰트 적용 부분분
@@ -108,6 +115,8 @@ public class UcRunningActivity extends Activity {
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         // 지도 객체 참조
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.gmap)).getMap();
+        minute = (TextView) findViewById(R.id.running_Minute);
+        distance = (TextView) findViewById(R.id.running_distance);
     }
 
     public void init_button() {

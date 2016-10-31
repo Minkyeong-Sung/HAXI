@@ -5,7 +5,6 @@ import android.location.Geocoder;
 import android.util.Log;
 import android.widget.EditText;
 
-import com.ensharp.haxi.R;
 import com.ensharp.haxi.UcMainActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,9 +13,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-
-
 
 import java.io.IOException;
 import java.util.List;
@@ -71,7 +67,6 @@ public class SearchLocation {
                     if (destinationMarker_flag == true)
                         destinationMarker.remove();
                     destinationMarker = gMap.addMarker(new MarkerOptions().position(new LatLng(searchLatLng_latitude, searchLatLng_longitude))
-                            .title(String.valueOf(R.string.notify10))
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                             .draggable(true));
                     destinationMarker.showInfoWindow();

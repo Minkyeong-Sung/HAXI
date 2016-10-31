@@ -78,6 +78,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     public static StringBuilder start_URL_latlng;
     public static StringBuilder destination_URL_latlng = null;
     public static String[] split_stringBuilder;
+    public static StringBuilder distanceString;
 
     /* 출발지 및 도착지 구분해주는 변수 */
     private static final int START = 1;
@@ -422,6 +423,10 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
 
             String a = stringBuilder.toString();                                                   // 총 거리, 소요 시간, 택시비 정보를
             split_stringBuilder = a.split("[:,]");                                                 // 배열부분에 담는다
+            split_stringBuilder[3] = split_stringBuilder[3].substring(0,split_stringBuilder[3].length()-2);
+            distanceString = new StringBuilder(split_stringBuilder[1]);
+            distanceString.insert(distanceString.length()-3,".");
+            distanceString.delete(distanceString.length()-2,distanceString.length());
 
             Intent runningIntent = new Intent(UcMainActivity.this, UcRunningActivity.class);
             startActivity(runningIntent);
