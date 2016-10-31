@@ -30,7 +30,7 @@
         <com.ensharp.haxi.CustomFont
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="HAXI와 함께\n대한민국 서울에서 즐거운 시간 되시기 바랍니다"
+            android:text="@string/UcN2Text4"
             android:textColor="#000000"
             android:gravity="center"
             sl:scale_left="0"
