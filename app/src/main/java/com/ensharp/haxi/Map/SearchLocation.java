@@ -106,12 +106,7 @@ public class SearchLocation {
         gMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
-                if (start_move_flag == true) {
-                    // 해당 위치에 대한 searchLocation 실행
-                    searchLocation(cameraPosition.target.latitude, cameraPosition.target.longitude, input_text);
-                    UcMainActivity.start_URL_latlng = new StringBuilder(cameraPosition.target.longitude + "," + cameraPosition.target.latitude);
-                    startMarker.setPosition(cameraPosition.target);
-                } else if (destination_move_flag == true) {
+                if (destination_move_flag == true) {
                     searchLocation(cameraPosition.target.latitude, cameraPosition.target.longitude, input_text);
                     UcMainActivity.destination_URL_latlng = new StringBuilder(cameraPosition.target.longitude + "," + cameraPosition.target.latitude);
                     destinationMarker.setPosition(cameraPosition.target);
@@ -135,13 +130,9 @@ public class SearchLocation {
 
                 // 해당 위치에 대한 searchLocation 실행
                 searchLocation(end_LatLng.latitude, end_LatLng.longitude, input_text);
-                // 출발지에 대한 Marker일 경우 이 위치로 URL 변경해주기.
-                if (marker.getTitle().contains("출")) {
-                    UcMainActivity.start_URL_latlng = new StringBuilder(end_LatLng.longitude + "," + end_LatLng.latitude);
-                }
                 // 도착지에 대한 Marker일 경우 이 위치로 URL 변경해주기.
-                else if (marker.getTitle().contains("도")) {
-                    UcMainActivity.destination_URL_latlng = new StringBuilder(end_LatLng.longitude + "," + end_LatLng.latitude);
+                if (marker.getTitle().contains("도")) {
+                    UcMainActivity.destination_URL_latlng = new StringBuilder(marker.getPosition().longitude + "," + marker.getPosition().latitude);
                 }
 
             }

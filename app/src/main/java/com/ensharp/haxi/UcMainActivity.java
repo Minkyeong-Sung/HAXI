@@ -76,7 +76,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
     /* JSON 파싱에 이용되는 변수 */
     public static StringBuilder URL = new StringBuilder("https://m.map.naver.com/spirra/findCarRoute.nhn?route=route3&output=json&coord_type=latlng&search=0&car=0&mileage=12.4&start=127.0738840,37.5514706&destination=126.9522394,37.4640070");
     public static StringBuilder start_URL_latlng;
-    public static StringBuilder destination_URL_latlng;
+    public static StringBuilder destination_URL_latlng = null;
     public static String[] split_stringBuilder;
 
     /* 출발지 및 도착지 구분해주는 변수 */
@@ -113,7 +113,6 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
                 getFragmentManager().findFragmentById(R.id.place_fragment);
         autocompleteFragment.setOnPlaceSelectedListener(this);
         autocompleteFragment.setHint(getString(R.string.UcText1));
-
         autocompleteFragment.setBoundsBias(BOUNDS_MOUNTAIN_VIEW);
     }
 
@@ -256,9 +255,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
                     Toast.makeText(getApplication(),getString(R.string.UcText1),Toast.LENGTH_LONG).show();
                 }
                 else {
-                    String searchStr = str_destination.toString();
                     // 주소 정보를 이용해 위치 좌표 찾기 메소드 호출
-                    searchLocation.findLocation(searchStr, DESTINATION, destination_location_input);
                     show_Taxifare_distance();
                     setInitflag();
                     showProgressHorizontalIndeterminateDialog();
@@ -477,8 +474,7 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
                 SearchLocation.startMarker.remove();
 
             SearchLocation.startMarker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))  // Marker 생성.
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                    .draggable(true));
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
             SearchLocation.startMarker.showInfoWindow();                                            // Marker 화면에 표시하기.
             SearchLocation.startMarker_flag = true;                                                 // Marker 생성했다고 표시해주기.
             this.start_URL_latlng = new StringBuilder(longitude + "," + latitude);                  // 해당 위 경도값 URL에 넣어주기위한 변수.
@@ -517,16 +513,4 @@ public class UcMainActivity extends Activity implements PlaceSelectionListener {
         return bf.toString();
     }
 
-    private void setAutoCompleFragment_Text(PlaceAutocompleteFragment autocompleteFragment){
-        switch (MainActivity.URL_locale.toString()) {
-            case "ko":
-                autocompleteFragment.setHint("도착지를 입력하세요"); break;
-            case "ja":
-                autocompleteFragment.setHint("目的地を入力してください"); break;
-            case "zh":
-                autocompleteFragment.setHint("输入目的地"); break;
-            default:
-                autocompleteFragment.setHint("Input the destination"); break;
-        }
-    }
 }

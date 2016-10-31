@@ -203,7 +203,7 @@ public class UcRunningActivity extends Activity {
 
         // 위치 정보를 받을 리스너 생성
         gpsListener = new GPSListener();
-        long minTime = 2000;
+        long minTime = 4000;
         float minDistance = 0;
 
         try {
