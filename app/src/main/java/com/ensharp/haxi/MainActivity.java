@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
                         //.setRationaleMessage("현재 위치를 찾기위해 권한이 필요합니다!")
                         .setRationaleMessage(getString(R.string.MainText1))
                         //.setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
-                        .setRationaleMessage(getString(R.string.MainText2))
+                        .setDeniedMessage(getString(R.string.MainText2))
                         .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .check();
             }
