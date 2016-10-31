@@ -72,6 +72,10 @@
 
     // UcMainActivity
     <string name="UcText1">"Please enter destination"</string>
+    <string name="UcText2">"Loading"</string>
+    <string name="UcText3">"Complete"</string>
+    <string name="UcText4">"And configure the map"</string>
+    <string name="UcText5">"Address acquisition failure"</string>
 
     // UcNotifyActivity
     <string name="UcNText1">"I need the camera permission for the Receipt shot! Please come allowed!"</string>

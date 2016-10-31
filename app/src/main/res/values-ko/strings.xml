@@ -94,6 +94,10 @@
 
     // UcMainActivity
     <string name="UcText1">"도착지 입력하세요"</string>
+    <string name="UcText2">"로딩중"</string>
+    <string name="UcText3">"완료"</string>
+    <string name="UcText4">"지도를 구성하고 있습니다"</string>
+    <string name="UcText5">"주소취득 실패"</string>
 
     // UcNotifyActivity
     <string name="UcNText1">"영수증 촬영을 위한 카메라 권한이 필요해요! 꼭 허락해주세요!"</string>
