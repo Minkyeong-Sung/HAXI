@@ -98,7 +98,7 @@
     <string name="UcN2Text1">"请把收据的图片"</string>
     <string name="UcN2Text2">"请附上收据的路径照片对比."</string>
     <string name="UcN2Text3">"请添加路径捕获"</string>
-
+    <string name="UcN2Text4">"HAXI同\n有在首尔逗留愉快"</string>
 
     //activity_uc_notify2
     <string name="notify3">"证实了前一步骤"</string>

@@ -110,6 +110,7 @@
     <string name="UcN2Text1">"영수증 사진을 촬영해 주세요"</string>
     <string name="UcN2Text2">"바가지요금 영수증을 비교할 경로사진을 첨부해주세요."</string>
     <string name="UcN2Text3">"경로 캡쳐본을 추가해주세요"</string>
+    <string name="UcN2Text4">"HAXI와 함께\n대한민국 서울에서 즐거운 시간 되시기 바랍니다"</string>
 
     //activity_uc_notify2
     <string name="notify3">"신고하기 전 확인단계 입니다"</string>

@@ -98,6 +98,7 @@
     <string name="UcN2Text1">"領収書の写真を撮影してください"</string>
     <string name="UcN2Text2">"ふっかけ料金の領収書を比較するパスの写真を添付し​​てください"</string>
     <string name="UcN2Text3">"パスキャプチャ本を追加してください"</string>
+    <string name="UcN2Text4">"HAXIと\n大韓民国ソウルで楽しい時間をご用意ください"</string>
 
     //activity_uc_notify2
     <string name="notify3">"報告する前に確認のステップです"</string>
