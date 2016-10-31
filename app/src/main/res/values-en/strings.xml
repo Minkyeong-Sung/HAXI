@@ -99,4 +99,5 @@
     <string name="notify7">"Please request a receipt\nTake a photo using the button below, edit"</string>
     <string name="notify8">"End"</string>
     <string name="notify9">"SMS Report is Completed.\nSent to phone numbers 02-112.\nPlease press sent by MMS window"</string>
+    <string name="notify10">"destination"</string>
 </resources>

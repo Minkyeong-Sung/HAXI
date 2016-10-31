@@ -135,7 +135,7 @@ public class UcNotifyActivity2 extends Activity {
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                makeText(UcNotifyActivity2.this, "SMS신고는 완료됬습니다.\n보내는곳은 02-112 입니다.\nMMS창에서 전송을 눌러주세요", Toast.LENGTH_LONG).show();
+                                makeText(UcNotifyActivity2.this, getString(R.string.notify9), Toast.LENGTH_LONG).show();
                                 autoSendSMS("01049122194", "부당요금을 신고합니다. 출발지는 " + MyApplication.startAddress + " 이며, 도착지는 " + MyApplication.destinationAddress +" 입니다. Naver, Daum, T-Map의 평균 택시요금은 " + MyApplication.taxi_fare_int + "원 이였으나 이 이상으로 요금이 많이나와 증거자료와 함께 신고합니다. 신고자는 " + MyApplication.name + "이며, 거주중인 주소는 " + MyApplication.address + " 입니다.");
                                 sendMMS(mImageCaptureUri);
                             }

@@ -119,4 +119,5 @@
     <string name="notify7">"영수증을 요청하시고\n아래의 버튼으로 사진을 촬영하고 수정하세요"</string>
     <string name="notify8">"종료하기"</string>
     <string name="notify9">"SMS신고는 완료됐습니다.\n보내는곳은 02-112 입니다.\nMMS창에서 전송을 눌러주세요"</string>
+    <string name="notify10">"도착지"</string>
 </resources>

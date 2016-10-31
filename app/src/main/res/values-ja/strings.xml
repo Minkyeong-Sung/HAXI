@@ -107,4 +107,5 @@
     <string name="notify7">"領収書を要求し\n下のボタンで写真を撮影して修正してください"</string>
     <string name="notify8">"終了"</string>
     <string name="notify9">"SMS申告は完了されました.\n送り先は02-112です.\nMMSウィンドウで送信を押してください"</string>
+    <string name="notify10">"到着"</string>
 </resources>

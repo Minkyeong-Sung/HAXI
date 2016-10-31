@@ -108,4 +108,5 @@
     <string name="notify7">"请索取收据\n下面的按钮 拍照和编辑"</string>
     <string name="notify8">"结束"</string>
     <string name="notify9">"短信通知完毕.\n发送手机号码02-112.\n单击提交MMS"</string>
+    <string name="notify10">"目的地"</string>
 </resources>
