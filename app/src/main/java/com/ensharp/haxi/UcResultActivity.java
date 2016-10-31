@@ -44,8 +44,8 @@ public class UcResultActivity extends Activity {
             public void onClick(View v) {
                 new TedPermission(UcResultActivity.this)
                         .setPermissionListener(permissionlistener)
-                        .setRationaleMessage("핸드폰 번호를 자동으로 입력하기 위해 권한이 필요합니다.")
-                        .setDeniedMessage("왜 거부하셨어요...\n하지만 [설정] > [권한] 에서 권한을 허용할 수 있어요.")
+                        .setRationaleMessage(getString(R.string.MainText))
+                        .setDeniedMessage(getString(R.string.UcNText2))
                         .setPermissions(Manifest.permission.READ_PHONE_STATE)
                         .check();
             }

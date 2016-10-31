@@ -27,6 +27,11 @@
     <string name="after">It can be used as evidence at a later date</string>
     <string name="arrive">If you arrive at your destination, press</string>
     <string name="excepting">"Estimated taxi fare                                        "</string>
+    <string name="run">"minute"</string>
+    <string name="run1">""</string>
+    <string name="run2">"km"</string>
+    <string name="run3">"Please wait a moment will record your route"</string>
+
 
     //activity_uc_notify
     <string name="name1">Name</string>
@@ -101,4 +106,5 @@
     <string name="notify8">"End"</string>
     <string name="notify9">"SMS Report is Completed.\nSent to phone numbers 02-112.\nPlease press sent by MMS window"</string>
     <string name="notify10">"destination"</string>
+    <string name="UcNText9">"Press the Back button once more shut down."</string>
 </resources>

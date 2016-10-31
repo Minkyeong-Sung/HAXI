@@ -28,11 +28,16 @@
     <string name="btn_good">適当です</string>
     <string name="btn_strage">何かおかしい</string>
 
+
     //activity_uc_running
     <string name="auto_checking">自動的に動いた距離を記録します</string>
     <string name="after">今後の証拠資料として使用することができます</string>
     <string name="arrive">目的地に到着した場合押してください</string>
     <string name="excepting">"推定タクシー料金                                      "</string>
+    <string name="run">"分"</string>
+    <string name="run1">""</string>
+    <string name="run2">"km"</string>
+    <string name="run3">"しばらくお待ちいただければ、自動的にパスを記録します"</string>
 
     //activity_uc_notify
     <string name="name1">名前</string>
@@ -109,4 +114,5 @@
     <string name="notify8">"終了"</string>
     <string name="notify9">"SMS申告は完了されました.\n送り先は02-112です.\nMMSウィンドウで送信を押してください"</string>
     <string name="notify10">"到着"</string>
+    <string name="UcNText9">"戻るボタンをもう一度押すと終了します."</string>
 </resources>

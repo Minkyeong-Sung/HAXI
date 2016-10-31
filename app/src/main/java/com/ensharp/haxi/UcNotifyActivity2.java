@@ -100,8 +100,7 @@ public class UcNotifyActivity2 extends Activity {
     }
 
     public void showGuide() {
-        toast = Toast.makeText(UcNotifyActivity2.this,
-                "\'뒤로\'버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT);
+        toast = Toast.makeText(UcNotifyActivity2.this, getString(R.string.UcNText9), Toast.LENGTH_SHORT);
         toast.show();
     }
 

@@ -56,7 +56,7 @@
             android:textColor="#FF9800"/>
 
         <com.ensharp.haxi.CustomFont
-            android:text="분"
+            android:text="@string/run"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             sl:scale_left="300"
@@ -81,7 +81,7 @@
             android:textColor="#FF9800"/>
 
         <com.ensharp.haxi.CustomFont
-            android:text="km"
+            android:text="@string/run2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             sl:scale_left="840"
@@ -93,7 +93,7 @@
             android:textColor="#000000"/>
 
         <com.ensharp.haxi.CustomFont
-            android:text="잠시만 기다려주시면 자동으로 경로를 기록합니다"
+            android:text="@string/run3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             sl:scale_left="0"

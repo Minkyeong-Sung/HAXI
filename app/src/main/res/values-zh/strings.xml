@@ -33,6 +33,10 @@
     <string name="after">它可以在稍后的日期作为证据</string>
     <string name="arrive">如果您在您的目的地，按到达</string>
     <string name="excepting">"预测 价格                                            "</string>
+    <string name="run">"分钟"</string>
+    <string name="run1">""</string>
+    <string name="run2">"km"</string>
+    <string name="run3">"请稍等片刻会记录您的路线"</string>
 
     //activity_uc_notify
     <string name="name1">名</string>
@@ -109,4 +113,5 @@
     <string name="notify8">"结束"</string>
     <string name="notify9">"短信通知完毕.\n发送手机号码02-112.\n单击提交MMS"</string>
     <string name="notify10">"目的地"</string>
+    <string name="UcNText9">"而且当你再次按下返回键结束."</string>
 </resources>
