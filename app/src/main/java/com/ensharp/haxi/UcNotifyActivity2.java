@@ -144,6 +144,7 @@ public class UcNotifyActivity2 extends Activity {
                         .show();
                 break;
             case R.id.btn_exit:
+
                 Intent exitIntent = new Intent(UcNotifyActivity2.this, EndActivity.class);
                 startActivity(exitIntent);
                 break;
